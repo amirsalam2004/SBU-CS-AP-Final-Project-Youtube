@@ -8,6 +8,7 @@ public class Channel {
 
     private String image_pro=null;
 
+    private String Link;
 
     private String username;
 
@@ -67,5 +68,13 @@ public class Channel {
 
     public void setImage_pro(String image_pro) {
         this.image_pro = image_pro;
+    }
+
+    public String getLink() {
+        return Link;
+    }
+
+    public void setLink(String link) {
+        Link = link;
     }
 }

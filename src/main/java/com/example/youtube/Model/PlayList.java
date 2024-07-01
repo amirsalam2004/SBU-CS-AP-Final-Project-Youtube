@@ -5,12 +5,15 @@ public class PlayList {
     private String name;
     private String ID;
     private String channelID;
+    private String image;
+
     //videos???
-    public PlayList(String name, String ID, String channelID, String description){
+    public PlayList(String name, String ID, String channelID, String description,String image){
         this.description=description;
         this.ID=ID;
         this.name=name;
         this.channelID=channelID;
+        this.setImage(image);
     }
 
     public String getDescription() {
@@ -34,5 +37,13 @@ public class PlayList {
     }
     public void changeName(String name){
         this.name=name;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 }

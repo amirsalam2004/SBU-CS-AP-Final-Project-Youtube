@@ -25,6 +25,13 @@ public class TestDataBase {
 //        a.changeDescription("this is test for chane the information ");
 //    UpdateChanelInfromation(a);
 
+//        ArrayList<Video>a=getListVideoInPlayList("12");
+//        System.out.println(a.size());
+
+//        Karam(1,"12","12");
+//        delete_Video("12","2");
+//        delete_comment_User("1","0");
+
 //        UpdatPlayListInfromation(new PlayList("re","ee","dsad","this is text"));
 
 //        insertIntoHistory("12","11");

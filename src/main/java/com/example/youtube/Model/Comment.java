@@ -10,8 +10,10 @@ public class Comment {
     private Integer like;
     private LocalDate time;
     private Integer deslike;
+    private String IDComment;
     public Comment(String text,String userID,String userUsername,String videoID,
-                   String time,Integer like,Integer deslike){
+                   String time,Integer like,Integer deslike,String id){
+        this.IDComment=id;
         this.deslike=deslike;
         this.like=like;
         this.text=text;

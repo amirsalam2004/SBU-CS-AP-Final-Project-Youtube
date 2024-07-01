@@ -16,7 +16,7 @@ public class Video {
     private String path;
 
     private String IDChanel;
-    public Video(String path,String ID,String idchal,String name,String description,String uplaodTime,
+    public Video(String ID,String idchal,String name,String description,String uplaodTime,
                   Integer duration,Integer like,Integer deslike,Integer view) {
         this.name = name;
         this.description = description;
@@ -27,7 +27,7 @@ public class Video {
         this.duration=duration; //format???
         this.ID=ID;
         this.IDChanel=idchal;
-        this.setPath(path);
+        this.setPath(ID);
         this.category=new ArrayList<>();
 
     }
