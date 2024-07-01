@@ -41,7 +41,9 @@ public class HelloController {
     @FXML
     private Rectangle playListsBackGround;
     @FXML
-    private Button a;
+    private Rectangle settingBackGround;
+    @FXML
+    private AnchorPane mainField;
     @FXML
     private AnchorPane sideBar;
     private boolean isSideBarOn = false;
@@ -78,15 +80,30 @@ public class HelloController {
 
     @FXML
     public void initialize() {
-        Paint hoverColor = Paint.valueOf("#CBC6C6");
-        Paint normalColor = Paint.valueOf("#fff");
+        Paint hoverColor, normalColor;
+        if (mainField.getId().equals("1")) {
+            hoverColor = Paint.valueOf("#CBC6C6");
+            normalColor = Paint.valueOf("#fff");
+        }
+        else {
+            hoverColor = Paint.valueOf("#7F7C7C");
+            normalColor = Paint.valueOf("#272424");
+        }
         Rectangle[] rectangles = {
                 homeBackGround, shortBackGround, subscriptionBackGround, historyBackGround,
                 watchLaterBackGround, likedVideosBackGround, TrendingBackGround, musicBackGround,
-                gamingBackGround, newsBackGround, sportsBackGround, productsBackGround, playListsBackGround
+                gamingBackGround, newsBackGround, sportsBackGround, productsBackGround, playListsBackGround,
+                settingBackGround
         };
         for (Rectangle rectangle : rectangles) {
             handleRectangleHover(rectangle, hoverColor, normalColor);
         }
+    }
+
+    @FXML
+    protected void settingClick() {
+        // closing side bar
+        sideBarBtnClick();
+
     }
 }
