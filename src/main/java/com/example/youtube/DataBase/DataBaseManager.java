@@ -942,51 +942,145 @@ public class DataBaseManager {
      * update method
      */
 
-    //update user information
-    public static void UpdateUserInformation(User user) {
+// it get passWord a IDUser
+    public static boolean changePassWordUser(String IDU, String PassWord) {//TODO check
         StartConnection();
-        String query = "UPDATE User SET username = '%s', Email = '%s', passWord = '%s', Contry = '%s' WHERE IDuser = '%s'";
-        query = String.format(query, user.getUsername(), user.getEmail(), user.getPassword(), user.getCountry(), user.getID());
-        try {
-            statement.execute(query);
-        } catch (SQLException e) {
-            e.printStackTrace();
+
+        if (!isUserExists(IDU)) {
+            return false;
         }
-
-        EncConnection();
-    }
-
-
-    public static void UpdateChanelInfromation(Channel channel){
-        StartConnection();
-        String query = "UPDATE Chanel SET username = '%s', image = '%s', Name  = '%s', information = '%s' WHERE ID_chanel = '%s'";
-        query = String.format(query, channel.getUsername(), channel.getImage(), channel.getDescription(), channel.getName(), channel.getId());
-        try {
-            statement.execute(query);
+        String query = "UPDATE User SET passWord = ? WHERE IDuser = ?";
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setString(1, PassWord);
+            statement.setString(2, IDU);
+            statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
-        }finally {
+            return false;
+        } finally {
             EncConnection();
         }
 
+        return true;
     }
-    public static synchronized boolean UpdatPlayListInfromation(PlayList playList){
+    public static boolean isUserExists(String IDU) {
         StartConnection();
-        String query = "UPDATE playList SET name ='%s' ,discribe ='%s' WHERE ID_Playlist='%s'";
-        query = String.format(query, playList.getName(), playList.getDescription(), playList.getID());
+        String query = "SELECT COUNT(*) FROM User WHERE IDuser = ?";
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setString(1, IDU);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                int count = resultSet.getInt(1);
+                return count > 0;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            EncConnection();
+        }
+        return false;
+    }
+    public static  boolean changeUserName(String IDU,String Username){
+        StartConnection();
+        String query1="UPDATE chanel SET username  = ? WHERE username =?";
+
+        try (PreparedStatement statement = connection.prepareStatement(query1)) {
+            statement.setString(1,Username );
+            statement.setString(2, IDU);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            EncConnection();
+        }
+        try (PreparedStatement statement = connection.prepareStatement(query1)) {
+            statement.setString(1,Username);
+            statement.setString(2, Username);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            EncConnection();
+        }
+
+
+
+
+        return true;
+
+    }
+
+
+    //this method for change the email
+    public static boolean chengeEmail(String IDU,String Email ){//TODO CHECK
+        StartConnection();
+
+        if (!isUserExists(IDU)) {
+            return false;
+        }
+        String query = "UPDATE User SET Eamil = ? WHERE IDuser = ?";
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setString(1, Email);
+            statement.setString(2, IDU);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            EncConnection();
+        }
+
+        return true;
+    }
+
+//    public static String ImageNAME (String IDU,String Email )
+
+    public static synchronized boolean UP_Name_Playlist(String name,String IDP){//TODO CHECK
+        StartConnection();
+        String query = "UPDATE playList SET name ='%s'  WHERE ID_Playlist='%s'";
+        query = String.format(query, name,IDP);
         try {
             statement.execute(query);
-            EncConnection();
-            return true;
-
         } catch (SQLException e) {
-
             e.printStackTrace();
         }finally {
             EncConnection();
         }
         return false;
 
+    }
+
+    public static synchronized boolean UP_Describe_Playlist(String Describe,String IDP){//TODO CHECK
+        StartConnection();
+        String query = "UPDATE playList SET username ='%s'  WHERE ID_Playlist='%s'";
+        query = String.format(query,Describe,IDP);
+        try {
+            statement.execute(query);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }finally {
+            EncConnection();
+        }
+        return true;
+
+    }
+    public static synchronized boolean UP_view_Playlist(String IDP){//TODO CHECK
+        StartConnection();
+        String query = "UPDATE playList SET view=view+1  WHERE ID_Playlist='%s'";
+        query = String.format(query,IDP);
+        try {
+            statement.execute(query);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }finally {
+            EncConnection();
+        }
+        return true;
     }
 
     public static boolean UpdatChanelInfromation(Channel channel){
@@ -1008,6 +1102,10 @@ public class DataBaseManager {
         return false;
 
     }
+
+    /**
+     * check method
+     */
 
     /**
      Search  in data base
