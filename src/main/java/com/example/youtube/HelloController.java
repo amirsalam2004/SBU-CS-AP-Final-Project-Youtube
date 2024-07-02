@@ -42,6 +42,36 @@ public class HelloController {
     private Rectangle playListsBackGround;
     @FXML
     private Rectangle settingBackGround;
+
+    @FXML
+    private Label home;
+    @FXML
+    private Label shortL;
+    @FXML
+    private Label subscription;
+    @FXML
+    private Label history;
+    @FXML
+    private Label playlist;
+    @FXML
+    private Label watchLater;
+    @FXML
+    private Label likedVideos;
+    @FXML
+    private  Label trending;
+    @FXML
+    private Label music;
+    @FXML
+    private Label news;
+    @FXML
+    private Label sports;
+    @FXML
+    private Label podcast;
+    @FXML
+    private Label setting;
+    @FXML
+    private Label gaming;
+
     @FXML
     private AnchorPane mainField;
     @FXML
@@ -78,6 +108,61 @@ public class HelloController {
         rectangle.setOnMouseExited(event -> rectangle.setFill(normalColor));
     }
 
+    private void handleLabelHover(Label label, Paint hoverColor, Paint normalColor) {
+        if (label == home) {
+            label.setOnMouseEntered(event -> homeBackGround.setFill(hoverColor));
+            label.setOnMouseExited(event -> homeBackGround.setFill(normalColor));
+        }
+        else if (label == shortL) {
+            label.setOnMouseEntered(event -> shortBackGround.setFill(hoverColor));
+            label.setOnMouseExited(event -> shortBackGround.setFill(normalColor));
+        }
+        else if (label == subscription) {
+            label.setOnMouseEntered(event -> subscriptionBackGround.setFill(hoverColor));
+            label.setOnMouseExited(event -> subscriptionBackGround.setFill(normalColor));
+        }
+        else if (label == playlist) {
+            label.setOnMouseEntered(event -> playListsBackGround.setFill(hoverColor));
+            label.setOnMouseExited(event -> playListsBackGround.setFill(normalColor));
+        }
+        else if (label == history) {
+            label.setOnMouseEntered(event -> historyBackGround.setFill(hoverColor));
+            label.setOnMouseExited(event -> historyBackGround.setFill(normalColor));
+        }
+        else if (label == watchLater) {
+            label.setOnMouseEntered(event -> watchLaterBackGround.setFill(hoverColor));
+            label.setOnMouseExited(event -> watchLaterBackGround.setFill(normalColor));
+        }
+        else if (label == likedVideos) {
+            label.setOnMouseEntered(event -> likedVideosBackGround.setFill(hoverColor));
+            label.setOnMouseExited(event -> likedVideosBackGround.setFill(normalColor));
+        }
+        else if (label == trending) {
+            label.setOnMouseEntered(event -> TrendingBackGround.setFill(hoverColor));
+            label.setOnMouseExited(event -> TrendingBackGround.setFill(normalColor));
+        }
+        else if (label == music) {
+            label.setOnMouseEntered(event -> musicBackGround.setFill(hoverColor));
+            label.setOnMouseExited(event -> musicBackGround.setFill(normalColor));
+        }
+        else if (label == gaming) {
+            label.setOnMouseEntered(event -> gamingBackGround.setFill(hoverColor));
+            label.setOnMouseExited(event -> gamingBackGround.setFill(normalColor));
+        }
+        else if (label == sports) {
+            label.setOnMouseEntered(event -> sportsBackGround.setFill(hoverColor));
+            label.setOnMouseExited(event -> sportsBackGround.setFill(normalColor));
+        }
+        else if (label == podcast) {
+            label.setOnMouseEntered(event -> productsBackGround.setFill(hoverColor));
+            label.setOnMouseExited(event -> productsBackGround.setFill(normalColor));
+        }
+        else if (label == setting) {
+            label.setOnMouseEntered(event -> settingBackGround.setFill(hoverColor));
+            label.setOnMouseExited(event -> settingBackGround.setFill(normalColor));
+        }
+    }
+
     @FXML
     public void initialize() {
         Paint hoverColor, normalColor;
@@ -95,15 +180,22 @@ public class HelloController {
                 gamingBackGround, newsBackGround, sportsBackGround, productsBackGround, playListsBackGround,
                 settingBackGround
         };
+        Label[] labels = {
+                home, shortL, playlist, subscription, history, watchLater, likedVideos,
+                trending, music, news, sports, podcast, setting, gaming
+        };
         for (Rectangle rectangle : rectangles) {
             handleRectangleHover(rectangle, hoverColor, normalColor);
+        }
+        for (Label label : labels) {
+            handleLabelHover(label, hoverColor, normalColor);
         }
     }
 
     @FXML
     protected void settingClick() {
-        // closing side bar
+        // closing sideBar
         sideBarBtnClick();
-
+        
     }
 }
