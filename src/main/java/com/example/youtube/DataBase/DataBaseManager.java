@@ -66,10 +66,9 @@ public class DataBaseManager {
                 String username = rs.getString("username");
                 String email = rs.getString("email");
                 String idUser = rs.getString("IDuser");
-                String country = rs.getString("Contry");
+                String country = rs.getString("Country");
                 String password = rs.getString("passWord");
                 String data = rs.getString("Time");
-
                 EncConnection();
                 return new User(username, email, data, country, password, idUser);
             }
@@ -93,19 +92,20 @@ public class DataBaseManager {
         }
 
         try {
-            query = String.format(query, identifier);
-
-            ResultSet rs = statement.executeQuery(query);
-            if (rs.next()) {
-                String username = rs.getString("username");
-                String name = rs.getString("Name");
-                String image = rs.getString("image");
-                String ID_chanel = rs.getString("ID_chanel");
-                String information = rs.getString("information");
-                EncConnection();
-                return new Channel(ID_chanel, name, information, username, image);
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setString(1, identifier);
+            ResultSet resultSet = ps.executeQuery();
+            while (resultSet.next()) {
+                String ID_chanel = resultSet.getString("ID_chanel");
+                String Name = resultSet.getString("Name");
+                String image_Chanel = resultSet.getString("image_Chanel");
+                String username = resultSet.getString("username");
+                String Image_Pro = resultSet.getString("Image_Pro");
+                String information = resultSet.getString("information");
+                String Link = resultSet.getString("Link");
+                return new Channel(ID_chanel,Name,image_Chanel,username,Image_Pro,information,Link);
             }
-        } catch (SQLException e) {
+            } catch (SQLException e) {
             throw new RuntimeException(e);
         }finally {
             EncConnection();
@@ -116,7 +116,7 @@ public class DataBaseManager {
 
 
     //this is for get video from chanel return all video in chanel
-    public static  ArrayList<Video> getList_video(String chanel) {
+    public static  ArrayList<Video> getList_video(String chanel) {//TODO check
         ArrayList<Video> videos = new ArrayList<>();
         StartConnection();
 
@@ -149,15 +149,16 @@ public class DataBaseManager {
 
 
 
-    // this is for get the comment
-    public static synchronized ArrayList<Comment> getListComment(String video_ID) {
+    // this is for get the comment for video
+    public static synchronized ArrayList<Comment> getListComment(String video_ID) {//TODO check
 
-        //TODO 2 way for this 1-add column in comment table or join with user table
         StartConnection();
         String query = "SELECT * FROM  comment WHERE ID_video=? ";
         ArrayList<Comment> comments = new ArrayList<>();
         try {
-            ResultSet resultSet = statement.executeQuery(query);
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setString(1, video_ID);
+            ResultSet resultSet = ps.executeQuery();
             while (resultSet.next()) {
                 String comment = resultSet.getString("comment");
                 String witer = resultSet.getString("witerer");
@@ -177,16 +178,15 @@ public class DataBaseManager {
         return comments;
 
     }
-
-
-    //get list of comment that the User send
-    public static  ArrayList<Comment> getListCommentUser(String user ) {
-
+    //comment that User get for his video
+    public static synchronized ArrayList<Comment> getListComment_userGet(String IDU) {//TODO check
         StartConnection();
-        String query = "SELECT * FROM  comment WHERE UserID=? ";
+        String query = "SELECT * FROM  comment WHERE IDChanel=? ";
         ArrayList<Comment> comments = new ArrayList<>();
         try {
-            ResultSet resultSet = statement.executeQuery(query);
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setString(1, IDU);
+            ResultSet resultSet = ps.executeQuery();
             while (resultSet.next()) {
                 String comment = resultSet.getString("comment");
                 String witer = resultSet.getString("witerer");
@@ -207,8 +207,42 @@ public class DataBaseManager {
 
     }
 
+
+
+
+        //get list of comment that the User send
+    public static  ArrayList<Comment> getListCommentUser(String wirtter ) {//TODO check
+
+        StartConnection();
+        String query = "SELECT * FROM  comment WHERE witer=? ";
+        ArrayList<Comment> comments = new ArrayList<>();
+        try {
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setString(1, wirtter);
+            ResultSet resultSet = ps.executeQuery();
+            while (resultSet.next()) {
+                String comment = resultSet.getString("comment");
+                String witer = resultSet.getString("witerer");
+                String ID_video = resultSet.getString("ID_video");
+                int like = resultSet.getInt("like");
+                int dislike = resultSet.getInt("dislike");
+                String time = resultSet.getString("Time");
+                String UserID = resultSet.getString("UserID");
+                String id=resultSet.getString("ID");
+                comments.add(new Comment(comment, UserID, witer, ID_video, time, like, dislike,id));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }finally {
+            EncConnection();
+        }
+        return comments;
+
+    }
+
+
     //get list of video
-    public static ArrayList<Video> getListVideoInPlayList(String IDP ){
+    public static ArrayList<Video> getListVideoInPlayList(String IDP ){//TODO check
         StartConnection();
 
         ArrayList<Video> videos = new ArrayList<>();
@@ -241,7 +275,7 @@ public class DataBaseManager {
 
     }
 
-    public static synchronized ArrayList<PlayList> getPlayList(String IDC ) {
+    public static synchronized ArrayList<PlayList> getPlayList(String IDC ) {//TODO check
 
         StartConnection();
         String query = "SELECT * FROM playlist  JOIN  joinplaylistto_chanel ON joinplaylistto_chanel.ID_chanel = playlist.IDPlaylist WHERE joinplaylistto_chanel.ID_chanel=? ";
@@ -251,11 +285,12 @@ public class DataBaseManager {
             ps.setString(1, IDC);
             ResultSet resultSet = ps.executeQuery();
             while (resultSet.next()) {
-                String path = resultSet.getString("path");
-                String ID_video = resultSet.getString("ID_video");
-                String Chanel_ID = resultSet.getString("Chanel_ID");
-                String time_uplode = resultSet.getString("time_uplode");
-//                playLists.add(new Video())
+                String idPlaylist = resultSet.getString("ID_Playlist");
+                String name = resultSet.getString("name");
+                String idChanel = resultSet.getString("ID_chanel");
+                String image = resultSet.getString("image");
+                String description=resultSet.getString("discribe");
+                playLists.add(new PlayList( name, idPlaylist,idChanel, description, image));
             }
             EncConnection();
         } catch (Exception e) {
@@ -263,8 +298,7 @@ public class DataBaseManager {
         }finally {
             EncConnection();
         }
-        //TODO complete this part
-         return null;
+         return playLists;
 
 
     }
@@ -302,6 +336,135 @@ public class DataBaseManager {
         }
         return videos;
     }
+
+    //who you follow
+    public static synchronized ArrayList<Channel> follower(String IDC){//TODO check
+
+        ArrayList<Channel>chanels=new ArrayList<>();
+        StartConnection();
+
+        String query = "SELECT * FROM Chanel   JOIN   ON Chanel.ID_chanel = follower.IDChanelTar WHERE follower.IDChanelTar=? ";
+        try {
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setString(1, IDC);
+            ResultSet resultSet = ps.executeQuery();
+            while (resultSet.next()) {
+                String ID_chanel = resultSet.getString("ID_chanel");
+                String Name = resultSet.getString("Name");
+                String image_Chanel = resultSet.getString("image_Chanel");
+                String username = resultSet.getString("username");
+                String Image_Pro = resultSet.getString("Image_Pro");
+                String information = resultSet.getString("information");
+                String Link = resultSet.getString("Link");
+
+                chanels.add(new Channel(
+                        ID_chanel,
+                        Name,
+                        information,
+                        image_Chanel,
+                        username,
+                        Image_Pro,Link
+                ));
+            }
+            EncConnection();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }finally {
+            EncConnection();
+        }
+
+
+
+        EncConnection();
+        return chanels;
+
+    }
+
+
+    //who follow you
+    public static synchronized ArrayList<Channel> following(String IDC){//TODO check
+
+        ArrayList<Channel>chanels=new ArrayList<>();
+        StartConnection();
+
+        String query = "SELECT * FROM Chanel   JOIN   ON Chanel.ID_chanel = following.IDChanelTar WHERE following.IDChanelTar=? ";
+        try {
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setString(1, IDC);
+            ResultSet resultSet = ps.executeQuery();
+            while (resultSet.next()) {
+                String ID_chanel = resultSet.getString("ID_chanel");
+                String Name = resultSet.getString("Name");
+                String image_Chanel = resultSet.getString("image_Chanel");
+                String username = resultSet.getString("username");
+                String Image_Pro = resultSet.getString("Image_Pro");
+                String information = resultSet.getString("information");
+                String Link = resultSet.getString("Link");
+
+                chanels.add(new Channel(
+                        ID_chanel,
+                        Name,
+                        information,
+                        image_Chanel,
+                        username,
+                        Image_Pro,Link
+                ));
+            }
+            EncConnection();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }finally {
+            EncConnection();
+        }
+
+
+
+        EncConnection();
+        return chanels;
+
+    }
+
+
+
+
+    public static synchronized ArrayList<Video> SearchVideo (String Word){
+        ArrayList<Video> Videos=new ArrayList<>();
+        try {
+            String query = "SELECT * " +
+                    "FROM video " +
+                    "WHERE information REGEXP ? " +
+                    "  AND information REGEXP ? ";
+
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setString(1, "\\b" + Word + "\\b");
+            statement.setString(2, "(\\b\\w*\\b.*){0,3}\\b" + Word + "\\b(.*\\b\\w*\\b){0,3}");
+
+            ResultSet resultSet = statement.executeQuery();
+
+            // Process the results
+            while (resultSet.next()) {
+                Videos.add(new Video(resultSet.getString("ID_video "),
+                        resultSet.getString("Chanel_ID "),
+                        resultSet.getString("time_uplode "),
+                        resultSet.getString("name "),
+                        resultSet.getString("information "),
+                        resultSet.getInt("PlayTime "),
+                        resultSet.getInt("like "),
+                        resultSet.getInt("Dis_like "),
+                        resultSet.getInt("view ")
+                        )) ;
+
+            }
+
+
+        }catch (SQLException r){
+            r.printStackTrace();
+        }finally {
+            EncConnection();
+        }
+        return Videos;
+    }
+
 
 
     /**

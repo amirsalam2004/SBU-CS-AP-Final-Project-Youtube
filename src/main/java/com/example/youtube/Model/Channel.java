@@ -1,5 +1,8 @@
 package com.example.youtube.Model;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public class Channel {
     private String id;
     private String name;
@@ -8,7 +11,9 @@ public class Channel {
 
     private String image_pro=null;
 
-    private String Link;
+    private ArrayList<String> Link;
+    private String country;
+
 
     private String username;
 
@@ -18,10 +23,25 @@ public class Channel {
         this.name=name;
         this.username=username;
         this.setImage(image);
+        Link=new ArrayList<>();
+
     }
+
+
 
     public Channel() {
 
+    }
+
+    public Channel(String idChanel, String name, String information, String imageChanel, String username, String imagePro, String link) {
+        this.id=idChanel;
+        this.name=name;
+        this.description=information;
+        this.image_Chane=imageChanel;
+        this.username=username;
+        this.image_pro=imagePro;
+        String[] parts = link.split("#");
+        this.Link = new ArrayList<>(Arrays.asList(parts));
     }
 
     public String getId() {
@@ -70,11 +90,18 @@ public class Channel {
         this.image_pro = image_pro;
     }
 
-    public String getLink() {
+    public ArrayList<String> getLink() {
         return Link;
+    }
+    public String get_Link() {
+        String e = null;
+        for (String x :Link){
+            e=e+"#"+x;
+        }
+        return e;
     }
 
     public void setLink(String link) {
-        Link = link;
+        Link.add(link);
     }
 }
