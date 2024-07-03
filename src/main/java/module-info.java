@@ -10,4 +10,6 @@ module com.example.youtube {
 
     opens com.example.youtube to javafx.fxml;
     exports com.example.youtube;
+    exports com.example.youtube.Controller;
+    opens com.example.youtube.Controller to javafx.fxml;
 }

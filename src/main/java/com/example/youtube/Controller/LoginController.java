@@ -1,4 +1,4 @@
-package com.example.youtube;
+package com.example.youtube.Controller;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;

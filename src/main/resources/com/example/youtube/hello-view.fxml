@@ -6,13 +6,15 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane id="1" fx:id="mainField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="627.0" prefWidth="1190.0" style="-fx-background-color: #fff;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.youtube.HelloController">
    <children>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="37.0" layoutX="36.0" layoutY="13.0" stroke="#c4c3c3" strokeType="INSIDE" width="970.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="37.0" layoutX="36.0" layoutY="13.0" stroke="#c4c3c3" strokeType="INSIDE" width="1136.0" />
       <ImageView fitHeight="26.0" fitWidth="46.0" layoutX="43.0" layoutY="19.0" onMouseClicked="#sideBarBtnClick" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@Images/iconmonstr-line-three-horizontal-lined-240.png" />
@@ -25,7 +27,7 @@
          </image>
       </ImageView>
       <Button layoutX="754.0" layoutY="15.0" mnemonicParsing="false" onAction="#onHelloButtonClick" prefHeight="34.0" prefWidth="66.0" text="Button" />
-      <AnchorPane fx:id="sideBar" layoutX="36.0" layoutY="56.0" prefHeight="568.0" prefWidth="208.0">
+      <AnchorPane fx:id="sideBar" layoutX="36.0" layoutY="56.0" prefHeight="568.0" prefWidth="208.0" visible="false">
          <children>
             <Rectangle fx:id="productsBackGround" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="37.0" layoutX="5.0" layoutY="469.0" stroke="WHITE" strokeType="INSIDE" style="-fx-arc-width: 30; -fx-arc-height: 30;" width="197.0" />
             <Rectangle fx:id="sportsBackGround" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="37.0" layoutX="-1.0" layoutY="431.0" stroke="WHITE" strokeType="INSIDE" style="-fx-arc-width: 30; -fx-arc-height: 30;" width="197.0" />
@@ -139,7 +141,7 @@
             <Image url="@Images/unnamed.jpg" />
          </image>
       </ImageView>
-      <AnchorPane fx:id="firstSideBar" layoutX="28.0" layoutY="50.0" prefHeight="292.0" prefWidth="46.0">
+      <AnchorPane fx:id="firstSideBar" layoutX="41.0" layoutY="50.0" prefHeight="292.0" prefWidth="46.0">
          <children>
             <ImageView fitHeight="35.0" fitWidth="34.0" layoutX="6.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -167,5 +169,80 @@
             <Label layoutX="13.0" layoutY="230.0" text="You" />
          </children>
       </AnchorPane>
+      <AnchorPane fx:id="settingSideBar" layoutX="36.0" layoutY="65.0" prefHeight="533.0" prefWidth="208.0" visible="false">
+         <children>
+            <Label layoutX="10.0" layoutY="8.0" prefHeight="63.0" prefWidth="188.0" text="Setting">
+               <font>
+                  <Font size="42.0" />
+               </font>
+            </Label>
+            <Label layoutX="14.0" layoutY="80.0" prefHeight="37.0" prefWidth="181.0" text="Account">
+               <font>
+                  <Font size="19.0" />
+               </font>
+            </Label>
+            <Label layoutX="13.0" layoutY="130.0" prefHeight="37.0" prefWidth="181.0" text="Notifications">
+               <font>
+                  <Font size="19.0" />
+               </font>
+            </Label>
+            <Label layoutX="13.0" layoutY="177.0" prefHeight="37.0" prefWidth="181.0" text="Playback and performance">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Label>
+            <Label layoutX="14.0" layoutY="229.0" prefHeight="37.0" prefWidth="181.0" text="Downloads">
+               <font>
+                  <Font size="19.0" />
+               </font>
+            </Label>
+            <Label layoutX="14.0" layoutY="281.0" prefHeight="37.0" prefWidth="181.0" text="Privacy">
+               <font>
+                  <Font size="19.0" />
+               </font>
+            </Label>
+            <Label layoutX="14.0" layoutY="329.0" prefHeight="37.0" prefWidth="181.0" text="Related programs">
+               <font>
+                  <Font size="19.0" />
+               </font>
+            </Label>
+            <Label layoutX="14.0" layoutY="377.0" prefHeight="37.0" prefWidth="181.0" text="advanced settings">
+               <font>
+                  <Font size="19.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="videos" layoutX="100.0" layoutY="56.0" prefHeight="546.0" prefWidth="1080.0" style="-fx-background-color: #000;">
+         <children>
+            <VBox prefHeight="568.0" prefWidth="1080.0">
+               <children>
+                  <HBox alignment="CENTER" prefHeight="100.0" style="-fx-background-color: #FFF;">
+                     <children>
+                        <ImageView fitHeight="186.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView fitHeight="186.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="100.0" style="-fx-background-color: #FFF;">
+                     <children>
+                        <ImageView fitHeight="186.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView fitHeight="186.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="100.0" style="-fx-background-color: #FFF;">
+                     <children>
+                        <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView fitHeight="187.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+         </children></AnchorPane>
    </children>
 </AnchorPane>

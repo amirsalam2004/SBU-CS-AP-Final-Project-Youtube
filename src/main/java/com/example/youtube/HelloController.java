@@ -1,5 +1,6 @@
 package com.example.youtube;
 
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -7,6 +8,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
@@ -76,6 +78,11 @@ public class HelloController {
     private AnchorPane mainField;
     @FXML
     private AnchorPane sideBar;
+    @FXML
+    private AnchorPane settingSideBar;
+    @FXML
+    private AnchorPane videos;
+
     private boolean isSideBarOn = false;
     @FXML
     private AnchorPane firstSideBar;
@@ -101,6 +108,17 @@ public class HelloController {
         isSideBarOn = !isSideBarOn;
         firstSideBar.setVisible(isFirstSideBarOn);
         isFirstSideBarOn = !isFirstSideBarOn;
+        settingSideBar.setVisible(false);
+
+        // Videos Size
+        if (sideBar.isVisible()) {
+            videos.setPrefWidth(922);
+            videos.setLayoutX(253);
+        }
+        else {
+            videos.setPrefWidth(1080);
+            videos.setLayoutX(100);
+        }
     }
 
     private void handleRectangleHover(Rectangle rectangle, Paint hoverColor, Paint normalColor) {
@@ -165,6 +183,7 @@ public class HelloController {
 
     @FXML
     public void initialize() {
+        // SideBar Hovers
         Paint hoverColor, normalColor;
         if (mainField.getId().equals("1")) {
             hoverColor = Paint.valueOf("#CBC6C6");
@@ -190,12 +209,12 @@ public class HelloController {
         for (Label label : labels) {
             handleLabelHover(label, hoverColor, normalColor);
         }
+
     }
 
     @FXML
     protected void settingClick() {
-        // closing sideBar
-        sideBarBtnClick();
-        
+        sideBar.setVisible(false);
+        settingSideBar.setVisible(true);
     }
 }
