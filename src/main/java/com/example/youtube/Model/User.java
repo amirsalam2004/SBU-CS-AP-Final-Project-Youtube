@@ -9,11 +9,12 @@ public class User {
     private String email ;
     private String ID;
     private LocalDate date;
+    private LocalDate Age;
     private String password ;
     private String country;
 
     /** Constructors */
-    public User(String username,String email,String date,String passWord,String country,String ID)
+    public User(String username,String email,String date,String passWord,String country,String ID,String Age)
     {
      this.username=username;
      this.setDate(LocalDate.parse(date));
@@ -21,6 +22,7 @@ public class User {
      this.password=passWord;
      this.country=country;
      this.ID=ID;
+     this.Age=LocalDate.parse(Age);
     }
 
     public String getUsername() {
@@ -65,5 +67,13 @@ public class User {
 
     public void setDate(LocalDate date) {
         this.date = date;
+    }
+
+    public LocalDate getAge() {
+        return Age;
+    }
+
+    public void setAge(LocalDate age) {
+        Age = age;
     }
 }

@@ -11,6 +11,9 @@ public class TestDataBase {
     public static void main(String[] args) {
 
 
+//        EncConnection();
+//        UP_Like_Comment("1");
+//        UP_Comment_Comment("1","this is a test ");
 //      Video a=  new Video("121","12","12","12","12","2000-01-01",12,12,12,12);
 //      a.setCategory("test");
 //      insertVideo(a);
@@ -31,6 +34,9 @@ public class TestDataBase {
 //        Karam(1,"12","12");
 //        delete_Video("12","2");
 //        delete_comment_User("1","0");
+
+//        ArrayList<Video> a= SearchVideo("s");
+//        System.out.println(a.size());
 
 //        UpdatPlayListInfromation(new PlayList("re","ee","dsad","this is text"));
 

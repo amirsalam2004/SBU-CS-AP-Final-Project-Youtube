@@ -2,11 +2,13 @@ package com.example.youtube.DataBase;
 
 import com.example.youtube.Model.*;
 
+import javax.security.auth.login.CredentialException;
 import java.io.IOException;
 import java.sql.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.UUID;
 
 public class DataBaseManager {
@@ -53,7 +55,7 @@ public class DataBaseManager {
      * get method
      */
 
-    // get
+
     //get User form database in Login
     public  static  User get_User(String name, String passWord) {
         StartConnection();
@@ -69,8 +71,10 @@ public class DataBaseManager {
                 String country = rs.getString("Country");
                 String password = rs.getString("passWord");
                 String data = rs.getString("Time");
+                String Age= rs.getString("Age");
+
                 EncConnection();
-                return new User(username, email, data, country, password, idUser);
+                return new User(username, email, data, country, password, idUser,Age);
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -80,8 +84,7 @@ public class DataBaseManager {
     }
 
 
-    //get Channel with  0= username  1=UUID
-
+    //get Channel with  0= username  1=ID_chanel
     public static synchronized Channel get_Channel(String identifier, int number) {
         StartConnection();
         String query;
@@ -116,14 +119,14 @@ public class DataBaseManager {
 
 
     //this is for get video from chanel return all video in chanel
-    public static  ArrayList<Video> getList_video(String chanel) {//TODO check
+    public  synchronized static  ArrayList<Video> getList_video(String IDC) {//TODO check
         ArrayList<Video> videos = new ArrayList<>();
         StartConnection();
 
         String query = "SELECT * FROM video WHERE Chanel_ID=?";
         try {
             PreparedStatement ps = connection.prepareStatement(query);
-            ps.setString(1, chanel);
+            ps.setString(1, IDC);
             ResultSet resultSet = ps.executeQuery();
             while (resultSet.next()) {
                 String path = resultSet.getString("path");
@@ -274,7 +277,7 @@ public class DataBaseManager {
         return videos;
 
     }
-
+    //get list of playlist in chanel
     public static synchronized ArrayList<PlayList> getPlayList(String IDC ) {//TODO check
 
         StartConnection();
@@ -407,7 +410,8 @@ public class DataBaseManager {
                         information,
                         image_Chanel,
                         username,
-                        Image_Pro,Link
+                        Image_Pro,
+                        Link
                 ));
             }
             EncConnection();
@@ -427,62 +431,22 @@ public class DataBaseManager {
 
 
 
-    public static synchronized ArrayList<Video> SearchVideo (String Word){
-        ArrayList<Video> Videos=new ArrayList<>();
-        try {
-            String query = "SELECT * " +
-                    "FROM video " +
-                    "WHERE information REGEXP ? " +
-                    "  AND information REGEXP ? ";
-
-            PreparedStatement statement = connection.prepareStatement(query);
-            statement.setString(1, "\\b" + Word + "\\b");
-            statement.setString(2, "(\\b\\w*\\b.*){0,3}\\b" + Word + "\\b(.*\\b\\w*\\b){0,3}");
-
-            ResultSet resultSet = statement.executeQuery();
-
-            // Process the results
-            while (resultSet.next()) {
-                Videos.add(new Video(resultSet.getString("ID_video "),
-                        resultSet.getString("Chanel_ID "),
-                        resultSet.getString("time_uplode "),
-                        resultSet.getString("name "),
-                        resultSet.getString("information "),
-                        resultSet.getInt("PlayTime "),
-                        resultSet.getInt("like "),
-                        resultSet.getInt("Dis_like "),
-                        resultSet.getInt("view ")
-                        )) ;
-
-            }
-
-
-        }catch (SQLException r){
-            r.printStackTrace();
-        }finally {
-            EncConnection();
-        }
-        return Videos;
-    }
-
 
 
     /**
      * insert method
      */
 
-    /**insert User
-     *
-      */
-//    TODO check in User
-    public synchronized static boolean insertUser(User user) {
+
+//  TODO check in User
+    public synchronized static boolean Cr_User(User user) {
 
         StartConnection();
-        String query = "INSERT INTO user (username, Email, passWord, IDuser, Time, Contry) values ('%s','%s','%s','%s','%s','%s')";
+        String query = "INSERT INTO user (username, Email, passWord, IDuser, Time,Age, Contry) values ('%s','%s','%s','%s','%s','%s','%s')";
         LocalDate localDate = LocalDate.now();
 
         //TODO you can set time for user now or when create a user
-        query = String.format(query, user.getUsername(), user.getEmail(), user.getPassword(), user.getID(), localDate.toString(), user.getCountry());
+        query = String.format(query, user.getUsername(), user.getEmail(), user.getPassword(), user.getID(), localDate.toString(),user.getAge(), user.getCountry());
 
         try {
             statement.execute(query);
@@ -497,7 +461,7 @@ public class DataBaseManager {
     }
     /**insert chanel
      *  */
-    public synchronized static  boolean insertChanel(Channel channel) {
+    public synchronized static  boolean Cr_Chanel(Channel channel) {
 
         StartConnection();
         String query = "INSERT INTO chanel (ID_chanel,Name,information,image_Chanel,username,Image_Pro,Link) VALUES ('%s','%s','%s','%s','%s','%s','%s','%s')";
@@ -519,7 +483,7 @@ public class DataBaseManager {
     }
     /**insert video
      * */
-    public synchronized static boolean insertVideo(Video video) {
+    public synchronized static boolean Cr_Video(Video video) {
         StartConnection();
         for (String x : video.getHashtagsList()) {
             String query1 = "INSERT INTO category_video (category,ID_video) " +
@@ -559,9 +523,9 @@ public class DataBaseManager {
         return true;
     }
     /** Create PlayList  */
-    public static boolean CreatePLayList(PlayList playList) {
+    public static boolean Cr_PlayList(PlayList playList) {
         StartConnection();
-        AddPlayList(playList.getID(),playList.getChannelID());
+        ADD_playList_chanel(playList.getID(),playList.getChannelID());
         String query = "INSERT INTO playList (ID_PlayList,name,discribe,Image,ID_chanel) values ('%s','%s','%s','%s','%s')";
         query = String.format(query, playList.getID(), playList.getName(), playList.getDescription(),playList.getImage(),playList.getChannelID());
         try {
@@ -578,7 +542,7 @@ public class DataBaseManager {
 
     }
     /** insert comment */
-    public static boolean insertComment(Comment comment) {
+    public static boolean Cr_comment(Comment comment) {
 
         StartConnection();
         String query = "INSERT INTO comment (comment,wirter,UserID,ID_video,`like`,dislike,Time) VALUES (?,?,?,?,?,?,?)";
@@ -603,7 +567,7 @@ public class DataBaseManager {
 
 
     }
-    public static boolean AddPlayList(String IDP,String IDC){
+    public static boolean ADD_playList_chanel(String IDP,String IDC){
         StartConnection();
         String query="INSERT INTO joinplaylistto_chanel (ID_Playlist,ID_chanel) VALUES ('%s','%s')";
         query=String.format(query,IDP,IDC);
@@ -619,7 +583,7 @@ public class DataBaseManager {
         EncConnection();
         return true;
     }
-    public static boolean insertIntoHistory (String IDV,String IDU){
+    public static boolean ADD_video_history (String IDV,String IDU){
         StartConnection();
         String query="INSERT INTO viode_history (IDUser,IDVideo,Time) VALUES ('%s','%s','%s')";
         LocalDateTime localDate= LocalDateTime.now();
@@ -640,10 +604,10 @@ public class DataBaseManager {
     }
 
     /** add follower or following (1=follower -- else following)  */
-    public static boolean addToSubscriberORing(String IDU,String IDC,int Identifier){
+    public static boolean ADD_follower_following(String IDU,String IDC,int Identifier){
         StartConnection();
         String query;
-        if(checkINFollwer(IDU,IDC,Identifier)) {
+        if(Ch_Follower_Following(IDU,IDC,Identifier)) {
             if (Identifier == 1) {
                 query = "INSERT INTO follower (IDChanel,IDuser) VALUES ('%s','%s')";
             } else
@@ -664,7 +628,7 @@ public class DataBaseManager {
 
     }
 
-    private  static boolean checkINFollwer(String IDU,String IDC,int Identifier) {
+    private  static boolean Ch_Follower_Following(String IDU,String IDC,int Identifier) {
         String query;
 
         if (Identifier==1) {
@@ -740,14 +704,13 @@ public class DataBaseManager {
 
 
     //this method delete a video in all playlist and history and chanel
-    public static void delete_Video(String idV, String idC) {
+    public static void DE_Video(String idV, String idC) {
         StartConnection();
         delete_Video_chanel(idV,idC);
         delete_Video_history( idV);
         delete_Video_Playlist(idV );
         delete_Video(idV);
         delete_Video_category(idV);
-
         EncConnection();
     }
 
@@ -811,7 +774,6 @@ public class DataBaseManager {
         String query1="DELETE FROM video_playlist WHERE ID_playlist ='%s'";
         query = String.format(query, idp);
         query1 = String.format(query1, idp);
-
         try {
             statement.execute(query);
             statement.execute(query1);
@@ -942,8 +904,7 @@ public class DataBaseManager {
      * update method
      */
 
-// it get passWord a IDUser
-    public static boolean changePassWordUser(String IDU, String PassWord) {//TODO check
+    public static boolean CH_PassWordUser(String IDU, String PassWord) {//TODO check
         StartConnection();
 
         if (!isUserExists(IDU)) {
@@ -980,7 +941,7 @@ public class DataBaseManager {
         }
         return false;
     }
-    public static  boolean changeUserName(String IDU,String Username){
+    public static  boolean CH_UserName(String IDU,String Username){
         StartConnection();
         String query1="UPDATE chanel SET username  = ? WHERE username =?";
 
@@ -1014,7 +975,7 @@ public class DataBaseManager {
 
 
     //this method for change the email
-    public static boolean chengeEmail(String IDU,String Email ){//TODO CHECK
+    public static boolean CH_Email(String IDU,String Email ){//TODO CHECK
         StartConnection();
 
         if (!isUserExists(IDU)) {
@@ -1035,8 +996,7 @@ public class DataBaseManager {
         return true;
     }
 
-//    public static String ImageNAME (String IDU,String Email )
-
+    //change the name of Playlist
     public static synchronized boolean UP_Name_Playlist(String name,String IDP){//TODO CHECK
         StartConnection();
         String query = "UPDATE playList SET name ='%s'  WHERE ID_Playlist='%s'";
@@ -1052,21 +1012,6 @@ public class DataBaseManager {
 
     }
 
-    public static synchronized boolean UP_Describe_Playlist(String Describe,String IDP){//TODO CHECK
-        StartConnection();
-        String query = "UPDATE playList SET username ='%s'  WHERE ID_Playlist='%s'";
-        query = String.format(query,Describe,IDP);
-        try {
-            statement.execute(query);
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
-        }finally {
-            EncConnection();
-        }
-        return true;
-
-    }
     public static synchronized boolean UP_view_Playlist(String IDP){//TODO CHECK
         StartConnection();
         String query = "UPDATE playList SET view=view+1  WHERE ID_Playlist='%s'";
@@ -1083,25 +1028,137 @@ public class DataBaseManager {
         return true;
     }
 
-    public static boolean UpdatChanelInfromation(Channel channel){
+
+    /**
+     * update comment
+     * @param Describe
+     * @param IDC
+     * @return
+     */
+    public static synchronized boolean UP_Describe_Comment(String Describe,String IDC){//TODO CHECK
         StartConnection();
-        String query = "UPDATE chanel SET Name ='%s' ,information ='%s' ,image ='%s',username ='%s'  WHERE ID_chanel='%s'";
-        query = String.format(query, channel.getName(), channel.getDescription(), channel.getImage(),channel.getUsername(),channel.getId());
+        String query = "UPDATE comment  SET wirter ='%s'  WHERE IDcommet = '%s'";
+        query = String.format(query,Describe,IDC);
         try {
             statement.execute(query);
-            EncConnection();
-            return true;
-
         } catch (SQLException e) {
-
             e.printStackTrace();
+            return false;
+        }finally {
+            EncConnection();
+        }
+        return true;
+
+    }
+    public static synchronized boolean UP_Like_Comment(String IDC){//check  true
+        StartConnection();
+        String query = "UPDATE comment  SET LikeComment = LikeComment + 1  WHERE IDcommet = '%s'";
+        query = String.format(query,IDC);
+        try {
+            statement.execute(query);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }finally {
+            EncConnection();
+        }
+        return true;
+    }
+    public static boolean UP_DisLike_Comment(String IDU) {//check true
+        StartConnection();
+        String query = "UPDATE comment SET dislike = dislike + 1 WHERE IDcommet = ?";
+
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setString(1, IDU);
+            int rowsAffected = statement.executeUpdate();
+            return rowsAffected > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            EncConnection();
+        }
+    }
+    public static boolean UP_Comment_Comment(String IDU,String comment ){//check true
+        StartConnection();
+        String query = "UPDATE comment SET comment='%s' WHERE IDcommet = '%s'";
+        query=String.format(query,comment,IDU);
+        try {
+            statement.execute(query);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            EncConnection();
+        }
+        return true;
+    }
+    /** Update chanel */
+
+    public static synchronized boolean UP_Name_Chanel(String IDC,String name){//TODO check
+        StartConnection();
+        String query = "UPDATE chanel SET Name='%s' WHERE ID_chanel = '%s'";
+        query=String.format(query,name,IDC);
+        try {
+            statement.execute(query);
+        }catch (SQLException e){
+            e.printStackTrace();
+            return false;
+        }finally {
+            EncConnection();
         }
 
 
-
-        return false;
-
+        return true;
     }
+
+
+    public static synchronized boolean UP_information_Chanel(String information,String IDC){//TODO check it
+        StartConnection();
+        String query = "UPDATE chanel SET Name='%s' WHERE ID_chanel = '%s'";
+        query=String.format(query,information,IDC);
+        try {
+            statement.execute(query);
+        }catch (SQLException r)
+        {
+            r.printStackTrace();
+            return false;
+        }
+        finally {
+            EncConnection();
+        }
+        return true;
+    }
+    public static synchronized boolean UP_Link_Chanel(String Link,String IDC){//TODO Check it
+        StartConnection();
+        String query = "UPDATE chanel SET Link = Link + '#%s' WHERE IDcommet = ?";
+        try {
+            query=String.format(query, Link,IDC);
+            statement.execute(query);
+        }catch (SQLException e){
+            e.printStackTrace();
+            return false;
+        }finally {
+            return true;
+        }
+    }
+
+
+    public static synchronized boolean UP_Username_Chanel(String Username,String IDC){
+        StartConnection();
+        String query = "UPDATE chanel SET username='%s' WHERE ID_chanel = '%s'";
+        try {
+            query =String.format(query,Username,IDC);
+            statement.execute(query);
+        }catch (SQLException e){
+            e.printStackTrace();
+            return false;
+        }finally {
+            EncConnection();
+        }
+        return true;
+    }
+
 
     /**
      * check method
@@ -1111,6 +1168,230 @@ public class DataBaseManager {
      Search  in data base
      *
      */
+
+    public static synchronized ArrayList<Video> SE_video (String Word,String Way){
+        StartConnection();
+        ArrayList<Video> Videos=new ArrayList<>();
+        String query;
+        ResultSet resultSet;
+        try {
+            if (Way.equals("informatin")){
+                query = "SELECT * " +
+                        "FROM Video " +
+                        " WHERE  information REGEXP ? ";
+                PreparedStatement statement = connection.prepareStatement(query);
+                statement.setString(1,  "([A-Z]|[0-9])?"+Word+"([A-Z]|[0-9])?");
+                resultSet = statement.executeQuery();
+            }
+            else if(Way.equals("name")){
+                query = "SELECT * " +
+                        "FROM Video " +
+                        " WHERE  name REGEXP ? ";
+                PreparedStatement statement = connection.prepareStatement(query);
+                statement.setString(1,  "([A-Z]|[0-9])?"+Word+"([A-Z]|[0-9])?");
+                resultSet = statement.executeQuery();
+            }
+            else {
+                query = "SELECT * " +
+                        "FROM Video " +
+                        " WHERE  information REGEXP ? "
+                        +"OR name REGEXP ?";
+                PreparedStatement statement = connection.prepareStatement(query);
+                statement.setString(1,  "([A-Z]|[0-9])?"+Word+"([A-Z]|[0-9])?");
+                statement.setString(2,  "([A-Z]|[0-9])?"+Word+"([A-Z]|[0-9])?");
+                resultSet = statement.executeQuery();
+            }
+
+
+
+            // Process the results
+            while (resultSet.next()) {
+                Videos.add(new Video(resultSet.getString("ID_video"),
+                        resultSet.getString("Chanel_ID"),
+                        resultSet.getString("name"),
+                        resultSet.getString("information"),
+                        resultSet.getString("time_uplode"),
+                        resultSet.getInt("PlayTime"),
+                        resultSet.getInt("like"),
+                        resultSet.getInt("Dis_like"),
+                        resultSet.getInt("view")
+                )) ;
+
+            }
+
+
+        }catch (SQLException r){
+            r.printStackTrace();
+        }finally {
+            EncConnection();
+        }
+        return Videos;
+    }
+
+
+
+    //get chanel by name informatin and
+    public static synchronized ArrayList<Channel>SE_Chanel(String Word,String Way){//CHECK IT
+        StartConnection();
+        ArrayList<Channel> Chanel=new ArrayList<>();
+        String query;
+        ResultSet resultSet;
+
+        try {
+            if (Way.equals("informatin")){
+                query = "SELECT * " +
+                        "FROM Chanel " +
+                        " WHERE  information REGEXP ? ";
+                PreparedStatement statement = connection.prepareStatement(query);
+                statement.setString(1,  "([A-Z]|[0-9])?"+Word+"([A-Z]|[0-9])?");
+                resultSet = statement.executeQuery();
+            }
+            else if(Way.equals("name")){
+                query = "SELECT * " +
+                    "FROM Chanel " +
+                    " WHERE  name REGEXP ? ";
+                PreparedStatement statement = connection.prepareStatement(query);
+                statement.setString(1,  "([A-Z]|[0-9])?"+Word+"([A-Z]|[0-9])?");
+                resultSet = statement.executeQuery();
+            }
+            else {
+                query = "SELECT * " +
+                        "FROM Chanel " +
+                        " WHERE  information REGEXP ? "
+                        +"OR name REGEXP ?";
+                PreparedStatement statement = connection.prepareStatement(query);
+                statement.setString(1,  "([A-Z]|[0-9])?"+Word+"([A-Z]|[0-9])?");
+                statement.setString(2,  "([A-Z]|[0-9])?"+Word+"([A-Z]|[0-9])?");
+                resultSet = statement.executeQuery();
+            }
+
+
+            // Process the results
+            while (resultSet.next()) {
+                Chanel.add(new Channel(resultSet.getString("ID_chanel"),
+                        resultSet.getString("name"),
+                        resultSet.getString("information"),
+                        resultSet.getString("imageChanel"),
+                        resultSet.getString("username"),
+                        resultSet.getString("imagePro"),
+                        resultSet.getString("link")
+                        )) ;
+
+            }
+
+
+        }catch (SQLException r){
+            r.printStackTrace();
+        }finally {
+            EncConnection();
+        }
+        return Chanel;
+    }
+    public static  synchronized  ArrayList<PlayList>SE_playLists(String Word ,String Way){
+        String query;
+        ResultSet resultSet;
+        ArrayList<PlayList>playLists=new ArrayList<>();
+        StartConnection();
+        try {
+            if (Way.equals("name")) {
+                query = "SELECT * " +
+                        "FROM playList " +
+                        " WHERE  name REGEXP ? ";
+                PreparedStatement statement = connection.prepareStatement(query);
+                statement.setString(1,  "([A-Z]|[0-9])?"+Word+"([A-Z]|[0-9])?");
+                resultSet = statement.executeQuery();
+            }else if(Way.equals("discribe")){
+                query = "SELECT * " +
+                        "FROM playList " +
+                        " WHERE  discribe REGEXP ? ";
+                PreparedStatement statement = connection.prepareStatement(query);
+                statement.setString(1,  "([A-Z]|[0-9])?"+Word+"([A-Z]|[0-9])?");
+                resultSet = statement.executeQuery();
+            }
+            else {
+                query = "SELECT * " +
+                        "FROM playList " +
+                        " WHERE  discribe REGEXP ? "+
+                        "OR name REGEXP ?";
+                PreparedStatement statement = connection.prepareStatement(query);
+                statement.setString(1,  "([A-Z]|[0-9])?"+Word+"([A-Z]|[0-9])?");
+                statement.setString(2,  "([A-Z]|[0-9])?"+Word+"([A-Z]|[0-9])?");
+                resultSet = statement.executeQuery();
+            }
+            while (resultSet.next()){
+                playLists.add(new PlayList(
+                        resultSet.getString("name"),
+                        resultSet.getString("ID_Playlist"),
+                        resultSet.getString("ID_chanel"),
+                        resultSet.getString("discribe"),
+                        resultSet.getString("image")
+                        ));
+            }
+
+
+        }catch (SQLException e){
+            e.printStackTrace();
+            return null;
+        }finally {
+            EncConnection();
+        }
+
+
+
+        return playLists;
+
+    }
+
+    /**
+     * Save Play list
+     */
+
+    public static synchronized boolean SA_playlist(String IDP,String IDU){//TODO check it
+        StartConnection();
+        String query="INSERT INTO savePlaylist (ID_Playlist,ID_user) VALUSE ('%s','%s')";
+        query=String.format(query,IDP,IDU);
+
+        try {
+            statement.execute(query);
+        }catch (SQLException e)
+        {
+            e.printStackTrace();
+            return false;
+        }finally {
+            EncConnection();
+        }
+        return true;
+    }
+    public static synchronized boolean SA_Video(String IDV,String IDU){//TODO check it
+        StartConnection();
+        String query="INSERT INTO saveVidoe (ID_Playlist,ID_user) VALUSE ('%s','%s')";
+        query=String.format(query,IDV,IDU);
+
+        try {
+            statement.execute(query);
+        }catch (SQLException e)
+        {
+            e.printStackTrace();
+            return false;
+        }finally {
+            EncConnection();
+        }
+        return true;
+    }
+
+    /**
+     * udpate the taste table
+     */
+
+    private static synchronized void VIEW_video(){
+
+    }
+    private static synchronized void Like_video(){
+
+    }
+    private static synchronized void DisLike_video(){
+
+    }
 
 
 

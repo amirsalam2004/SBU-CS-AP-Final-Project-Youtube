@@ -24,7 +24,7 @@ public class Video {
         this.like = like;
         this.deslike = deslike;
         this.uploadTime = LocalDate.parse(uplaodTime);
-        this.duration=duration; //format???
+        this.duration=duration;
         this.ID=ID;
         this.IDChanel=idchal;
         this.setPath(ID);
