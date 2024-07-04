@@ -29,6 +29,12 @@ public class getApiService {
                 return getUserComments(body);
             case "16":
                 return getChannelPlaylists(body);
+            case "17":
+                return getChannelVideos(body);
+            case "18":
+                return getplaylistVideos(body);
+            case "19":
+                return getVideosByCategory(body);
             default:
                 return gson.toJson(new ErrorResponse("Unknown endpoint"));
         }
@@ -78,7 +84,7 @@ public class getApiService {
     //get list of comment that the User send
     private static String getUserComments(String userInfo) {
         try {
-            ArrayList<Comment> comments=DataBaseManager.getListComment_userGet(userInfo);
+            ArrayList<Comment> comments=DataBaseManager.getListCommentUser(userInfo);
             String response="1+"+gson.toJson(comments);
             return response;
         }catch (Exception e){
@@ -95,16 +101,32 @@ public class getApiService {
             return ("0");
         }
     }
-    private static class RequestData {
-        private Long userId;
-        private Long videoId;
-
-        public Long getUserId() {
-            return userId;
+    //get channel videos
+    private static String getChannelVideos(String channelInfo) {
+        try {
+            ArrayList<Video> videos=DataBaseManager.getList_video(channelInfo);
+            String response="1+"+gson.toJson(videos);
+            return response;
+        }catch (Exception e){
+            return ("0");
         }
-
-        public Long getVideoId() {
-            return videoId;
+    }
+    private static String getplaylistVideos(String playlistInfo) {
+        try {
+            ArrayList<Video> videos=DataBaseManager.getListVideoInPlayList(playlistInfo);
+            String response="1+"+gson.toJson(videos);
+            return response;
+        }catch (Exception e){
+            return ("0");
+        }
+    }
+    private static String getVideosByCategory(String categoryInfo) {
+        try {
+            ArrayList<Video> videos=DataBaseManager.getListVideoByCategory(categoryInfo);
+            String response="1+"+gson.toJson(videos);
+            return response;
+        }catch (Exception e){
+            return ("0");
         }
     }
 
