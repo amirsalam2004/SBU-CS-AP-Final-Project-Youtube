@@ -1080,7 +1080,7 @@ public class DataBaseManager {
             EncConnection();
         }
     }
-    public static boolean UP_Comment_Comment(String IDU,String comment ){//check true
+    public static boolean UP_Text_Comment(String IDU,String comment ){//check true
         StartConnection();
         String query = "UPDATE comment SET comment='%s' WHERE IDcommet = '%s'";
         query=String.format(query,comment,IDU);
