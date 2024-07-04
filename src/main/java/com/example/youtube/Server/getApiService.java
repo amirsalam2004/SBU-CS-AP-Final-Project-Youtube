@@ -9,7 +9,6 @@ import java.util.ArrayList;
 
 public class getApiService {
     private static final Gson gson = new Gson();
-//    private static final DataBaseManager dataManager = new DataBaseManager();
 
     public static String handleRequest(String request) {
         String[] parts = request.split("#", 2);

@@ -654,7 +654,7 @@ public class DataBaseManager {
 
     }
 
-    public synchronized static boolean Karam(int Karma, String UserId, String Video) {
+    public synchronized static boolean Karma(int Karma, String UserId, String Video) {
         StartConnection();
         String query;
         if (!CheckKarma(UserId, Video)) {
