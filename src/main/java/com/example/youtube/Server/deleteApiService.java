@@ -13,28 +13,20 @@ public class deleteApiService {
         String body = parts.length > 1 ? parts[1] : "";
 
         switch (endpoint) {
-            case "21":
-                return addUser(body);
-            case "22":
-                return addChannel(body); // image?
-            case "23":
-                return addComment(body);
-            case "24":
-                return addPlayList(body); // image?
-            case "25":
-                return addVideo(body);  // video?
-            case "26":
-                return addVideoToHistory(body);
-            case "27":
-                return addFollowerOrFollowing(body);
-            case "28":
-                return addKarma(body);
+            case "31":
+                return deleteVideo(body); // video?
+            case "32":
+                return deletePalylist(body); // image?
+            case "33":
+                return deleteComment(body);
+            case "34":
+                return unfollow(body);
             default:
-                return gson.toJson(new addApiService.ErrorResponse("Unknown endpoint"));
+                return gson.toJson(new deleteApiService.ErrorResponse("Unknown endpoint"));
         }
     }
     //to delete a video
-    private static String deleteUser(String videoInfo) {
+    private static String deleteVideo(String videoInfo) {  // video??
         try {
             String[] info=videoInfo.split("#",2);
             DataBaseManager.DE_Video(info[0],info[1]);
@@ -45,8 +37,9 @@ public class deleteApiService {
             return "0";
         }
     }
+
     //to delete playlist
-    private static String deletePalylist(String playlistInfo) {
+    private static String deletePalylist(String playlistInfo) {    // image????
         try {
             DataBaseManager.deletePlayList(playlistInfo);
             //If the changes are applied successfully, return 1
@@ -69,6 +62,7 @@ public class deleteApiService {
             return "0";
         }
     }
+    // to unfollow
     private static String unfollow(String followInfo) {
         try {
             String[] info=followInfo.split("#",3);
