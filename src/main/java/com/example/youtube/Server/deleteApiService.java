@@ -39,14 +39,47 @@ public class deleteApiService {
             String[] info=videoInfo.split("#",2);
             DataBaseManager.DE_Video(info[0],info[1]);
             //If the changes are applied successfully, return 1
+            return "1";
+        }catch (Exception e){
+            //if wasn't successfully, return 0
             return "0";
+        }
+    }
+    //to delete playlist
+    private static String deletePalylist(String playlistInfo) {
+        try {
+            DataBaseManager.deletePlayList(playlistInfo);
+            //If the changes are applied successfully, return 1
+            return "1";
         }catch (Exception e){
             //if wasn't successfully, return 0
             return "0";
         }
     }
 
-
+    // ?????????????????????????????/
+    private static String deleteComment(String commentInfo) {
+        try {
+            String[] info=commentInfo.split("#",2);
+            DataBaseManager.delete_Comment_writer(info[0],info[1]);
+            //If the changes are applied successfully, return 1
+            return "1";
+        }catch (Exception e){
+            //if wasn't successfully, return 0
+            return "0";
+        }
+    }
+    private static String unfollow(String followInfo) {
+        try {
+            String[] info=followInfo.split("#",3);
+            DataBaseManager.UnFollow(info[0],info[1],Integer.parseInt(info[2]));
+            //If the changes are applied successfully, return 1
+            return "1";
+        }catch (Exception e){
+            //if wasn't successfully, return 0
+            return "0";
+        }
+    }
     private static class ErrorResponse {
         private String message;
 
