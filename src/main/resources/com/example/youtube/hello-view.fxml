@@ -217,7 +217,7 @@
          <children>
             <VBox prefHeight="568.0" prefWidth="1080.0">
                <children>
-                  <HBox alignment="CENTER" prefHeight="100.0" style="-fx-background-color: #FFF;">
+                  <HBox alignment="CENTER" prefHeight="100.0" spacing="50.0" style="-fx-background-color: #FFF;">
                      <children>
                         <ImageView fitHeight="186.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
                         <ImageView fitHeight="186.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
@@ -225,7 +225,7 @@
                         <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
                      </children>
                   </HBox>
-                  <HBox alignment="CENTER" prefHeight="100.0" style="-fx-background-color: #FFF;">
+                  <HBox alignment="CENTER" prefHeight="100.0" spacing="50.0" style="-fx-background-color: #FFF;">
                      <children>
                         <ImageView fitHeight="186.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
                         <ImageView fitHeight="186.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
@@ -233,7 +233,7 @@
                         <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
                      </children>
                   </HBox>
-                  <HBox alignment="CENTER" prefHeight="100.0" style="-fx-background-color: #FFF;">
+                  <HBox alignment="CENTER" prefHeight="100.0" spacing="50.0" style="-fx-background-color: #FFF;">
                      <children>
                         <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
                         <ImageView fitHeight="187.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
