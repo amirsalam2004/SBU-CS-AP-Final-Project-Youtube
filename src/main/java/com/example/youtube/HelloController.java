@@ -93,6 +93,8 @@ public class HelloController {
     private AnchorPane settingSideBar;
     @FXML
     private AnchorPane videos;
+    @FXML
+    private AnchorPane videoView;
 
     private boolean isSideBarOn = false;
     @FXML
@@ -113,6 +115,10 @@ public class HelloController {
     private ImageView pauseImg;
     @FXML
     private Slider timeSlider;
+    @FXML
+    private ImageView notLikedImg;
+    @FXML
+    private ImageView likedImg;
 
 
     @FXML
@@ -341,6 +347,25 @@ public class HelloController {
             else {
                 platImg.setVisible(true);
             }
+        }
+    }
+
+    // to open videoView Page
+    @FXML
+    public void imagesClick() {
+        videoView.setVisible(true);
+
+    }
+
+    @FXML
+    public void likeUnlikeClick() {
+        if (likedImg.isVisible()) {
+            likedImg.setVisible(false);
+            notLikedImg.setVisible(true);
+        }
+        else {
+            likedImg.setVisible(true);
+            notLikedImg.setVisible(false);
         }
     }
 }

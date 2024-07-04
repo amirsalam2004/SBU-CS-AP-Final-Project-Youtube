@@ -252,7 +252,7 @@
             </VBox>
          </children>
       </AnchorPane>
-      <AnchorPane layoutX="144.0" layoutY="66.0" onMouseClicked="#mediaViewClickToHidePlayBtn" prefHeight="524.0" prefWidth="1029.0">
+      <AnchorPane fx:id="videoView" layoutX="144.0" layoutY="66.0" onMouseClicked="#mediaViewClickToHidePlayBtn" prefHeight="524.0" prefWidth="1029.0">
          <children>
             <MediaView fx:id="mediaView" fitHeight="400.0" fitWidth="600.0" layoutX="215.0" layoutY="34.0" />
             <Slider fx:id="timeSlider" layoutX="215.0" layoutY="434.0" prefHeight="18.0" prefWidth="600.0" showTickMarks="true" />
