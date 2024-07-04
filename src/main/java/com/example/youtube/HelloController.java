@@ -119,6 +119,10 @@ public class HelloController {
     private ImageView notLikedImg;
     @FXML
     private ImageView likedImg;
+    @FXML
+    private ImageView notDisLikedImg;
+    @FXML
+    private ImageView disLikedImg;
 
 
     @FXML
@@ -366,6 +370,22 @@ public class HelloController {
         else {
             likedImg.setVisible(true);
             notLikedImg.setVisible(false);
+            disLikedImg.setVisible(false);
+            notDisLikedImg.setVisible(true);
+        }
+    }
+
+    @FXML
+    public void disLikeUnDisLikeClick() {
+        if (disLikedImg.isVisible()) {
+            disLikedImg.setVisible(false);
+            notDisLikedImg.setVisible(true);
+        }
+        else {
+            disLikedImg.setVisible(true);
+            notDisLikedImg.setVisible(false);
+            likedImg.setVisible(false);
+            notLikedImg.setVisible(true);
         }
     }
 }

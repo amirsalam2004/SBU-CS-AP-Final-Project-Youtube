@@ -273,6 +273,16 @@
                   <Image url="@Images/kindpng_1293111.png" />
                </image>
             </ImageView>
+            <ImageView fx:id="notDisLikedImg" fitHeight="48.0" fitWidth="57.0" layoutX="708.0" layoutY="451.0" onMouseClicked="#disLikeUnDisLikeClick" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Images/show-youtube-dislikes-svgrepo-com.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="disLikedImg" fitHeight="34.0" fitWidth="41.0" layoutX="716.0" layoutY="458.0" onMouseClicked="#disLikeUnDisLikeClick" pickOnBounds="true" preserveRatio="true" visible="false">
+               <image>
+                  <Image url="@Images/youtube-dislike-png-45967.png" />
+               </image>
+            </ImageView>
          </children>
       </AnchorPane>
    </children>
