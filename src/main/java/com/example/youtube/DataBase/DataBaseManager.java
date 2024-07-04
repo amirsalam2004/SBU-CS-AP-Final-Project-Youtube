@@ -765,7 +765,7 @@ public class DataBaseManager {
 
 
     /**
-     * delete play list so delete playList and Video_playlist
+     * delete play list so delete playList and Video_playlist table
      * @param idp
      */
 
