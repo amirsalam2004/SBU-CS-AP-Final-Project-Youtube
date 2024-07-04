@@ -1,6 +1,8 @@
 module com.example.youtube {
     requires javafx.controls;
     requires javafx.fxml;
+    requires javafx.media;
+    requires javafx.base;
 
     requires org.controlsfx.controls;
     requires com.dlsc.formsfx;
