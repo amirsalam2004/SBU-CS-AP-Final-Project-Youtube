@@ -8,8 +8,8 @@ public class User {
     private String username ;
     private String email ;
     private String ID;
-    private LocalDate date;
-    private LocalDate Age;
+    private String date;
+    private String Age;
     private String password ;
     private String country;
 
@@ -17,12 +17,12 @@ public class User {
     public User(String username,String email,String date,String passWord,String country,String ID,String Age)
     {
      this.username=username;
-     this.setDate(LocalDate.parse(date));
+     this.setDate(date);
      this.email=email;
      this.password=passWord;
      this.country=country;
      this.ID=ID;
-     this.Age=LocalDate.parse(Age);
+     this.Age=Age;
     }
 
     public String getUsername() {
@@ -61,19 +61,19 @@ public class User {
         // you should know this is unique
     }
 
-    public LocalDate getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(LocalDate date) {
+    public void setDate(String date) {
         this.date = date;
     }
 
-    public LocalDate getAge() {
+    public String getAge() {
         return Age;
     }
 
-    public void setAge(LocalDate age) {
+    public void setAge(String age) {
         Age = age;
     }
 }

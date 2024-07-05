@@ -21,6 +21,7 @@ public class ClientHandler implements Runnable {
             try {
                 String[] request=in.readUTF().split("#",2);
                 String response="";
+                System.out.println(request[1]+"123123");
                 switch (request[0]){
                     case "1":
                         response=getApiService.handleRequest(request[1]);

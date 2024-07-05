@@ -445,8 +445,7 @@ public class DataBaseManager {
         StartConnection();
         String query = "INSERT INTO user (username, Email, passWord, IDuser, Time,Age, Contry) values ('%s','%s','%s','%s','%s','%s','%s')";
         LocalDate localDate = LocalDate.now();
-
-        //TODO you can set time for user now or when create a user
+        System.out.println("in data base");
         query = String.format(query, user.getUsername(), user.getEmail(), user.getPassword(), user.getID(), localDate.toString(),user.getAge(), user.getCountry());
 
         try {
@@ -458,7 +457,7 @@ public class DataBaseManager {
         }
 
         EncConnection();
-        return true;
+            return true;
     }
     /**insert chanel
      *  */

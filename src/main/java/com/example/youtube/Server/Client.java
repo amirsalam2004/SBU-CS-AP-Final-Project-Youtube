@@ -24,6 +24,7 @@ public class Client {
     public boolean sendRequest(int type,int endpoint,String body) throws  IOException{
         try {
             String request=type+"#"+endpoint+"#"+body;
+            System.out.println(request);
             out.writeUTF(request);
             return true;
         }catch (IOException e){

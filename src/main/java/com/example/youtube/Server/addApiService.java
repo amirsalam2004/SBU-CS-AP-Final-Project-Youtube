@@ -40,6 +40,7 @@ public class addApiService {
     //to add a new user
     private static String addUser(String userJson) {
         try {
+            System.out.println("in api ");
             User user = gson.fromJson(userJson, User.class);
             if(DataBaseManager.Cr_User(user)) {
                 //If the changes are applied successfully, return 1
