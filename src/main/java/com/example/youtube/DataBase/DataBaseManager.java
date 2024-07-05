@@ -1096,7 +1096,7 @@ public class DataBaseManager {
     }
     /** Update chanel */
 
-    public static synchronized boolean UP_Name_Chanel(String IDC,String name){//TODO check
+    public static synchronized boolean UP_Name_Channel(String IDC,String name){//TODO check
         StartConnection();
         String query = "UPDATE chanel SET Name='%s' WHERE ID_chanel = '%s'";
         query=String.format(query,name,IDC);
@@ -1114,7 +1114,7 @@ public class DataBaseManager {
     }
 
 
-    public static synchronized boolean UP_information_Chanel(String information,String IDC){//TODO check it
+    public static synchronized boolean UP_description_Channel(String information,String IDC){//TODO check it
         StartConnection();
         String query = "UPDATE chanel SET Name='%s' WHERE ID_chanel = '%s'";
         query=String.format(query,information,IDC);
@@ -1130,7 +1130,7 @@ public class DataBaseManager {
         }
         return true;
     }
-    public static synchronized boolean UP_Link_Chanel(String Link,String IDC){//TODO Check it
+    public static synchronized boolean UP_Link_Channel(String Link,String IDC){//TODO Check it
         StartConnection();
         String query = "UPDATE chanel SET Link = Link + '#%s' WHERE IDcommet = ?";
         try {

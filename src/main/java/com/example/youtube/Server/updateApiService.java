@@ -11,16 +11,29 @@ public class updateApiService {
         String body = parts.length > 1 ? parts[1] : "";
 
         switch (endpoint) {
-            case "31":
-                return deleteVideo(body); // video?
-            case "32":
-                return deletePalylist(body); // image?
-            case "33":
-                return deleteComment(body);
-            case "34":
-                return unfollow(body);
+            case "41":
+                return editPassword(body); // video?
+            case "42":
+                return editUsername(body); // image?
+            case "43":
+                return editNameOfPlayList(body);
+            case "44":
+                return updateLikeComment(body);
+            case "45":
+                return updateTextComment(body); // video?
+            case "46":
+                return updateDeslikeComment(body); // image?
+            case "47":
+                return editChannelName(body);
+            case "48":
+                return editChannelDescription(body);
+            case "49":
+                return editChannelLinks(body); // video?
+            //               ####
+            //               update image??????
+            //               ####
             default:
-                return gson.toJson(new deleteApiService.ErrorResponse("Unknown endpoint"));
+                return gson.toJson(new updateApiService.ErrorResponse("Unknown endpoint"));
         }
     }
     //to change password
@@ -109,7 +122,7 @@ public class updateApiService {
     private static String editChannelName(String channelInfo) {
         try {
             String[] info=channelInfo.split("#",2);
-            if(DataBaseManager.UP_Name_Chanel(info[0],info[1])) {
+            if(DataBaseManager.UP_Name_Channel(info[0],info[1])) {
                 //If the changes are applied successfully, return 1
                 return "1";
             }
@@ -119,6 +132,34 @@ public class updateApiService {
             return "0";
         }
     }
+    // To edit description of a channel
+    private static String editChannelDescription(String channelInfo) {
+        try {
+            String[] info=channelInfo.split("#",2);
+            if(DataBaseManager.UP_description_Channel(info[0],info[1])) {
+                //If the changes are applied successfully, return 1
+                return "1";
+            }
+            return "0";
+        }catch (Exception e){
+            //if wasn't successfully, return 0
+            return "0";
+        }
+    }
+    private static String editChannelLinks(String channelInfo) {
+        try {
+            String[] info=channelInfo.split("#",2);
+            if(DataBaseManager.UP_Link_Channel(info[0],info[1])) {
+                //If the changes are applied successfully, return 1
+                return "1";
+            }
+            return "0";
+        }catch (Exception e){
+            //if wasn't successfully, return 0
+            return "0";
+        }
+    }
+
 
     private static class ErrorResponse {
         private String message;
