@@ -20,7 +20,7 @@ public class updateApiService {
             case "44":
                 return updateLikeComment(body);
             case "45":
-                return updateTextComment(body); // video?
+                return editTextComment(body); // video?
             case "46":
                 return updateDeslikeComment(body); // image?
             case "47":
@@ -92,7 +92,7 @@ public class updateApiService {
         }
     }
     // to edit a comment text
-    private static String updateTextComment(String commentInfo) {
+    private static String editTextComment(String commentInfo) {
         try {
             String[] info=commentInfo.split("#",2);
             if(DataBaseManager.UP_Text_Comment(info[0],info[1])) {
