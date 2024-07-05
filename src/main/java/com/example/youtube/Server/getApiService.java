@@ -43,7 +43,7 @@ public class getApiService {
         try {
             String[] info=userInfo.split("#",2);
             User user = DataBaseManager.get_User(info[0],info[1]);
-            String response="1+"+gson.toJson(user);
+            String response="1#"+gson.toJson(user);
             return response;
         }catch (Exception e){
             return ("0");
@@ -54,7 +54,7 @@ public class getApiService {
         try {
             String[] info=channelInfo.split("#",2);
             Channel channel=DataBaseManager.get_Channel(info[0],Integer.parseInt(info[1]));
-            String response="1+"+gson.toJson(channel);
+            String response="1#"+gson.toJson(channel);
             return response;
         }catch (Exception E){
             return ("0");
@@ -64,7 +64,7 @@ public class getApiService {
     private static String getVideoComments(String videoInfo) {
         try {
             ArrayList<Comment> comments=DataBaseManager.getListComment(videoInfo);
-            String response="1+"+gson.toJson(comments);
+            String response="1#"+gson.toJson(comments);
             return response;
         }catch (Exception e){
             return ("0");
@@ -74,7 +74,7 @@ public class getApiService {
     private static String getChannelComments(String channelInfo) {
         try {
             ArrayList<Comment> comments=DataBaseManager.getListComment_userGet(channelInfo);
-            String response="1+"+gson.toJson(comments);
+            String response="1#"+gson.toJson(comments);
             return response;
         }catch (Exception e){
             return ("0");
@@ -84,7 +84,7 @@ public class getApiService {
     private static String getUserComments(String userInfo) {
         try {
             ArrayList<Comment> comments=DataBaseManager.getListCommentUser(userInfo);
-            String response="1+"+gson.toJson(comments);
+            String response="1#"+gson.toJson(comments);
             return response;
         }catch (Exception e){
             return ("0");
@@ -94,7 +94,7 @@ public class getApiService {
     private static String getChannelPlaylists(String channelInfo) {
         try {
             ArrayList<PlayList> playLists=DataBaseManager.getPlayList(channelInfo);
-            String response="1+"+gson.toJson(playLists);
+            String response="1#"+gson.toJson(playLists);
             return response;
         }catch (Exception e){
             return ("0");
@@ -104,7 +104,7 @@ public class getApiService {
     private static String getChannelVideos(String channelInfo) {
         try {
             ArrayList<Video> videos=DataBaseManager.getList_video(channelInfo);
-            String response="1+"+gson.toJson(videos);
+            String response="1#"+gson.toJson(videos);
             return response;
         }catch (Exception e){
             return ("0");
@@ -113,7 +113,7 @@ public class getApiService {
     private static String getplaylistVideos(String playlistInfo) {
         try {
             ArrayList<Video> videos=DataBaseManager.getListVideoInPlayList(playlistInfo);
-            String response="1+"+gson.toJson(videos);
+            String response="1#"+gson.toJson(videos);
             return response;
         }catch (Exception e){
             return ("0");
@@ -122,7 +122,7 @@ public class getApiService {
     private static String getVideosByCategory(String categoryInfo) {
         try {
             ArrayList<Video> videos=DataBaseManager.getListVideoByCategory(categoryInfo);
-            String response="1+"+gson.toJson(videos);
+            String response="1#"+gson.toJson(videos);
             return response;
         }catch (Exception e){
             return ("0");
