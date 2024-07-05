@@ -1,18 +1,20 @@
 package com.example.youtube.Model;
 
+import org.w3c.dom.ls.LSException;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class Video {
     private String ID;
-    private LocalDate uploadTime;
+    private String uploadTime;
     private Integer view;
     private Integer duration; //??
     private Integer like;
     private Integer deslike;
     private String name;
     private String description;
-    private ArrayList<String> category;
+    private String category;
     private String path;
 
     private String IDChanel;
@@ -23,12 +25,12 @@ public class Video {
         this.view = view;
         this.like = like;
         this.deslike = deslike;
-        this.uploadTime = LocalDate.parse(uplaodTime);
+        this.uploadTime = uplaodTime;
         this.duration=duration;
         this.ID=ID;
         this.IDChanel=idchal;
         this.setPath(ID);
-        this.category=new ArrayList<>();
+
 
     }
 
@@ -60,13 +62,10 @@ public class Video {
         return duration;
     }
 
-    public LocalDate getUploadTime() {
+    public String getUploadTime() {
         return uploadTime;
     }
 
-    public ArrayList<String> getHashtagsList() {
-        return getCategory();
-    }
 
     public void editName(String name) {
         this.name = name;
@@ -88,19 +87,7 @@ public class Video {
         this.view ++;
     }
 
-    public void addHashtags(String hashtag) {
-        this.getCategory().add(hashtag);
-    }
-    public void removeHashtag(String hashtag){
-        this.getCategory().remove(hashtag);
-    }
-    public String getHashtagString(){
-        String hashtags="";
-        for(String hashtag : this.getCategory()){
-             hashtags += hashtag+",";
-        }
-        return (hashtags.substring(0,hashtags.length()-1)); // -1 or -2 ??
-    }
+
 
     public String getIDChanel() {
         return IDChanel;
@@ -118,11 +105,11 @@ public class Video {
         this.path = path;
     }
 
-    public ArrayList<String> getCategory() {
+    public String getCategory() {
         return category;
     }
 
     public void setCategory(String category) {
-        this.category.add( category);
+        this.category= category;
     }
 }

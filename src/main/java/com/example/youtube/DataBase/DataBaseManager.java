@@ -434,6 +434,32 @@ public class DataBaseManager {
 
 
 
+    //this is for test the database and in not use in YouTube
+    public synchronized static boolean de_User(User user) {
+
+        if(!isUserExists(user.getID())) {
+            StartConnection();
+            String query = "delete  from user Where Email='%s'";
+            LocalDate localDate = LocalDate.now();
+            System.out.println("[SERVER] ADD USER ");
+
+            query = String.format(query,"R.84.askari@gamil.com");
+
+            try {
+                statement.execute(query);
+            } catch (SQLIntegrityConstraintViolationException e) {
+                return false;
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+            EncConnection();
+            return true;
+        }else{
+            return false;
+        }
+    }
+
     /**
      * insert method
      */
@@ -442,38 +468,47 @@ public class DataBaseManager {
 //  TODO check in User
     public synchronized static boolean Cr_User(User user) {
 
-        StartConnection();
-        String query = "INSERT INTO user (username, Email, passWord, IDuser, Time,Age, Contry) values ('%s','%s','%s','%s','%s','%s','%s')";
-        LocalDate localDate = LocalDate.now();
-        System.out.println("in data base");
-        query = String.format(query, user.getUsername(), user.getEmail(), user.getPassword(), user.getID(), localDate.toString(),user.getAge(), user.getCountry());
+       if(!isUserExists(user.getID())) {
+            StartConnection();
+            String query = "INSERT INTO user (username, Email, passWord, IDuser, Time,Age, Country) values ('%s','%s','%s','%s','%s','%s','%s')";
+            LocalDate localDate = LocalDate.now();
+            System.out.println("[SERVER] ADD USER ");
 
-        try {
-            statement.execute(query);
-        } catch (SQLIntegrityConstraintViolationException e) {
-            return false;
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+            query = String.format(query, user.getUsername(), user.getEmail(), user.getPassword(), user.getID(), localDate.toString(), user.getAge(), user.getCountry());
 
-        EncConnection();
+            try {
+                statement.execute(query);
+            } catch (SQLIntegrityConstraintViolationException e) {
+                return false;
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+            EncConnection();
             return true;
+        }else{
+          return false;
+        }
     }
     /**insert chanel
      *  */
     public synchronized static  boolean Cr_Chanel(Channel channel) {
 
+
         StartConnection();
-        String query = "INSERT INTO chanel (ID_chanel,Name,information,image_Chanel,username,Image_Pro,Link) VALUES ('%s','%s','%s','%s','%s','%s','%s','%s')";
+        System.out.println("INSERT INTO CHANEL TABLE NEW CHANEL ");
+        String query = "INSERT INTO chanel (ID_chanel,Name,information,image_Chanel,username,Image_Pro,Link) VALUES ('%s','%s','%s','%s','%s','%s','%s')";
         query = String.format(query, channel.getId(), channel.getName(), channel.getDescription(), channel.getImage(), channel.getUsername(),channel.getImage_pro(),channel.getLink());
         try {
-
             statement.execute(query);
-
         } catch (SQLIntegrityConstraintViolationException e) {
+            e.printStackTrace();
+            System.out.println("i have it in my table ");
             return false;
         } catch (Exception e) {
-            e.getMessage();
+            System.out.println("Exeption] ");
+            e.printStackTrace();
+            return false;
         }
 
 
@@ -485,22 +520,8 @@ public class DataBaseManager {
      * */
     public synchronized static boolean Cr_Video(Video video) {
         StartConnection();
-        for (String x : video.getHashtagsList()) {
-            String query1 = "INSERT INTO category_video (category,ID_video) " +
-                    "VALUES (?,?)";
-            try {
-                PreparedStatement statement = connection.prepareStatement(query1);
-                statement.setString(1, x);
-                statement.setString(2, video.getID());
-                statement.execute();
-
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
-        }
-
-        String query = "INSERT INTO video (ID_video, Chanel_ID, time_uplode, view, PlayTime, `like`, Dis_like, name, information) " +
-                "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String query = "INSERT INTO video (ID_video, Chanel_ID, time_uplode, view, PlayTime, `like`, Dis_like, name, information,category) " +
+                "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?,?)";
         try {
             PreparedStatement statement = connection.prepareStatement(query);
 
@@ -510,29 +531,38 @@ public class DataBaseManager {
             statement.setInt(4, video.getView());
             statement.setInt(5, video.getDuration());
             statement.setInt(6, video.getLike());
-            statement.setInt(7, (int) video.getDeslike());
+            statement.setInt(7, video.getDeslike());
             statement.setString(8, video.getName());
             statement.setString(9, video.getDescription());
+            statement.setString(10, video.getCategory());
             statement.execute();
         } catch (SQLIntegrityConstraintViolationException e) {
             return false;
         } catch (SQLException ee) {
             throw new RuntimeException(ee);
+        }finally {
+            EncConnection();
         }
-        EncConnection();
         return true;
     }
     /** Create PlayList  */
     public static boolean Cr_PlayList(PlayList playList) {
         StartConnection();
+        System.out.println("ADD Playlist to database ");
         ADD_playList_chanel(playList.getID(),playList.getChannelID());
-        String query = "INSERT INTO playList (ID_PlayList,name,discribe,Image,ID_chanel) values ('%s','%s','%s','%s','%s')";
+        String query = "INSERT INTO playlist (ID_PlayList,name,discribe,Image,ID_chanel) values ('%s','%s','%s','%s','%s')";
         query = String.format(query, playList.getID(), playList.getName(), playList.getDescription(),playList.getImage(),playList.getChannelID());
         try {
+            System.out.println("ADD Playlist  ");
+
             statement.execute(query);
         } catch (SQLIntegrityConstraintViolationException er) {
+            System.out.println("Exeption1 ");
+
             return false;
         } catch (SQLException e) {
+            System.out.println("Exeption ");
+
             throw new RuntimeException(e);
         }
 
@@ -545,7 +575,7 @@ public class DataBaseManager {
     public static boolean Cr_comment(Comment comment) {
 
         StartConnection();
-        String query = "INSERT INTO comment (comment,wirter,UserID,ID_video,`like`,dislike,Time) VALUES (?,?,?,?,?,?,?)";
+        String query = "INSERT INTO comment (comment,wirter,IDChanel,ID_video,LikeComment,dislike,Time,IDCommet) VALUES (?,?,?,?,?,?,?,?)";
 
         try {
             PreparedStatement statement = connection.prepareStatement(query);
@@ -556,6 +586,7 @@ public class DataBaseManager {
             statement.setInt(5, 0);
             statement.setInt(6, 0);
             statement.setString(7, String.valueOf(comment.getTime()));
+            statement.setString(8, comment.getIDComment());
             statement.execute();
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -657,9 +688,9 @@ public class DataBaseManager {
         StartConnection();
         String query;
         if (!CheckKarma(UserId, Video)) {
-            query = "INSERT INTO Karma (karma, IDUser, IDVideo) VALUES (?, ?, ?)";
+            query = "INSERT INTO Karma (karma, IDChanel, IDVideo) VALUES (?, ?, ?)";
         } else {
-            query = "UPDATE Karma SET karma = ? WHERE IDUser = ? AND IDVideo = ?";
+            query = "UPDATE Karma SET karma = ? WHERE IDChanel = ? AND IDVideo = ?";
         }
 
         try {
@@ -681,7 +712,7 @@ public class DataBaseManager {
         String query;
         boolean exists;
 
-        query = "SELECT COUNT(*) FROM Karma WHERE IDUser = ? AND IDVideo = ?";
+        query = "SELECT COUNT(*) FROM Karma WHERE IDChanel = ? AND IDVideo = ?";
 
         try (PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setString(1, UserId);

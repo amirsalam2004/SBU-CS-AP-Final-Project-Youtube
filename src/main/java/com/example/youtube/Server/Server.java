@@ -15,9 +15,11 @@ public class Server {
         try {
             // Start listening on the specified port
             listener = new ServerSocket(PORT);
+            System.out.println("[Server] Server is Running ");
             while (true) {
                 Socket client = listener.accept();
                 ClientHandler clientThread = new ClientHandler(client);
+                System.out.println("[Server] Accept New Client ");
                 pool.execute(clientThread);
             }
         } catch (IOException e) {
@@ -26,6 +28,7 @@ public class Server {
             if (listener != null) {
                 try {
                     listener.close();
+                    System.out.println("[Server] close ");
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

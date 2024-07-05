@@ -24,8 +24,10 @@ public class Channel {
         this.username=username;
         this.setImage(image);
         Link=new ArrayList<>();
-
+        this.image_pro=name+image+"PRO";
+        this.image_Chane=name+image+"Chanel";
     }
+
 
 
 

@@ -1,26 +1,25 @@
 package com.example.youtube.Model;
 
-import java.time.LocalDate;
-
 public class Comment {
     private String text;
     private String userID;
     private String userUsername;
     private String videoID;
     private Integer like;
-    private LocalDate time;
+    private String time;
     private Integer deslike;
     private String IDComment;
     public Comment(String text,String userID,String userUsername,String videoID,
                    String time,Integer like,Integer deslike,String id){
-        this.IDComment=id;
+        this.setIDComment(id);
         this.deslike=deslike;
         this.like=like;
         this.text=text;
         this.userID=userID;
         this.videoID=videoID;
         this.userUsername=userUsername;
-        this.time=LocalDate.parse(time);
+        this.time=(time);
+//        this .IDComment=IDComment;
     }
 
     public Integer getDeslike() {
@@ -31,7 +30,7 @@ public class Comment {
         return like;
     }
 
-    public LocalDate getTime() {
+    public String getTime() {
         return time;
     }
 
@@ -61,5 +60,13 @@ public class Comment {
 
     public void editText(String text) {
         this.text = text;
+    }
+
+    public String getIDComment() {
+        return IDComment;
+    }
+
+    public void setIDComment(String IDComment) {
+        this.IDComment = IDComment;
     }
 }

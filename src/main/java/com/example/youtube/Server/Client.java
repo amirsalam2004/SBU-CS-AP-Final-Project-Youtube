@@ -24,7 +24,7 @@ public class Client {
     public boolean sendRequest(int type,int endpoint,String body) throws  IOException{
         try {
             String request=type+"#"+endpoint+"#"+body;
-            System.out.println(request);
+            System.out.println("request is "+request);
             out.writeUTF(request);
             return true;
         }catch (IOException e){
@@ -35,6 +35,7 @@ public class Client {
     public String getResponse() throws IOException{
         try {
             String input=in.readUTF();
+            System.out.println("Response is "+ input);
             return input;
         }catch (IOException e){
             System.out.println(e.getMessage());
@@ -44,6 +45,7 @@ public class Client {
     public void closeConnection(){
         try {
             // Close input and output streams and the client socket when done
+            System.out.println("in this is close connection in line 48 client ");
             in.close();
             out.close();
             socket.close();

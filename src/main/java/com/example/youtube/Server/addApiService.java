@@ -40,7 +40,7 @@ public class addApiService {
     //to add a new user
     private static String addUser(String userJson) {
         try {
-            System.out.println("in api ");
+            System.out.println("[ADD USER]");
             User user = gson.fromJson(userJson, User.class);
             if(DataBaseManager.Cr_User(user)) {
                 //If the changes are applied successfully, return 1
@@ -103,6 +103,7 @@ public class addApiService {
     //to add a new comment
     private static String addVideo(String videoJson) {
         try {
+            System.out.println("[ADD Video ]");
             Video video= gson.fromJson(videoJson, Video.class);
             if(DataBaseManager.Cr_Video(video)) {
                 //If the changes are applied successfully, return 1
@@ -135,7 +136,7 @@ public class addApiService {
     private static String addFollowerOrFollowing(String followInfo) {
         try {
             String[] info=followInfo.split("#",3);
-            if(DataBaseManager.ADD_follower_following(info[0],info[1],Integer.parseInt(info[2]))) {
+            if(DataBaseManager.ADD_follower_following(info[0],info[1], Integer.parseInt(info[2]))) {
                 //If the changes are applied successfully, return 1
                 return "1";
             }
@@ -148,6 +149,7 @@ public class addApiService {
     private static String addKarma(String karmaInfo) {
         try {
             String[] info=karmaInfo.split("#",3);
+            System.out.println("[Update Or Insert] --> Karma");
             if(DataBaseManager.Karma(Integer.parseInt(info[0]),info[1],info[2])) {
                 //If the changes are applied successfully, return 1
                 return "1";

@@ -9,8 +9,15 @@ import static com.example.youtube.DataBase.DataBaseManager.*;
 public class TestDataBase {
 
     public static void main(String[] args) {
+//        Video video=new Video("1112","12","rouzbeh","12221212","2000-01-01",1,1,11,12);
+//
+//Cr_Video(video);
+        Karma(1,"12","12");
 
-
+//        Cr_Chanel(new Channel("123","@3","!23","!@3","!23"));
+//        Comment commnet=new Comment("this is test for Server ","ruzbeh","rouzbeh","rouhzhbhe","123",1,1,"!2312");
+//        Cr_comment(commnet);
+//        Cr_PlayList(new PlayList("orerwer","werwer","Werwe","wer","werwrw"));
 //        EncConnection();
 //        UP_Like_Comment("1");
 //        UP_Comment_Comment("1","this is a test ");
