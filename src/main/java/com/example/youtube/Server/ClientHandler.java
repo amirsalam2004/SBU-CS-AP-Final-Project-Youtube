@@ -1,9 +1,9 @@
 package com.example.youtube.Server;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.net.Socket;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 public class ClientHandler implements Runnable {
     private Socket client;
@@ -55,5 +55,43 @@ public class ClientHandler implements Runnable {
     }
     public void send(String response) throws IOException{
         out.writeUTF(response);
+    }
+    public void sendVideoBytes(String videoID) throws IOException {
+        try {
+            File videoFile=new File(videoID+".mp4");
+            FileInputStream fileInputStream = new FileInputStream(videoFile);
+            byte[] buffer = new byte[4 * 1024];
+            int bytes;
+            out.writeLong(videoFile.length());
+            while ((bytes = fileInputStream.read(buffer))
+                    != -1) {
+                // Send the file to Server Socket
+                out.write(buffer, 0, bytes);
+                out.flush();
+            }
+        }catch (FileNotFoundException e){
+            out.write(0);
+            out.flush();
+            System.out.println(e.getMessage());
+        }
+        catch (IOException e){
+            out.write(0);
+            out.flush();
+            System.out.println(e.getMessage());
+        }
+    }
+    public void sendImageBytes(String imagePath) throws IOException {
+        try {
+            byte[] buffer = Files.readAllBytes(Paths.get(imagePath));
+            out.write(buffer);
+            out.flush();
+        }catch (FileNotFoundException e){
+            out.write(0);
+            System.out.println(e.getMessage());
+        }
+        catch (IOException e){
+            out.write(0);
+            System.out.println(e.getMessage());
+        }
     }
 }
