@@ -10,9 +10,11 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Slider;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -92,7 +94,7 @@ public class HelloController {
     @FXML
     private AnchorPane settingSideBar;
     @FXML
-    private AnchorPane videos;
+    private ScrollPane videos;
     @FXML
     private AnchorPane videoView;
 
@@ -243,6 +245,20 @@ public class HelloController {
         for (Label label : labels) {
             handleLabelHover(label, hoverColor, normalColor);
         }
+
+        // videos
+//        for (int i = 0; i < 5; i++) {
+//            VBox vBox = new VBox();
+//            HBox hBox = new HBox();
+//
+//            for (int j = 0; j < 4; j++) {
+//                ImageView imageView = new ImageView();
+//                hBox.getChildren().add(imageView);
+//            }
+//
+//            vBox.getChildren().add(hBox);
+//            videos.setContent(vBox);
+//        }
 
     }
 
