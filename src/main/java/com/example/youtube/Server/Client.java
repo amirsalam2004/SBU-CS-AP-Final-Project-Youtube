@@ -1,12 +1,18 @@
 package com.example.youtube.Server;
 
+import com.example.youtube.Model.Channel;
+import com.example.youtube.Model.Comment;
+import com.example.youtube.Model.User;
+
 import java.io.*;
 import java.net.Socket;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import com.google.gson.Gson;
 
 public class Client {
+    private static final Gson gson = new Gson();
     private static final int SERVER_PORT = 3000;
     private final String SERVER_IP;
     private Socket socket;
@@ -132,6 +138,59 @@ public class Client {
             return false;
         }finally {
             fos.close();
+        }
+    }
+    // this make a request to create a new user and return server response
+    public String addUserRequest(User user) throws IOException{
+        try {
+            String request="2#21#"+gson.toJson(user);
+            out.writeUTF(request);
+            String response=in.readUTF();
+            return response;
+        }catch (IOException e){
+            return "0";
+        }
+    }
+    // this make a request to create a new channel and return server response
+    public String addChannelRequest(Channel channel) throws IOException{
+        try {
+            String request="2#22#"+gson.toJson(channel);
+            out.writeUTF(request);
+            String response=in.readUTF();
+            return response;
+        }catch (IOException e){
+            return "0";
+        }
+    }
+    // this make a request to create a new comment and return server response
+    public String addCommentRequest(Comment comment) throws IOException{
+        try {
+            String request="2#23#"+gson.toJson(comment);
+            out.writeUTF(request);
+            String response=in.readUTF();
+            return response;
+        }catch (IOException e){
+            return "0";
+        }
+    }
+    public String getUserRequest(String email, String passWord) throws IOException {
+        try {
+            String request = "1#11#"+email+"#"+passWord;
+            out.writeUTF(request);
+            String response = in.readUTF();
+            return response;
+        } catch (IOException e) {
+            return "0";
+        }
+    }
+    public String getChannelrRequest(String identifier, int number) throws IOException {
+        try {
+            String request = "1#11#"+identifier+"#"+number;
+            out.writeUTF(request);
+            String response = in.readUTF();
+            return response;
+        } catch (IOException e) {
+            return "0";
         }
     }
 }
