@@ -150,7 +150,7 @@ public class addApiService {
         try {
             String[] info=karmaInfo.split("#",3);
             System.out.println("[Update Or Insert] --> Karma");
-            if(DataBaseManager.Karma(Integer.parseInt(info[0]),info[1],info[2])) {
+            if(DataBaseManager.Karam(Integer.parseInt(info[0]),info[1],info[2])) {
                 //If the changes are applied successfully, return 1
                 return "1";
             }

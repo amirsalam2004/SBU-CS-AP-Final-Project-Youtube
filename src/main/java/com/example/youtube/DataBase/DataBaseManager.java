@@ -1,7 +1,6 @@
 package com.example.youtube.DataBase;
 
 import com.example.youtube.Model.*;
-import com.example.youtube.Server.*;
 
 import javax.security.auth.login.CredentialException;
 import java.io.IOException;
@@ -9,6 +8,7 @@ import java.sql.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.UUID;
 
@@ -310,7 +310,7 @@ public class DataBaseManager {
 
 
 
-    public static synchronized ArrayList<Video> getListVideoByCategory(String category) {
+    public static synchronized ArrayList<Video> getListVideoByCategory(String category) {//TODO check
         ArrayList<Video> videos = new ArrayList<>();
         StartConnection();
 
@@ -332,12 +332,139 @@ public class DataBaseManager {
                 String information = resultSet.getString("information");
                 videos.add(new Video( ID_video, Chanel_ID, name, information, time_uplode, PlayTime, like, Dis_like, view));
             }
-            EncConnection();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }finally {
             EncConnection();
         }
+        return videos;
+    }
+    public static synchronized ArrayList<Video>getlistVideoSave (String IDU){//TODO check
+        ArrayList<Video> videos = new ArrayList<>();
+        StartConnection();
+
+        String query = "SELECT * FROM video   JOIN  savevidoe ON video.ID_video = savevidoe.IDVideo WHERE savevidoe.IDUser=? ";
+        try {
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setString(1,IDU);
+            ResultSet resultSet = ps.executeQuery();
+            while (resultSet.next()) {
+                String ID_video = resultSet.getString("ID_video");
+                String Chanel_ID = resultSet.getString("Chanel_ID");
+                String time_uplode = resultSet.getString("time_uplode");
+                int view = resultSet.getInt("view");
+                int PlayTime = resultSet.getInt("PlayTime");
+                int like = resultSet.getInt("like");
+                int Dis_like = resultSet.getInt("Dis_like");
+                String name = resultSet.getString("name");
+                String information = resultSet.getString("information");
+                videos.add(new Video( ID_video, Chanel_ID, name, information, time_uplode, PlayTime, like, Dis_like, view));
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }finally {
+            EncConnection();
+        }
+        return videos;
+
+    }
+    public static synchronized ArrayList<PlayList> getListPlayListSave(String IDU){
+        ArrayList<PlayList> playLists = new ArrayList<>();
+        StartConnection();
+
+        String query = "SELECT * FROM playlist    JOIN  saveplaylist  ON saveplaylist.IDPalyList = playlist.ID_Playlist WHERE savevidoe.IDUser=? ";
+        try {
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setString(1,IDU);
+            ResultSet resultSet = ps.executeQuery();
+            while (resultSet.next()) {
+                String ID = resultSet.getString("ID_Playlist");
+                String Chanel_ID = resultSet.getString("ID_chanel");
+                String image = resultSet.getString("Image");
+                String name = resultSet.getString("name");
+                String information = resultSet.getString("discribe");
+                playLists.add(new PlayList(name,ID,Chanel_ID,information,image));
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }finally {
+            EncConnection();
+        }
+        return playLists;
+
+    }
+
+
+
+    public static synchronized ArrayList<Video> getListVideoInHistory(String IDUser){
+        ArrayList<Video> videos = new ArrayList<>();
+        StartConnection();
+
+        String query = "SELECT * FROM video   JOIN  viode_history ON video.ID_video = viode_history.IDVideo WHERE viode_history.IDUser=? ";
+        try {
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setString(1,IDUser);
+            ResultSet resultSet = ps.executeQuery();
+            while (resultSet.next()) {
+                String ID_video = resultSet.getString("ID_video");
+                String Chanel_ID = resultSet.getString("Chanel_ID");
+                String time_uplode = resultSet.getString("time_uplode");
+                int view = resultSet.getInt("view");
+                int PlayTime = resultSet.getInt("PlayTime");
+                int like = resultSet.getInt("like");
+                int Dis_like = resultSet.getInt("Dis_like");
+                String name = resultSet.getString("name");
+                String information = resultSet.getString("information");
+                videos.add(new Video( ID_video, Chanel_ID, name, information, time_uplode, PlayTime, like, Dis_like, view));
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }finally {
+            EncConnection();
+        }
+        return videos;
+    }
+    public static synchronized ArrayList<Video> getListVideoByCategoryRandom(int numVideos,String ID ) {//TODO cehck
+        ArrayList<Integer>valus=new ArrayList<>();
+        ArrayList<Video> videos = new ArrayList<>();
+        ArrayList<String>category=new ArrayList<>(Arrays.asList("Sport","news","LifeStyle","Comedy"
+                                                                ,"Education","Autosandveh","TravelandEvents"
+                                                                ,"Gaming","Science_Technology","Other"));
+        StartConnection();
+
+        try {
+            int i =0;
+            while (i<numVideos) {
+                i++;
+
+                String videoQuery = "SELECT * FROM video JOIN category_video ON video.ID_video = category_video.ID_video WHERE category_video.category = ? ORDER BY RAND() LIMIT ?";
+                PreparedStatement videoPs = connection.prepareStatement(videoQuery);
+                videoPs.setString(1,category.get(i) );
+                videoPs.setInt(2, valus.get(i));
+                ResultSet videoResultSet = videoPs.executeQuery();
+
+                // Add the videos to the list
+                while (videoResultSet.next()) {
+                    String ID_video = videoResultSet.getString("ID_video");
+                    String Chanel_ID = videoResultSet.getString("Chanel_ID");
+                    String time_uplode = videoResultSet.getString("time_uplode");
+                    int view = videoResultSet.getInt("view");
+                    int PlayTime = videoResultSet.getInt("PlayTime");
+                    int like = videoResultSet.getInt("like");
+                    int Dis_like = videoResultSet.getInt("Dis_like");
+                    String name = videoResultSet.getString("name");
+                    String information = videoResultSet.getString("information");
+                    videos.add(new Video(ID_video, Chanel_ID, name, information, time_uplode, PlayTime, like, Dis_like, view));
+                }
+            }
+
+            EncConnection();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        } finally {
+            EncConnection();
+        }
+
         return videos;
     }
 
@@ -434,32 +561,6 @@ public class DataBaseManager {
 
 
 
-    //this is for test the database and in not use in YouTube
-    public synchronized static boolean de_User(User user) {
-
-        if(!isUserExists(user.getID())) {
-            StartConnection();
-            String query = "delete  from user Where Email='%s'";
-            LocalDate localDate = LocalDate.now();
-            System.out.println("[SERVER] ADD USER ");
-
-            query = String.format(query,"R.84.askari@gamil.com");
-
-            try {
-                statement.execute(query);
-            } catch (SQLIntegrityConstraintViolationException e) {
-                return false;
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-
-            EncConnection();
-            return true;
-        }else{
-            return false;
-        }
-    }
-
     /**
      * insert method
      */
@@ -468,47 +569,39 @@ public class DataBaseManager {
 //  TODO check in User
     public synchronized static boolean Cr_User(User user) {
 
-       if(!isUserExists(user.getID())) {
-            StartConnection();
-            String query = "INSERT INTO user (username, Email, passWord, IDuser, Time,Age, Country) values ('%s','%s','%s','%s','%s','%s','%s')";
-            LocalDate localDate = LocalDate.now();
-            System.out.println("[SERVER] ADD USER ");
+        StartConnection();
+        String query = "INSERT INTO user (username, Email, passWord, IDuser, Time,Age, Contry) values ('%s','%s','%s','%s','%s','%s','%s')";
+        LocalDate localDate = LocalDate.now();
 
-            query = String.format(query, user.getUsername(), user.getEmail(), user.getPassword(), user.getID(), localDate.toString(), user.getAge(), user.getCountry());
+        //TODO you can set time for user now or when create a user
+        query = String.format(query, user.getUsername(), user.getEmail(), user.getPassword(), user.getID(), localDate.toString(),user.getAge(), user.getCountry());
 
-            try {
-                statement.execute(query);
-            } catch (SQLIntegrityConstraintViolationException e) {
-                return false;
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-
-            EncConnection();
-            return true;
-        }else{
-          return false;
+        try {
+            statement.execute(query);
+        } catch (SQLIntegrityConstraintViolationException e) {
+            return false;
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
+
+        EncConnection();
+        return true;
     }
     /**insert chanel
      *  */
     public synchronized static  boolean Cr_Chanel(Channel channel) {
 
-
         StartConnection();
-        System.out.println("INSERT INTO CHANEL TABLE NEW CHANEL ");
-        String query = "INSERT INTO chanel (ID_chanel,Name,information,image_Chanel,username,Image_Pro,Link) VALUES ('%s','%s','%s','%s','%s','%s','%s')";
+        String query = "INSERT INTO chanel (ID_chanel,Name,information,image_Chanel,username,Image_Pro,Link) VALUES ('%s','%s','%s','%s','%s','%s','%s','%s')";
         query = String.format(query, channel.getId(), channel.getName(), channel.getDescription(), channel.getImage(), channel.getUsername(),channel.getImage_pro(),channel.getLink());
         try {
+
             statement.execute(query);
+
         } catch (SQLIntegrityConstraintViolationException e) {
-            e.printStackTrace();
-            System.out.println("i have it in my table ");
             return false;
         } catch (Exception e) {
-            System.out.println("Exeption] ");
-            e.printStackTrace();
-            return false;
+            e.getMessage();
         }
 
 
@@ -520,8 +613,10 @@ public class DataBaseManager {
      * */
     public synchronized static boolean Cr_Video(Video video) {
         StartConnection();
-        String query = "INSERT INTO video (ID_video, Chanel_ID, time_uplode, view, PlayTime, `like`, Dis_like, name, information,category) " +
-                "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?,?)";
+
+
+        String query = "INSERT INTO video (ID_video, Chanel_ID, time_uplode, view, PlayTime, `like`, Dis_like, name, information) " +
+                "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try {
             PreparedStatement statement = connection.prepareStatement(query);
 
@@ -531,38 +626,29 @@ public class DataBaseManager {
             statement.setInt(4, video.getView());
             statement.setInt(5, video.getDuration());
             statement.setInt(6, video.getLike());
-            statement.setInt(7, video.getDeslike());
+            statement.setInt(7, (int) video.getDeslike());
             statement.setString(8, video.getName());
             statement.setString(9, video.getDescription());
-            statement.setString(10, video.getCategory());
             statement.execute();
         } catch (SQLIntegrityConstraintViolationException e) {
             return false;
         } catch (SQLException ee) {
             throw new RuntimeException(ee);
-        }finally {
-            EncConnection();
         }
+        EncConnection();
         return true;
     }
     /** Create PlayList  */
     public static boolean Cr_PlayList(PlayList playList) {
         StartConnection();
-        System.out.println("ADD Playlist to database ");
         ADD_playList_chanel(playList.getID(),playList.getChannelID());
-        String query = "INSERT INTO playlist (ID_PlayList,name,discribe,Image,ID_chanel) values ('%s','%s','%s','%s','%s')";
+        String query = "INSERT INTO playList (ID_PlayList,name,discribe,Image,ID_chanel) values ('%s','%s','%s','%s','%s')";
         query = String.format(query, playList.getID(), playList.getName(), playList.getDescription(),playList.getImage(),playList.getChannelID());
         try {
-            System.out.println("ADD Playlist  ");
-
             statement.execute(query);
         } catch (SQLIntegrityConstraintViolationException er) {
-            System.out.println("Exeption1 ");
-
             return false;
         } catch (SQLException e) {
-            System.out.println("Exeption ");
-
             throw new RuntimeException(e);
         }
 
@@ -575,7 +661,7 @@ public class DataBaseManager {
     public static boolean Cr_comment(Comment comment) {
 
         StartConnection();
-        String query = "INSERT INTO comment (comment,wirter,IDChanel,ID_video,LikeComment,dislike,Time,IDCommet) VALUES (?,?,?,?,?,?,?,?)";
+        String query = "INSERT INTO comment (comment,wirter,UserID,ID_video,`like`,dislike,Time) VALUES (?,?,?,?,?,?,?)";
 
         try {
             PreparedStatement statement = connection.prepareStatement(query);
@@ -586,7 +672,6 @@ public class DataBaseManager {
             statement.setInt(5, 0);
             statement.setInt(6, 0);
             statement.setString(7, String.valueOf(comment.getTime()));
-            statement.setString(8, comment.getIDComment());
             statement.execute();
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -672,7 +757,6 @@ public class DataBaseManager {
         try {
             ResultSet resultSet=  statement.executeQuery(query);
             if (!resultSet.next()){
-                System.out.println("1231231");
                 return true;
             }
 
@@ -681,16 +765,15 @@ public class DataBaseManager {
             return false;
         }
         return false;
-
     }
 
-    public synchronized static boolean Karma(int Karma, String UserId, String Video) {
+    public synchronized static boolean Karam(int Karma, String UserId, String Video) {
         StartConnection();
         String query;
         if (!CheckKarma(UserId, Video)) {
             query = "INSERT INTO Karma (karma, IDChanel, IDVideo) VALUES (?, ?, ?)";
         } else {
-            query = "UPDATE Karma SET karma = ? WHERE IDChanel = ? AND IDVideo = ?";
+            query = "UPDATE Karma SET karma = ? WHERE IDUser = ? AND IDVideo = ?";
         }
 
         try {
@@ -712,7 +795,8 @@ public class DataBaseManager {
         String query;
         boolean exists;
 
-        query = "SELECT COUNT(*) FROM Karma WHERE IDChanel = ? AND IDVideo = ?";
+        query = "SELECT COUNT(*) FROM Karma WHERE IDVChanel" +
+                " = ? AND IDVideo = ?";
 
         try (PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setString(1, UserId);
@@ -741,7 +825,7 @@ public class DataBaseManager {
         delete_Video_history( idV);
         delete_Video_Playlist(idV );
         delete_Video(idV);
-        delete_Video_category(idV);
+//        delete_Video_category(idV);
         EncConnection();
     }
 
@@ -783,19 +867,19 @@ public class DataBaseManager {
             throw new RuntimeException(e);
         }
     }
-    private static  void delete_Video_category(String idV){
-        String query = "DELETE FROM category_video  WHERE ID_video ='%s'  ";
-        query = String.format(query, idV);
-        try {
-            statement.execute(query);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
+//    private static  void delete_Video_category(String idV){
+//        String query = "DELETE FROM category_video  WHERE ID_video ='%s'  ";
+//        query = String.format(query, idV);
+//        try {
+//            statement.execute(query);
+//        } catch (SQLException e) {
+//            throw new RuntimeException(e);
+//        }
+//    }
+//
 
     /**
-     * delete play list so delete playList and Video_playlist table
+     * delete play list so delete playList and Video_playlist
      * @param idp
      */
 
@@ -888,7 +972,7 @@ public class DataBaseManager {
                         LocalDateTime localDateTime = LocalDateTime.parse(resultSet.getString("Time"));
                         int hourDiff = LocalDateTime.now().getMinute() - localDateTime.getMinute();
                         System.out.println(hourDiff);
-                        if (hourDiff > Min) {
+                        if (hourDiff > Min){
                             String deleteQuery = "DELETE FROM viode_history WHERE IDVideo = ? AND idUser = ?";
                             try (PreparedStatement deletePs = connection.prepareStatement(deleteQuery)) {
                                 deletePs.setString(1, resultSet.getString("IDVideo"));
@@ -972,13 +1056,14 @@ public class DataBaseManager {
         }
         return false;
     }
-    public static  boolean CH_UserName(String IDU,String Username){
+    public static  boolean CH_UserName(String Username ,String NewUsername){
+        UP_witter_Comment(Username,NewUsername);
         StartConnection();
         String query1="UPDATE chanel SET username  = ? WHERE username =?";
 
         try (PreparedStatement statement = connection.prepareStatement(query1)) {
             statement.setString(1,Username );
-            statement.setString(2, IDU);
+            statement.setString(2, NewUsername);
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -986,46 +1071,12 @@ public class DataBaseManager {
         } finally {
             EncConnection();
         }
-        try (PreparedStatement statement = connection.prepareStatement(query1)) {
-            statement.setString(1,Username);
-            statement.setString(2, Username);
-            statement.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
-        } finally {
-            EncConnection();
-        }
-
-
-
-
         return true;
 
     }
 
 
-    //this method for change the email
-    public static boolean CH_Email(String IDU,String Email ){//TODO CHECK
-        StartConnection();
 
-        if (!isUserExists(IDU)) {
-            return false;
-        }
-        String query = "UPDATE User SET Eamil = ? WHERE IDuser = ?";
-        try (PreparedStatement statement = connection.prepareStatement(query)) {
-            statement.setString(1, Email);
-            statement.setString(2, IDU);
-            statement.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
-        } finally {
-            EncConnection();
-        }
-
-        return true;
-    }
 
     //change the name of Playlist
     public static synchronized boolean UP_Name_Playlist(String name,String IDP){//TODO CHECK
@@ -1043,10 +1094,16 @@ public class DataBaseManager {
 
     }
 
-    public static synchronized boolean UP_view_Playlist(String IDP){//TODO CHECK
+    public static synchronized boolean UP_view_vidoe(String IDV,String IDC){//TODO CHECK
+
         StartConnection();
-        String query = "UPDATE playList SET view=view+1  WHERE ID_Playlist='%s'";
-        query = String.format(query,IDP);
+
+       String category= getCategoryVideo(IDV);
+        UP_Trending(IDC,category,1);
+
+
+        String query = "UPDATE video SET view=view+1  WHERE ID_vidoe ='%s'";
+        query = String.format(query,IDV);
         try {
             statement.execute(query);
 
@@ -1059,17 +1116,34 @@ public class DataBaseManager {
         return true;
     }
 
+    public static synchronized String getCategoryVideo(String IDV){
+        String query = "SELECT  * From category_video WHERE ID_video='%s'";
+        query=String.format(query,IDV);
+        try {
+           ResultSet resultSet=    statement.executeQuery(query);
+           while (resultSet.next()){
+                return resultSet.getString("category");
+           }
+        }catch (SQLException e){
+            e.printStackTrace();
+        }finally {
+            EncConnection();
+        }
+        return null;
+    }
+
+
 
     /**
      * update comment
-     * @param Describe
-     * @param IDC
+     * @param newwitter
+     * @param witter
      * @return
      */
-    public static synchronized boolean UP_Describe_Comment(String Describe,String IDC){//TODO CHECK
+    public static synchronized boolean UP_witter_Comment(String newwitter,String witter){//TODO CHECK
         StartConnection();
-        String query = "UPDATE comment  SET wirter ='%s'  WHERE IDcommet = '%s'";
-        query = String.format(query,Describe,IDC);
+        String query = "UPDATE comment  SET wirter ='%s'  WHERE wirter = '%s'";
+        query = String.format(query,newwitter,witter);
         try {
             statement.execute(query);
         } catch (SQLException e) {
@@ -1110,10 +1184,43 @@ public class DataBaseManager {
             EncConnection();
         }
     }
-    public static boolean UP_Text_Comment(String IDU,String comment ){//check true
+    public static synchronized boolean UP_Like_Vidoe(String IDV,String IDC){//check  true
+        String category= getCategoryVideo(IDV);
+        UP_Trending(IDC,category,5);
+        StartConnection();
+
+        String query = "UPDATE vidoe  SET 'like' = 'like' + 1  WHERE ID_video = '%s'";
+        query = String.format(query,IDV);
+        try {
+            statement.execute(query);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }finally {
+            EncConnection();
+        }
+        return true;
+    }
+    public static synchronized boolean UP_DisLike_Vidoe(String IDV,String IDC){//check  true
+        String category= getCategoryVideo(IDV);
+        UP_Trending(IDC,category,2);
+        StartConnection();
+        String query = "UPDATE vidoe  SET Dis_Like = Dis_Like + 1  WHERE ID_video = '%s'";
+        query = String.format(query,IDV);
+        try {
+            statement.execute(query);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }finally {
+            EncConnection();
+        }
+        return true;
+    }
+    public static boolean UP_Comment_Comment(String IDC,String comment ){//check true
         StartConnection();
         String query = "UPDATE comment SET comment='%s' WHERE IDcommet = '%s'";
-        query=String.format(query,comment,IDU);
+        query=String.format(query,comment,IDC);
         try {
             statement.execute(query);
         } catch (SQLException e) {
@@ -1126,7 +1233,7 @@ public class DataBaseManager {
     }
     /** Update chanel */
 
-    public static synchronized boolean UP_Name_Channel(String IDC,String name){//TODO check
+    public static synchronized boolean UP_Name_Chanel(String IDC,String name){//TODO check
         StartConnection();
         String query = "UPDATE chanel SET Name='%s' WHERE ID_chanel = '%s'";
         query=String.format(query,name,IDC);
@@ -1144,7 +1251,7 @@ public class DataBaseManager {
     }
 
 
-    public static synchronized boolean UP_description_Channel(String information,String IDC){//TODO check it
+    public static synchronized boolean UP_information_Chanel(String information,String IDC){//TODO check it
         StartConnection();
         String query = "UPDATE chanel SET Name='%s' WHERE ID_chanel = '%s'";
         query=String.format(query,information,IDC);
@@ -1160,7 +1267,7 @@ public class DataBaseManager {
         }
         return true;
     }
-    public static synchronized boolean UP_Link_Channel(String Link,String IDC){//TODO Check it
+    public static synchronized boolean UP_Link_Chanel(String Link,String IDC){//TODO Check it
         StartConnection();
         String query = "UPDATE chanel SET Link = Link + '#%s' WHERE IDcommet = ?";
         try {
@@ -1195,11 +1302,12 @@ public class DataBaseManager {
      * check method
      */
 
+
+
     /**
      Search  in data base
      *
      */
-
     public static synchronized ArrayList<Video> SE_video (String Word,String Way){
         StartConnection();
         ArrayList<Video> Videos=new ArrayList<>();
@@ -1379,8 +1487,8 @@ public class DataBaseManager {
 
     public static synchronized boolean SA_playlist(String IDP,String IDU){//TODO check it
         StartConnection();
-        String query="INSERT INTO savePlaylist (ID_Playlist,ID_user) VALUSE ('%s','%s')";
-        query=String.format(query,IDP,IDU);
+        String query="INSERT INTO savePlaylist (IDUser,IDPalyList) VALUSE ('%s','%s')";
+        query=String.format(query,IDU,IDP);
 
         try {
             statement.execute(query);
@@ -1395,7 +1503,7 @@ public class DataBaseManager {
     }
     public static synchronized boolean SA_Video(String IDV,String IDU){//TODO check it
         StartConnection();
-        String query="INSERT INTO saveVidoe (ID_Playlist,ID_user) VALUSE ('%s','%s')";
+        String query="INSERT INTO saveVidoe (IDVideo,IDUser) VALUSE ('%s','%s')";
         query=String.format(query,IDV,IDU);
 
         try {
@@ -1414,25 +1522,85 @@ public class DataBaseManager {
      * udpate the taste table
      */
 
-    private static synchronized void VIEW_video(){
+
+
+
+    public static  synchronized boolean UP_Trending(String ID,String cat,int value){
+        StartConnection();
+        String query ="Update category_user set " + cat + " = " + cat + " +"+value +" Where IDChanel ='%s' " ;
+        query=String.format(query,ID,cat);
+    try{
+        statement.execute(query);
+
+    }catch (SQLException e){
+        e.printStackTrace();
+    }finally {
+        EncConnection();
+    }
+
+        return true;
+    }
+    public static  synchronized boolean ADD_Trending(String ID){
+        StartConnection();
+        String query ="INSERT into category_user (IDChanel,Sport,news,LifeStyle,Comedy,Education,Autosandveh,TravelandEvents,Gaming,Science_Technology,Other) " +
+                "VALUES  ('%s',0,0,0,0,0,0,0,0,0,0)" ;
+        query=String.format(query,ID);
+        try{
+            statement.execute(query);
+
+        }catch (SQLException e){
+            e.printStackTrace();
+        }finally {
+            EncConnection();
+        }
+
+        return true;
+    }
+
+    public static synchronized ArrayList<Integer> GE_intreest(String ID){
+        StartConnection();
+        ArrayList<Integer> interst=new ArrayList<>();
+        String query ="SELECT * From category_user where IDCahenl='%s'" ;
+        query=String.format(query,ID);
+        ResultSet resultSet;
+        try{
+           resultSet= statement.executeQuery(query);
+           while (resultSet.next()){
+               interst.add(resultSet.getInt("Sport"));
+               interst.add(resultSet.getInt("news"));
+               interst.add(resultSet.getInt("LifeStyle"));
+               interst.add(resultSet.getInt("Comedy"));
+               interst.add(resultSet.getInt("Education"));
+               interst.add(resultSet.getInt("Autosandveh"));
+               interst.add(resultSet.getInt("TravelandEvents"));
+               interst.add(resultSet.getInt("Gaming"));
+               interst.add(resultSet.getInt("Science_Technology"));
+               interst.add(resultSet.getInt("Other"));
+           }
+
+        }catch (SQLException e){
+            e.printStackTrace();
+        }finally {
+            EncConnection();
+        }
+
+        return interst;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     }
-    private static synchronized void Like_video(){
-
-    }
-    private static synchronized void DisLike_video(){
-
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-}
