@@ -2,6 +2,9 @@ package com.example.youtube.Server;
 
 import java.io.*;
 import java.net.Socket;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 public class Client {
     private static final int SERVER_PORT = 3000;
@@ -48,6 +51,87 @@ public class Client {
             socket.close();
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+    public boolean sendVideoBytes(String videoID) throws IOException {
+        File videoFile=new File(videoID+".mp4");
+        if (!videoFile.exists()) {
+            return false;
+        }
+        try(FileInputStream fileInputStream = new FileInputStream(videoFile);) {
+            byte[] buffer = new byte[4 * 1024];
+            int bytes;
+            out.writeLong(videoFile.length());
+            while ((bytes = fileInputStream.read(buffer))
+                    != -1) {
+                // Send the file to Server Socket
+                out.write(buffer, 0, bytes);
+                out.flush();
+            }
+            fileInputStream.close();
+            return true;
+        }catch (IOException e){
+            System.out.println(e.getMessage());
+            return false;
+        }
+    }
+    public boolean sendImageBytes(String imagePath) throws IOException {
+        Path path= Paths.get(imagePath);
+        if (!Files.exists(path)){
+            // if file doesn't exist
+            return false;
+        }
+        try {
+            byte[] buffer = Files.readAllBytes(path);
+            out.write(buffer);
+            out.flush();
+            return true;
+        }
+        catch (IOException e){
+            System.out.println(e.getMessage());
+            return false;
+        }
+    }
+    public boolean getVideoBytes(String videoID) throws IOException{
+        FileOutputStream fos = new FileOutputStream(videoID + ".mp4");
+        try {
+            long fileSize = in.readLong();
+            byte[] buffer = new byte[4*1024];
+            long totalBytesRead = 0;
+            int bytesRead;
+            while (totalBytesRead < fileSize && (bytesRead = in.read(buffer)) != -1) {
+                fos.write(buffer, 0, bytesRead);
+                totalBytesRead += bytesRead;
+            }
+            fos.flush();
+            return true;
+        }catch (IOException e){
+            System.out.println(e.getMessage());
+            return false;
+        }finally {
+            fos.close();
+        }
+    }
+    public boolean getImageBytes(String imageID) throws IOException{
+        FileOutputStream fos = new FileOutputStream(imageID + ".jpeg");
+        try {
+            int nRead;
+            ByteArrayOutputStream buffer=new ByteArrayOutputStream();
+            byte[] data=new byte[1024];
+            while((nRead = in.read(data,0,data.length)) != -1){
+                buffer.write(data,0,nRead);
+            }
+            buffer.flush();
+            byte[] image=buffer.toByteArray();
+            fos.write(image);
+            fos.flush();
+            return true;
+        }
+        catch (IOException e){
+            System.out.println(e.getMessage());
+            return false;
+        }finally {
+            fos.close();
         }
     }
 }

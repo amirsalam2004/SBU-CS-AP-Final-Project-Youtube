@@ -35,6 +35,17 @@ public class ClientHandler implements Runnable {
                     case "4":
                         response=updateApiService.handleRequest(request[1]);
                         break;
+                    case "5":
+                        getVideoBytes(request[1]);
+                        break;
+                    case "6":
+                        getImageBytes(request[1]);
+                        break;
+                    case "7":
+                        sendVideoBytes(request[1]);
+                        break;
+                    case "8":
+                        sendImageBytes(request[1]);
                     default:
                         response="0";
                         break;
