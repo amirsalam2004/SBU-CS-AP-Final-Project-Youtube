@@ -1,11 +1,13 @@
 package com.example.youtube;
 
 
+import com.example.youtube.Server.Client;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -27,8 +29,10 @@ import javafx.util.Duration;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-public class HelloController {
+public class HelloController{
     @FXML
     private Rectangle homeBackGround;
     @FXML
@@ -226,7 +230,11 @@ public class HelloController {
     }
 
     @FXML
-    public void initialize() {
+    public void initialize() throws IOException {
+
+        //Strat cilit
+        Client client=new Client("localhost");
+
         // SideBar Hovers
         Paint hoverColor, normalColor;
         if (mainField.getId().equals("1")) {
@@ -268,6 +276,15 @@ public class HelloController {
         videos.setVisible(true);
         explore.setVisible(false);
         closeAllPanes();
+//        get _image
+//        get list of video
+//        for(for each video get image of video
+
+//
+//
+//
+//
+
 
     }
 
@@ -491,4 +508,6 @@ public class HelloController {
             notLikedImg.setVisible(true);
         }
     }
+
+
 }

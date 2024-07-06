@@ -41,6 +41,17 @@ public class Client {
             return false;
         }
     }
+    public boolean sendRequest(int type,String body) throws  IOException{
+        try {
+            String request=type+"#"+body;
+            System.out.println("request is "+request);
+            out.writeUTF(request);
+            return true;
+        }catch (IOException e){
+            System.out.println(e.getMessage());
+            return false;
+        }
+    }
     public String getResponse() throws IOException{
         try {
             String input=in.readUTF();
@@ -84,16 +95,21 @@ public class Client {
             return false;
         }
     }
-    public boolean sendImageBytes(String imagePath) throws IOException {
-        Path path= Paths.get(imagePath);
-        if (!Files.exists(path)){
-            // if file doesn't exist
+    public boolean sendImageBytes(String imageID) throws IOException {
+        File imageFile=new File(imageID+".jpg");
+        if (!imageFile.exists()) {
             return false;
         }
-        try {
-            byte[] buffer = Files.readAllBytes(path);
-            out.write(buffer);
-            out.flush();
+        try(FileInputStream fileInputStream = new FileInputStream(imageFile)) {
+            byte[] buffer = new byte[4 * 1024];
+            int bytes;
+            out.writeLong(imageFile.length());
+            while ((bytes = fileInputStream.read(buffer)) != -1) {
+                // Send the file to Server Socket
+                out.write(buffer, 0, bytes);
+                out.flush();
+            }
+            fileInputStream.close();
             return true;
         }
         catch (IOException e){
@@ -122,17 +138,16 @@ public class Client {
         }
     }
     public boolean getImageBytes(String imageID) throws IOException{
-        FileOutputStream fos = new FileOutputStream(imageID + ".jpeg");
+        FileOutputStream fos = new FileOutputStream(imageID+ ".jpg");
         try {
-            int nRead;
-            ByteArrayOutputStream buffer=new ByteArrayOutputStream();
-            byte[] data=new byte[1024];
-            while((nRead = in.read(data,0,data.length)) != -1){
-                buffer.write(data,0,nRead);
+            long fileSize = in.readLong();
+            byte[] buffer = new byte[4*1024];
+            long totalBytesRead = 0;
+            int bytesRead;
+            while (totalBytesRead < fileSize && (bytesRead = in.read(buffer)) != -1) {
+                fos.write(buffer, 0, bytesRead);
+                totalBytesRead += bytesRead;
             }
-            buffer.flush();
-            byte[] image=buffer.toByteArray();
-            fos.write(image);
             fos.flush();
             return true;
         }
