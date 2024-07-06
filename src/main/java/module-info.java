@@ -1,7 +1,8 @@
 module com.example.youtube {
     requires javafx.controls;
     requires javafx.fxml;
-
+    requires javafx.media;
+    requires javafx.base;
     requires org.controlsfx.controls;
     requires com.dlsc.formsfx;
 //    requires net.synedra.validatorfx;
@@ -9,10 +10,9 @@ module com.example.youtube {
     requires java.sql;
     requires com.google.gson;
 
-//    opens java.time to com.google.gson;
-
     opens com.example.youtube to javafx.fxml;
     exports com.example.youtube;
-    opens com.example.youtube.Model to com.google.gson;
+    exports com.example.youtube.Controller;
+    opens com.example.youtube.Controller to javafx.fxml;
 
 }

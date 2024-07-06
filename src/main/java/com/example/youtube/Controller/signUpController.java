@@ -1,0 +1,201 @@
+package com.example.youtube.Controller;
+
+import com.example.youtube.HelloApplication;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.Group;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.stage.Stage;
+
+import java.io.IOException;
+import java.net.URL;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.ResourceBundle;
+import java.util.regex.Pattern;
+
+public class signUpController implements Initializable {
+    @FXML
+    private TextField emailField;
+    @FXML
+    private TextField passwordField;
+    @FXML
+    private TextField secondPasswordField;
+    private Stage stage = new Stage();
+    private Parent root;
+    @FXML
+    private Button endSignUp;
+
+    @FXML
+    private Label Passagain = new Label();
+    @FXML
+    private Button Continue = new Button();
+
+    @FXML
+    private Label email = new Label();
+
+    @FXML
+    private Label passWord = new Label();
+    @FXML
+    Button Sign_UP=new Button();
+    @FXML
+    Label emilCh = new Label();
+    @FXML
+    Group PASSCH = new Group();
+    String Email;
+    String password;
+    String country;
+    String Age ;
+    @FXML
+    Button Login=new Button();
+
+
+
+    @FXML
+    public void emailFieldClick() {
+        emailField.setStyle("-fx-border-color : #4de4ff; -fx-border-radius : 6; -fx-background-color:  #2C2829; -fx-text-inner-color : #ffff");
+        passwordField.setStyle("-fx-border-radius : 6; -fx-background-color :  #2C2829; -fx-border-color : #2C2829; -fx-text-inner-color : #ffff");
+        secondPasswordField.setStyle("-fx-border-radius : 6; -fx-background-color :  #2C2829; -fx-border-color : #2C2829; -fx-text-inner-color : #ffff");
+    }
+
+    @FXML
+    public void passwordFieldClick() {
+        passwordField.setStyle("-fx-border-radius : 6; -fx-background-color :  #2C2829; -fx-border-color :  #4de4ff; -fx-text-inner-color : #ffff");
+        emailField.setStyle("-fx-border-color : #2C2829; -fx-border-radius : 6; -fx-background-color:  #2C2829; -fx-text-inner-color : #ffff");
+        secondPasswordField.setStyle("-fx-border-radius : 6; -fx-background-color :  #2C2829; -fx-border-color : #2C2829; -fx-text-inner-color : #ffff");
+    }
+
+
+
+    @FXML
+    public void secondPasswordFieldClick() {
+        secondPasswordField.setStyle("-fx-border-radius : 6; -fx-background-color :  #2C2829; -fx-border-color :  #4de4ff; -fx-text-inner-color : #ffff");
+        emailField.setStyle("-fx-border-color : #2C2829; -fx-border-radius : 6; -fx-background-color:  #2C2829; -fx-text-inner-color : #ffff");
+        passwordField.setStyle("-fx-border-radius : 6; -fx-background-color :  #2C2829; -fx-border-color : #2C2829; -fx-text-inner-color : #ffff");
+    }
+
+    @FXML
+    public void endOfSignUp() {
+
+    }
+
+
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        Continue.setVisible(false);
+        System.out.println("123123");
+
+        endSignUp.setOnAction(e -> {
+//            System.out.println("123");
+
+            if (passwordField.getText().equals(passwordField.getText()) && passwordField.getText().length()>5 ) {//passWord Should be bigger than 5 length
+                if (validateEmailStrict(emailField.getText())) {
+                    System.out.println("qweqwe");
+                    if (UserEixst()) {
+                        System.out.println("123123123");
+                        Continue.setVisible(true);
+                        endSignUp.setVisible(false);
+                        passWord.setText("Age: ");
+                        email.setText("Country: ");
+                        Passagain.setVisible(true);
+                        secondPasswordField.setVisible(false);
+                        Passagain.setVisible(false);
+                        Email = emailField.getText();
+                        emailField.setText(" ");
+                        password = hashPasswordSHA256(passwordField.getText());
+                        passwordField.setText(" ");
+                    }
+                } else {
+                    emilCh.setVisible(true);
+                }
+            } else {
+                PASSCH.setAutoSizeChildren(true);
+            }
+        });
+
+
+        Continue.setOnAction(e -> {
+            Age=passwordField.getText();
+            country=emailField.getText();
+
+//                Create new user and send a request
+//
+//
+//
+//
+//
+//
+            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));//go to Home page
+            Scene scene = null;
+            try {
+                scene = new Scene(fxmlLoader.load(), 1190, 627);
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+            stage.setTitle("Youtube");
+            stage.setScene(scene);
+            stage.show();
+            Continue.getScene().getWindow().hide();
+        });
+
+        Login.setOnAction(e->{
+            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("login-view.fxml"));
+            Scene scene = null;
+            try {
+                scene = new Scene(fxmlLoader.load(), 1190, 627);
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+            stage.setTitle("Youtube");
+            stage.setScene(scene);
+            stage.show();
+            Login.getScene().getWindow().hide();
+        });
+
+
+
+
+    }
+
+    private boolean UserEixst() {//check user is existed or not
+        return true;
+    }
+
+
+
+    public static boolean validateEmailStrict(String email) {
+        String regexPattern = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$";
+        return Pattern.matches(regexPattern, email);
+    }
+
+
+
+
+
+    public static String hashPasswordSHA256 (String password){
+        try {
+            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+            byte[] hash = digest.digest(password.getBytes());
+            StringBuilder hexString = new StringBuilder();
+            for (byte b : hash) {
+                String hex = Integer.toHexString(0xFF & b);
+                if (hex.length() == 1) {
+                    hexString.append('0');
+                }
+                hexString.append(hex);
+            }
+            return hexString.toString();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+
+}
