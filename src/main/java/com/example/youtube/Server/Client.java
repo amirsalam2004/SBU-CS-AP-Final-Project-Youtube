@@ -1,9 +1,18 @@
 package com.example.youtube.Server;
 
+import com.example.youtube.Model.Channel;
+import com.example.youtube.Model.Comment;
+import com.example.youtube.Model.User;
+
 import java.io.*;
 import java.net.Socket;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import com.google.gson.Gson;
 
 public class Client {
+    private static final Gson gson = new Gson();
     private static final int SERVER_PORT = 3000;
     private final String SERVER_IP;
     private Socket socket;
@@ -51,6 +60,140 @@ public class Client {
             socket.close();
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+    public boolean sendVideoBytes(String videoID) throws IOException {
+        File videoFile=new File(videoID+".mp4");
+        if (!videoFile.exists()) {
+            return false;
+        }
+        try(FileInputStream fileInputStream = new FileInputStream(videoFile);) {
+            byte[] buffer = new byte[4 * 1024];
+            int bytes;
+            out.writeLong(videoFile.length());
+            while ((bytes = fileInputStream.read(buffer))
+                    != -1) {
+                // Send the file to Server Socket
+                out.write(buffer, 0, bytes);
+                out.flush();
+            }
+            fileInputStream.close();
+            return true;
+        }catch (IOException e){
+            System.out.println(e.getMessage());
+            return false;
+        }
+    }
+    public boolean sendImageBytes(String imagePath) throws IOException {
+        Path path= Paths.get(imagePath);
+        if (!Files.exists(path)){
+            // if file doesn't exist
+            return false;
+        }
+        try {
+            byte[] buffer = Files.readAllBytes(path);
+            out.write(buffer);
+            out.flush();
+            return true;
+        }
+        catch (IOException e){
+            System.out.println(e.getMessage());
+            return false;
+        }
+    }
+    public boolean getVideoBytes(String videoID) throws IOException{
+        FileOutputStream fos = new FileOutputStream(videoID + ".mp4");
+        try {
+            long fileSize = in.readLong();
+            byte[] buffer = new byte[4*1024];
+            long totalBytesRead = 0;
+            int bytesRead;
+            while (totalBytesRead < fileSize && (bytesRead = in.read(buffer)) != -1) {
+                fos.write(buffer, 0, bytesRead);
+                totalBytesRead += bytesRead;
+            }
+            fos.flush();
+            return true;
+        }catch (IOException e){
+            System.out.println(e.getMessage());
+            return false;
+        }finally {
+            fos.close();
+        }
+    }
+    public boolean getImageBytes(String imageID) throws IOException{
+        FileOutputStream fos = new FileOutputStream(imageID + ".jpeg");
+        try {
+            int nRead;
+            ByteArrayOutputStream buffer=new ByteArrayOutputStream();
+            byte[] data=new byte[1024];
+            while((nRead = in.read(data,0,data.length)) != -1){
+                buffer.write(data,0,nRead);
+            }
+            buffer.flush();
+            byte[] image=buffer.toByteArray();
+            fos.write(image);
+            fos.flush();
+            return true;
+        }
+        catch (IOException e){
+            System.out.println(e.getMessage());
+            return false;
+        }finally {
+            fos.close();
+        }
+    }
+    // this make a request to create a new user and return server response
+    public String addUserRequest(User user) throws IOException{
+        try {
+            String request="2#21#"+gson.toJson(user);
+            out.writeUTF(request);
+            String response=in.readUTF();
+            return response;
+        }catch (IOException e){
+            return "0";
+        }
+    }
+    // this make a request to create a new channel and return server response
+    public String addChannelRequest(Channel channel) throws IOException{
+        try {
+            String request="2#22#"+gson.toJson(channel);
+            out.writeUTF(request);
+            String response=in.readUTF();
+            return response;
+        }catch (IOException e){
+            return "0";
+        }
+    }
+    // this make a request to create a new comment and return server response
+    public String addCommentRequest(Comment comment) throws IOException{
+        try {
+            String request="2#23#"+gson.toJson(comment);
+            out.writeUTF(request);
+            String response=in.readUTF();
+            return response;
+        }catch (IOException e){
+            return "0";
+        }
+    }
+    public String getUserRequest(String email, String passWord) throws IOException {
+        try {
+            String request = "1#11#"+email+"#"+passWord;
+            out.writeUTF(request);
+            String response = in.readUTF();
+            return response;
+        } catch (IOException e) {
+            return "0";
+        }
+    }
+    public String getChannelrRequest(String identifier, int number) throws IOException {
+        try {
+            String request = "1#11#"+identifier+"#"+number;
+            out.writeUTF(request);
+            String response = in.readUTF();
+            return response;
+        } catch (IOException e) {
+            return "0";
         }
     }
 }
