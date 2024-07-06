@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="676.0" prefWidth="479.0" style="-fx-background-color: #2C2829;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.youtube.signUpController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="676.0" prefWidth="479.0" style="-fx-background-color: #2C2829;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.youtube.Controller.signUpController">
     <children>
         <ImageView fitHeight="93.0" fitWidth="356.0" layoutX="163.0" layoutY="39.0" pickOnBounds="true" preserveRatio="true">
             <image>
@@ -33,12 +33,12 @@
         </Label>
         <TextField fx:id="passwordField" layoutX="66.0" layoutY="356.0" onAction="#passwordFieldClick" onMouseClicked="#passwordFieldClick" prefHeight="42.0" prefWidth="333.0" style="-fx-border-radius: 6; -fx-background-color: #2C2829; -fx-text-inner-color: #ffffff;" />
         <Label layoutX="91.0" layoutY="338.0" text="Password" textFill="#4de4ff" />
-      <TextField fx:id="secondPasswordField" layoutX="66.0" layoutY="447.0" onAction="#secondPasswordFieldClick" onMouseClicked="#secondPasswordFieldClick" prefHeight="42.0" prefWidth="333.0" style="-fx-border-radius: 6; -fx-background-color: #2C2829; -fx-text-inner-color: #ffffff;" />
-      <Label layoutX="91.0" layoutY="429.0" text="Password again" textFill="#4de4ff" />
-      <Button fx:id="endSignUp" layoutX="348.0" layoutY="555.0" mnemonicParsing="false" onAction="#endOfSignUp" prefHeight="42.0" prefWidth="82.0" style="-fx-background-color: #4de4ff; -fx-background-radius: 15;" text="SignUp" textFill="#ff0b0b">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Button>
+        <TextField fx:id="secondPasswordField" layoutX="66.0" layoutY="447.0" onAction="#secondPasswordFieldClick" onMouseClicked="#secondPasswordFieldClick" prefHeight="42.0" prefWidth="333.0" style="-fx-border-radius: 6; -fx-background-color: #2C2829; -fx-text-inner-color: #ffffff;" />
+        <Label layoutX="91.0" layoutY="429.0" text="Password again" textFill="#4de4ff" />
+        <Button fx:id="endSignUp" layoutX="348.0" layoutY="555.0" mnemonicParsing="false" onAction="#endOfSignUp" prefHeight="42.0" prefWidth="82.0" style="-fx-background-color: #4de4ff; -fx-background-radius: 15;" text="SignUp" textFill="#ff0b0b">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </Button>
     </children>
 </AnchorPane>
