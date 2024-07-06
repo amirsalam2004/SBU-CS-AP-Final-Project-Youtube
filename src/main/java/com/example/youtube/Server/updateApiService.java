@@ -98,7 +98,7 @@ public class updateApiService {
     private static String editTextComment(String commentInfo) {
         try {
             String[] info=commentInfo.split("#",2);
-            if(DataBaseManager.UP_Text_Comment(info[0],info[1])) {
+            if(DataBaseManager.UP_Comment_Comment(info[0],info[1])) {
                 //If the changes are applied successfully, return 1
                 return "1";
             }
@@ -125,7 +125,7 @@ public class updateApiService {
     private static String editChannelName(String channelInfo) {
         try {
             String[] info=channelInfo.split("#",2);
-            if(DataBaseManager.UP_Name_Channel(info[0],info[1])) {
+            if(DataBaseManager.UP_Name_Chanel(info[0],info[1])) {
                 //If the changes are applied successfully, return 1
                 return "1";
             }
@@ -139,7 +139,7 @@ public class updateApiService {
     private static String editChannelDescription(String channelInfo) {
         try {
             String[] info=channelInfo.split("#",2);
-            if(DataBaseManager.UP_description_Channel(info[0],info[1])) {
+            if(DataBaseManager.UP_information_Chanel(info[0],info[1])) {
                 //If the changes are applied successfully, return 1
                 return "1";
             }
@@ -152,7 +152,7 @@ public class updateApiService {
     private static String editChannelLinks(String channelInfo) {
         try {
             String[] info=channelInfo.split("#",2);
-            if(DataBaseManager.UP_Link_Channel(info[0],info[1])) {
+            if(DataBaseManager.UP_Link_Chanel(info[0],info[1])) {
                 //If the changes are applied successfully, return 1
                 return "1";
             }
