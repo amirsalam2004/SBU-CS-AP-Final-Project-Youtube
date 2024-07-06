@@ -86,6 +86,8 @@ public class HelloController {
     private Label setting;
     @FXML
     private Label gaming;
+    @FXML
+    private Label exploreLabel;
 
     @FXML
     private AnchorPane mainField;
@@ -97,6 +99,12 @@ public class HelloController {
     private ScrollPane videos;
     @FXML
     private AnchorPane videoView;
+    @FXML
+    private AnchorPane playListsPane;
+    @FXML
+    private AnchorPane explore;
+    @FXML
+    private AnchorPane subscriptionPane;
 
     private boolean isSideBarOn = false;
     @FXML
@@ -240,25 +248,26 @@ public class HelloController {
                 trending, music, news, sports, podcast, setting, gaming
         };
         for (Rectangle rectangle : rectangles) {
+
             handleRectangleHover(rectangle, hoverColor, normalColor);
         }
         for (Label label : labels) {
             handleLabelHover(label, hoverColor, normalColor);
         }
+    }
 
-        // videos
-//        for (int i = 0; i < 5; i++) {
-//            VBox vBox = new VBox();
-//            HBox hBox = new HBox();
-//
-//            for (int j = 0; j < 4; j++) {
-//                ImageView imageView = new ImageView();
-//                hBox.getChildren().add(imageView);
-//            }
-//
-//            vBox.getChildren().add(hBox);
-//            videos.setContent(vBox);
-//        }
+    private void closeAllPanes() {
+        playListsPane.setVisible(false);
+        videoView.setVisible(false);
+        subscriptionPane.setVisible(false);
+        mediaPlayer.pause();
+    }
+
+    @FXML
+    protected void homeClick() {
+        videos.setVisible(true);
+        explore.setVisible(false);
+        closeAllPanes();
 
     }
 
@@ -266,7 +275,92 @@ public class HelloController {
     protected void settingClick() {
         sideBar.setVisible(false);
         settingSideBar.setVisible(true);
+        videos.setVisible(false);
+        videoView.setVisible(false);
+        explore.setVisible(false);
     }
+    @FXML
+    protected void playListsClick() {
+        playListsPane.setVisible(true);
+        videos.setVisible(false);
+        videoView.setVisible(false);
+        explore.setVisible(false);
+    }
+    @FXML
+    protected void trendingClick() {
+        explore.setVisible(true);
+        exploreLabel.setText("Trending");
+        videos.setVisible(false);
+        closeAllPanes();
+    }
+    @FXML
+    protected void musicClick() {
+        explore.setVisible(true);
+        exploreLabel.setText("Music");
+        videos.setVisible(false);
+        closeAllPanes();
+    }
+    @FXML
+    protected void gamingClick() {
+        explore.setVisible(true);
+        exploreLabel.setText("Gaming");
+        videos.setVisible(false);
+        closeAllPanes();
+    }
+    @FXML
+    protected void newsClick() {
+        explore.setVisible(true);
+        exploreLabel.setText("News");
+        videos.setVisible(false);
+        closeAllPanes();
+    }
+    @FXML
+    protected void sportsClick() {
+        explore.setVisible(true);
+        exploreLabel.setText("Sports");
+        videos.setVisible(false);
+        closeAllPanes();
+    }
+    @FXML
+    protected void podcastsClick() {
+        explore.setVisible(true);
+        exploreLabel.setText("Podcasts");
+        videos.setVisible(false);
+        closeAllPanes();
+        videoView.setVisible(false);
+        mediaPlayer.pause();
+    }
+
+    @FXML
+    protected void openVideoPage() {
+        playListsPane.setVisible(false);
+        videos.setVisible(false);
+        explore.setVisible(false);
+        videoView.setVisible(true);
+        mediaPlayer.pause();
+    }
+
+    @FXML
+    protected void subscriptionClick() {
+        subscriptionPane.setVisible(true);
+        playListsPane.setVisible(false);
+        videos.setVisible(false);
+        explore.setVisible(false);
+        playListsPane.setVisible(false);
+        videoView.setVisible(false);
+        mediaPlayer.pause();
+        subscriptionPane.setVisible(false);
+    }
+
+    @FXML
+    protected void addVideoClick() throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("addVideo.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 870, 520);
+        stage.setTitle("addVideo");
+        stage.setScene(scene);
+        stage.show();
+    }
+
 
     @FXML
     public void openSongMedia(ActionEvent event) {
@@ -368,13 +462,6 @@ public class HelloController {
                 platImg.setVisible(true);
             }
         }
-    }
-
-    // to open videoView Page
-    @FXML
-    public void imagesClick() {
-        videoView.setVisible(true);
-
     }
 
     @FXML

@@ -26,22 +26,22 @@
          </font>
       </Label>
       <TextField fx:id="emailField" layoutX="68.0" layoutY="248.0" onAction="#emailFieldClick" onMouseClicked="#emailFieldClick" prefHeight="42.0" prefWidth="333.0" style="-fx-border-radius: 6; -fx-background-color: #2C2829; -fx-text-inner-color: #ffff;" />
-      <Label alignment="CENTER" layoutX="75.0" layoutY="237.0" prefHeight="22.0" prefWidth="88.0" style="-fx-background-color: #2C2829;" text="Email or Phone" textFill="#4de4ff">
-         <font>
-            <Font size="9.0" />
-         </font>
-      </Label>
-      <TextField fx:id="passwordField" layoutX="68.0" layoutY="325.0" onAction="#passwordFieldClick" onMouseClicked="#passwordFieldClick" prefHeight="42.0" prefWidth="333.0" style="-fx-border-radius: 6; -fx-background-color: #2C2829; -fx-text-inner-color: #ffffff;" />
-      <Button fx:id="endLogin" layoutX="325.0" layoutY="529.0" mnemonicParsing="false" onAction="#endLogin" onMouseClicked="#endLogin" prefHeight="36.0" prefWidth="79.0" style="-fx-background-radius: 5; -fx-background-color: #27D7EC;" text="Next">
-         <font>
-            <Font size="15.0" />
-         </font>
-      </Button>
-      <Label fx:id="signUp" alignment="CENTER" layoutX="64.0" layoutY="529.0" onMouseClicked="#openSignUpMenu" prefHeight="36.0" prefWidth="110.0" text="Create account" textFill="#27d7ec">
+      <Label alignment="CENTER" layoutX="75.0" layoutY="237.0" prefHeight="22.0" prefWidth="88.0" style="-fx-background-color: #2C2829;" text="Email " textFill="#4de4ff">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
+      <TextField fx:id="passwordField" layoutX="68.0" layoutY="325.0" onAction="#passwordFieldClick" onMouseClicked="#passwordFieldClick" prefHeight="42.0" prefWidth="333.0" style="-fx-border-radius: 6; -fx-background-color: #2C2829; -fx-text-inner-color: #ffffff;" />
+      <Button fx:id="endLogin" layoutX="325.0" layoutY="529.0" mnemonicParsing="false" onMouseClicked="#endLogin" prefHeight="36.0" prefWidth="79.0" style="-fx-background-radius: 5; -fx-background-color: #2C2829;" text="Next" textFill="WHITE">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Button>
       <Label layoutX="93.0" layoutY="307.0" text="Password" textFill="#4de4ff" />
+      <Button fx:id="signUp" layoutX="39.0" layoutY="529.0" mnemonicParsing="false" onMouseClicked="#endLogin" prefHeight="36.0" prefWidth="139.0" style="-fx-background-radius: 5; -fx-background-color: #2C2829;" text="Create account" textFill="WHITE">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>
