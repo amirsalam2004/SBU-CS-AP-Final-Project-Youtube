@@ -107,15 +107,11 @@ public class HelloController {
     @FXML
     private ScrollPane videos;
     @FXML
-    private AnchorPane videoView;
-    @FXML
     private ScrollPane playListsPane;
     @FXML
     private ScrollPane explore;
     @FXML
     private ScrollPane subscriptionPane;
-    @FXML
-    private AnchorPane shortsPane;
     @FXML
     private ScrollPane notificationPane;
 
@@ -281,7 +277,6 @@ public class HelloController {
 
     private void closeAllPanes() {
         playListsPane.setVisible(false);
-        videoView.setVisible(false);
         subscriptionPane.setVisible(false);
         notificationPane.setVisible(false);
         HistoryPane.setVisible(false);
@@ -357,22 +352,10 @@ public class HelloController {
         exploreLabel.setText("Podcasts");
         videos.setVisible(false);
         closeAllPanes();
-        videoView.setVisible(false);
         if (mediaPlayer != null) {
             mediaPlayer.pause();
         }
         explore.setVisible(true);
-    }
-
-    @FXML
-    protected void openVideoPage() {
-        videos.setVisible(false);
-        explore.setVisible(false);
-        closeAllPanes();
-        videoView.setVisible(true);
-        if (mediaPlayer != null) {
-            mediaPlayer.pause();
-        }
     }
 
     @FXML
@@ -397,13 +380,11 @@ public class HelloController {
         if (mediaPlayer != null) {
             mediaPlayer.pause();
         }
-        shortsPane.setVisible(true);
     }
 
     @FXML
     public void notificationsClick() {
         sideBar.setVisible(false);
-        videoView.setVisible(false);
         explore.setVisible(false);
         closeAllPanes();
         notificationPane.setVisible(true);
@@ -599,5 +580,14 @@ public class HelloController {
             likedImg.setVisible(false);
             notLikedImg.setVisible(true);
         }
+    }
+
+    @FXML
+    public void openVideoPage() throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("videoView.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 870, 520);
+        stage.setTitle("addVideo");
+        stage.setScene(scene);
+        stage.show();
     }
 }
