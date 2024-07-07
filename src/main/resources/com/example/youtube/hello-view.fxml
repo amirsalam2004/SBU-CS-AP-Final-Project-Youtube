@@ -195,7 +195,7 @@
                   <Font size="19.0" />
                </font>
             </Label>
-            <Label fx:id="AddVideoClick" layoutX="14.0" layoutY="288.0" onMouseClicked="#addVideoClick" prefHeight="37.0" prefWidth="181.0" text="Add Video">
+            <Label layoutX="14.0" layoutY="288.0" onMouseClicked="#addVideoClick" prefHeight="37.0" prefWidth="181.0" text="Add Video">
                <font>
                   <Font size="19.0" />
                </font>
@@ -302,12 +302,12 @@
       </ImageView>
       <TextField layoutX="442.0" layoutY="16.0" prefHeight="17.0" prefWidth="393.0" promptText="Search" />
       <Button layoutX="300.0" layoutY="12.0" mnemonicParsing="false" onAction="#onHelloButtonClick" prefHeight="34.0" prefWidth="88.0" text="DarkModeCheck" />
-      <ImageView fitHeight="29.0" fitWidth="26.0" layoutX="907.0" layoutY="16.0" onMouseClicked="#notificationsClick" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="29.0" fitWidth="26.0" layoutX="1001.0" layoutY="15.0" onMouseClicked="#notificationsClick" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@Images/svgexport-14.png" />
          </image>
       </ImageView>
-      <Circle fill="DODGERBLUE" layoutX="988.0" layoutY="29.0" radius="19.0" stroke="BLACK" strokeType="INSIDE" />
+      <Circle fill="DODGERBLUE" layoutX="1073.0" layoutY="28.0" radius="19.0" stroke="BLACK" strokeType="INSIDE" />
       <ImageView fitHeight="37.0" fitWidth="66.0" layoutX="124.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@Images/unnamed.jpg" />
@@ -407,5 +407,10 @@
             </VBox>
          </TilePane>
       </ScrollPane>
+      <ImageView fitHeight="29.0" fitWidth="26.0" layoutX="952.0" layoutY="15.0" onMouseClicked="#addVideoClick" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@Images/svgexport-13%20(1).png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>
