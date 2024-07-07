@@ -44,7 +44,7 @@ public class Client {
     public boolean sendRequest(int type,String body) throws  IOException{
         try {
             String request=type+"#"+body;
-            System.out.println("request is "+request);
+            System.out.println("[REQUEST] = "+request);
             out.writeUTF(request);
             return true;
         }catch (IOException e){

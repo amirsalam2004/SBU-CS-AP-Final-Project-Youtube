@@ -570,7 +570,7 @@ public class DataBaseManager {
     public synchronized static boolean Cr_User(User user) {
 
         StartConnection();
-        String query = "INSERT INTO user (username, Email, passWord, IDuser, Time,Age, Contry) values ('%s','%s','%s','%s','%s','%s','%s')";
+        String query = "INSERT INTO user (username, Email, passWord, IDuser, Time,Age, Country) values ('%s','%s','%s','%s','%s','%s','%s')";
         LocalDate localDate = LocalDate.now();
 
         //TODO you can set time for user now or when create a user
@@ -592,16 +592,18 @@ public class DataBaseManager {
     public synchronized static  boolean Cr_Chanel(Channel channel) {
 
         StartConnection();
-        String query = "INSERT INTO chanel (ID_chanel,Name,information,image_Chanel,username,Image_Pro,Link) VALUES ('%s','%s','%s','%s','%s','%s','%s','%s')";
+        System.out.println("[INSERT CHANNEL ]");
+        String query = "INSERT INTO chanel (ID_chanel,Name,information,image_Chanel,username,Image_Pro,Link) VALUES ('%s','%s','%s','%s','%s','%s','%s')";
         query = String.format(query, channel.getId(), channel.getName(), channel.getDescription(), channel.getImage(), channel.getUsername(),channel.getImage_pro(),channel.getLink());
         try {
 
             statement.execute(query);
 
         } catch (SQLIntegrityConstraintViolationException e) {
+            System.out.println("We have it ");
             return false;
         } catch (Exception e) {
-            e.getMessage();
+            e.printStackTrace();
         }
 
 

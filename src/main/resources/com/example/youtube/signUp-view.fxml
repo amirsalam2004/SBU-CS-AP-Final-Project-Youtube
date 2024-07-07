@@ -26,7 +26,7 @@
                 <Label fx:id="Passagain" layoutX="25.0" layoutY="168.0" text="Password again" textFill="#4de4ff" />
             </children>
         </Group>
-        <Button fx:id="endSignUp" layoutX="348.0" layoutY="555.0" mnemonicParsing="false" onAction="#endOfSignUp" prefHeight="42.0" prefWidth="82.0" style="-fx-background-color: #2C2829; -fx-background-radius: 15;" text="SignUp" textFill="WHITE">
+        <Button fx:id="endSignUp" layoutX="348.0" layoutY="555.0" mnemonicParsing="false" onAction="#endOfSignUp" prefHeight="42.0" prefWidth="82.0" style="-fx-background-color: #2C2829; -fx-background-radius: 15;" text="next" textFill="WHITE">
             <font>
                 <Font size="18.0" />
             </font>

@@ -1,6 +1,11 @@
 package com.example.youtube.Controller;
 
 import com.example.youtube.HelloApplication;
+import com.example.youtube.HelloController;
+import com.example.youtube.Model.Channel;
+import com.example.youtube.Model.User;
+import com.example.youtube.Server.Client;
+import com.google.gson.Gson;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -16,7 +21,11 @@ import java.io.IOException;
 import java.net.URL;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Locale;
 import java.util.ResourceBundle;
+import java.util.UUID;
 import java.util.regex.Pattern;
 
 public class signUpController implements Initializable {
@@ -30,6 +39,7 @@ public class signUpController implements Initializable {
     private Parent root;
     @FXML
     private Button endSignUp;
+    Gson gson=new Gson();
 
     @FXML
     private Label Passagain = new Label();
@@ -53,6 +63,8 @@ public class signUpController implements Initializable {
     String Age ;
     @FXML
     Button Login=new Button();
+
+   public Client client;
 
 
 
@@ -89,16 +101,14 @@ public class signUpController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Continue.setVisible(false);
-        System.out.println("123123");
+        System.out.println("[START] SING_UP");
 
         endSignUp.setOnAction(e -> {
-//            System.out.println("123");
-
             if (passwordField.getText().equals(passwordField.getText()) && passwordField.getText().length()>5 ) {//passWord Should be bigger than 5 length
                 if (validateEmailStrict(emailField.getText())) {
-                    System.out.println("qweqwe");
+                    System.out.println("");
                     if (UserEixst()) {
-                        System.out.println("123123123");
+//                        System.out.println("123123123");
                         Continue.setVisible(true);
                         endSignUp.setVisible(false);
                         passWord.setText("Age: ");
@@ -123,25 +133,51 @@ public class signUpController implements Initializable {
         Continue.setOnAction(e -> {
             Age=passwordField.getText();
             country=emailField.getText();
+            LocalDateTime localDateTime=LocalDateTime.now();
+            UUID uuid=UUID.randomUUID();
+            String ID=uuid.toString();
+            ID=ID+"rouzbeh";//ID+Username=ID
 
-//                Create new user and send a request
-//
-//
-//
-//
-//
-//
-            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));//go to Home page
-            Scene scene = null;
+            User user=new User("rouzbeh",Email,localDateTime.toString(),password,country,ID,Age);//get username
+            Channel channel=new Channel(ID,"rouzbeh","l","rouzbeh",ID,"l","l");//get name and username
+
+            String request1=gson.toJson(channel);
+
+            String request=gson.toJson(user);
             try {
-                scene = new Scene(fxmlLoader.load(), 1190, 627);
+                System.out.println("[TRY ] ");
+                client.sendRequest(2,21,request);
+                System.out.println("[AFTER RESPONSE] ");
+
+                if (client.getResponse().equals("1")) {
+                    client.sendRequest(2,22,request1);
+                    if (client.getResponse().equals("1")) {
+                        System.out.println("[ACCEPT User AND channel] ");
+                        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));//go to Home page
+                        Scene scene = null;
+                        try {
+                            scene = new Scene(fxmlLoader.load(), 1190, 627);
+                        } catch (IOException ex) {
+                            throw new RuntimeException(ex);
+                        }
+                        HelloController helloController=fxmlLoader.getController();
+                        //insert user and channel and true
+                        helloController.user=user;
+                        helloController.channel=channel ;
+                        helloController.loginOn=true;
+                        stage.setTitle("Youtube");
+                        stage.setScene(scene);
+                        stage.show();
+                    } else {
+                        System.out.println("[ADD CHANNEL ] FAIL");
+                    }
+            }else {
+                    System.out.println("[ADD USER] FAIL");
+            }
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
             }
-            stage.setTitle("Youtube");
-            stage.setScene(scene);
-            stage.show();
-            Continue.getScene().getWindow().hide();
+
         });
 
         Login.setOnAction(e->{
@@ -164,6 +200,9 @@ public class signUpController implements Initializable {
     }
 
     private boolean UserEixst() {//check user is existed or not
+
+
+        //check use exist or not
         return true;
     }
 

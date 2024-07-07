@@ -10,7 +10,6 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.media.MediaView?>
-<?import javafx.scene.shape.Circle?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
@@ -340,7 +339,6 @@
             <Image url="@Images/icon.jpeg" />
          </image>
       </ImageView>
-      <Circle fill="DODGERBLUE" layoutX="1080.0" layoutY="33.0" radius="19.0" stroke="BLACK" strokeType="INSIDE" />
       <AnchorPane fx:id="subscriptionPane" layoutX="262.0" layoutY="56.0" prefHeight="562.0" prefWidth="906.0" visible="false">
          <children>
             <Label alignment="CENTER" layoutY="8.0" prefHeight="78.0" prefWidth="234.0" text="Newest">
@@ -364,5 +362,6 @@
             </HBox>
          </children>
       </AnchorPane>
+      <Button fx:id="login" layoutX="1054.0" layoutY="18.0" mnemonicParsing="false" text="Button" />
    </children>
 </AnchorPane>
