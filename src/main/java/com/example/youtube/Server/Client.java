@@ -1,14 +1,15 @@
 package com.example.youtube.Server;
 
-import com.example.youtube.Model.Channel;
-import com.example.youtube.Model.Comment;
-import com.example.youtube.Model.User;
-
+import com.example.youtube.Model.*;
+import com.google.gson.reflect.TypeToken;
+import java.lang.reflect.Type;
 import java.io.*;
 import java.net.Socket;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+
 import com.google.gson.Gson;
 
 public class Client {
@@ -158,57 +159,262 @@ public class Client {
             fos.close();
         }
     }
-    // this make a request to create a new user and return server response
-    public String addUserRequest(User user) throws IOException{
-        try {
-            String request="2#21#"+gson.toJson(user);
-            out.writeUTF(request);
-            String response=in.readUTF();
-            return response;
-        }catch (IOException e){
-            return "0";
-        }
-    }
-    // this make a request to create a new channel and return server response
-    public String addChannelRequest(Channel channel) throws IOException{
-        try {
-            String request="2#22#"+gson.toJson(channel);
-            out.writeUTF(request);
-            String response=in.readUTF();
-            return response;
-        }catch (IOException e){
-            return "0";
-        }
-    }
-    // this make a request to create a new comment and return server response
-    public String addCommentRequest(Comment comment) throws IOException{
-        try {
-            String request="2#23#"+gson.toJson(comment);
-            out.writeUTF(request);
-            String response=in.readUTF();
-            return response;
-        }catch (IOException e){
-            return "0";
-        }
-    }
-    public String getUserRequest(String email, String passWord) throws IOException {
+
+    public User getUserRequest(String email, String passWord) throws IOException {
         try {
             String request = "1#11#"+email+"#"+passWord;
             out.writeUTF(request);
             String response = in.readUTF();
-            return response;
+            return gson.fromJson(response,User.class);
         } catch (IOException e) {
-            return "0";
+            System.out.println(e.getMessage());
+            return null;
         }
     }
-    public String getChannelrRequest(String identifier, int number) throws IOException {
+    public Channel getChannelRequest(String identifier, int number) throws IOException {
         try {
-            String request = "1#11#"+identifier+"#"+number;
+            String request = "1#12#"+identifier+"#"+number;
             out.writeUTF(request);
             String response = in.readUTF();
-            return response;
+            return gson.fromJson(response, Channel.class);
         } catch (IOException e) {
-            return "0";
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
+    public ArrayList<Comment> getVideoCommentsRequest(String videoID) throws IOException {
+        try {
+            String request = "1#13#"+videoID;
+            out.writeUTF(request);
+            String response = in.readUTF();
+            Type listType = new TypeToken<ArrayList<Comment>>() {}.getType();
+            return gson.fromJson(response, listType);
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
+    public ArrayList<Comment> getChannelCommentsRequest(String channelID) throws IOException {
+        try {
+            String request = "1#14#"+channelID;
+            out.writeUTF(request);
+            String response = in.readUTF();
+            Type listType = new TypeToken<ArrayList<Comment>>() {}.getType();
+            return gson.fromJson(response, listType);
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
+    public ArrayList<Comment> getUserCommentsRequest(String userID) throws IOException {
+        try {
+            String request = "1#15#"+userID;
+            out.writeUTF(request);
+            String response = in.readUTF();
+            Type listType = new TypeToken<ArrayList<Comment>>() {}.getType();
+            return gson.fromJson(response, listType);
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
+    public ArrayList<PlayList> getChannelPlaylistsRequest(String chennalID) throws IOException {
+        try {
+            String request = "1#16#"+chennalID;
+            out.writeUTF(request);
+            String response = in.readUTF();
+            Type listType = new TypeToken<ArrayList<PlayList>>() {}.getType();
+            return gson.fromJson(response, listType);
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
+    public ArrayList<Video> getChannelVideosRequest(String channelID) throws IOException {
+        try {
+            String request = "1#17#"+channelID;
+            out.writeUTF(request);
+            String response = in.readUTF();
+            Type listType = new TypeToken<ArrayList<Video>>() {}.getType();
+            return gson.fromJson(response, listType);
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
+    public ArrayList<Video> getPlaylistVideosRequest(String plsylistID) throws IOException {
+        try {
+            String request = "1#18#"+plsylistID;
+            out.writeUTF(request);
+            String response = in.readUTF();
+            Type listType = new TypeToken<ArrayList<Video>>() {}.getType();
+            return gson.fromJson(response, listType);
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
+    public ArrayList<Video> getVideosByCategoryRequest(String categoryID) throws IOException {
+        try {
+            String request = "1#19#"+categoryID;
+            out.writeUTF(request);
+            String response = in.readUTF();
+            Type listType = new TypeToken<ArrayList<Video>>() {}.getType();
+            return gson.fromJson(response, listType);
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
+    public ArrayList<Video> getSavedVideosRequest(String userID) throws IOException {
+        try {
+            String request = "1#110#"+userID;
+            out.writeUTF(request);
+            String response = in.readUTF();
+            Type listType = new TypeToken<ArrayList<Video>>() {}.getType();
+            return gson.fromJson(response, listType);
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
+    public ArrayList<Video> getVideoHistoryRequest(String userID) throws IOException {
+        try {
+            String request = "1#110#"+userID;
+            out.writeUTF(request);
+            String response = in.readUTF();
+            Type listType = new TypeToken<ArrayList<Video>>() {}.getType();
+            return gson.fromJson(response, listType);
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
+    public ArrayList<Video> getVideoByRandomCategoryRequest(int numVideos,String userID) throws IOException {
+        try {
+            String request = "1#110#"+numVideos+"#"+userID;
+            out.writeUTF(request);
+            String response = in.readUTF();
+            Type listType = new TypeToken<ArrayList<Video>>() {}.getType();
+            return gson.fromJson(response, listType);
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
+
+
+
+    //TODO get folowers
+
+
+
+
+    //TODO get follwing
+
+
+/***
+ * add request methods
+ */
+// this make a request to create a new user and return server response
+public Boolean addUserRequest(User user) throws IOException{
+    try {
+        String request="2#21#"+gson.toJson(user);
+        out.writeUTF(request);
+        String response=in.readUTF();
+        if(response.equals("1"))
+            return true;
+        else
+            return false;
+    }catch (IOException e){
+        System.out.println(e.getMessage());
+        return false;
+    }
+}
+    // this make a request to create a new channel and return server response
+    public boolean addChannelRequest(Channel channel) throws IOException{
+        try {
+            String request="2#22#"+gson.toJson(channel);
+            out.writeUTF(request);
+            String response=in.readUTF();
+            if(response.equals("1"))
+                return true;
+            else
+                return false;
+        }catch (IOException e){
+            System.out.println(e.getMessage());
+            return false;
+        }
+    }
+    // this make a request to create a new comment and return server response
+    public boolean addCommentRequest(Comment comment) throws IOException{
+        try {
+            String request="2#23#"+gson.toJson(comment);
+            out.writeUTF(request);
+            String response=in.readUTF();
+            if(response.equals("1"))
+                return true;
+            else
+                return false;
+        }catch (IOException e){
+            System.out.println(e.getMessage());
+            return false;
+        }
+    }
+    public boolean addPlaylistRequest(PlayList playList) throws IOException{
+        try {
+            String request="2#24#"+gson.toJson(playList);
+            out.writeUTF(request);
+            String response=in.readUTF();
+            if(response.equals("1"))
+                return true;
+            else
+                return false;
+        }catch (IOException e){
+            System.out.println(e.getMessage());
+            return false;
+        }
+    }
+    public boolean addVideoRequest(Video video) throws IOException{
+        try {
+            String request="2#25#"+gson.toJson(video);
+            out.writeUTF(request);
+            String response=in.readUTF();
+            if(response.equals("1"))
+                return true;
+            else
+                return false;
+        }catch (IOException e){
+            System.out.println(e.getMessage());
+            return false;
+        }
+    }
+    public boolean addVideoToHistoryRequest(String videoID, String userID) throws IOException{
+        try {
+            String request="2#26#"+videoID+"#"+userID;
+            out.writeUTF(request);
+            String response=in.readUTF();
+            if(response.equals("1"))
+                return true;
+            else
+                return false;
+        }catch (IOException e){
+            System.out.println(e.getMessage());
+            return false;
+        }
+    }
+    public boolean addFollowerOrFollowingRequest(String videoID, String userID) throws IOException{
+        try {
+            String request="2#26#"+videoID+"#"+userID;
+            out.writeUTF(request);
+            String response=in.readUTF();
+            if(response.equals("1"))
+                return true; //TODO
+            else
+                return false;
+        }catch (IOException e){
+            System.out.println(e.getMessage());
+            return false;
         }
     }
 }

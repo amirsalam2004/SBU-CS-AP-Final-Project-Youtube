@@ -16,7 +16,6 @@ public class getApiService {
         String[] parts = request.split("#", 2);
         String endpoint = parts[0];
         String body = parts.length > 1 ? parts[1] : "";
-
         switch (endpoint) {
             case "11":
                 return getUser(body);
@@ -36,6 +35,14 @@ public class getApiService {
                 return getplaylistVideos(body);
             case "19":
                 return getVideosByCategory(body);
+            case "110":
+                return getSavedVideos(body);
+            case "111":
+                return getSavedPlaylists(body);
+            case "112":
+                return getVideoByRandomCategory(body);
+            case "113":
+                return getVideoHistory(body);
             default:
                 return gson.toJson(new ErrorResponse("Unknown endpoint"));
         }
@@ -45,7 +52,7 @@ public class getApiService {
         try {
             String[] info=userInfo.split("#",2);
             User user = DataBaseManager.get_User(info[0],info[1]);
-            String response="1#"+gson.toJson(user);
+            String response=gson.toJson(user);
             return response;
         }catch (Exception e){
             return ("0");
@@ -56,7 +63,7 @@ public class getApiService {
         try {
             String[] info=channelInfo.split("#",2);
             Channel channel=DataBaseManager.get_Channel(info[0],Integer.parseInt(info[1]));
-            String response="1#"+gson.toJson(channel);
+            String response=gson.toJson(channel);
             return response;
         }catch (Exception E){
             return ("0");
@@ -66,7 +73,7 @@ public class getApiService {
     private static String getVideoComments(String videoInfo) {
         try {
             ArrayList<Comment> comments=DataBaseManager.getListComment(videoInfo);
-            String response="1#"+gson.toJson(comments);
+            String response=gson.toJson(comments);
             return response;
         }catch (Exception e){
             return ("0");
@@ -76,7 +83,7 @@ public class getApiService {
     private static String getChannelComments(String channelInfo) {
         try {
             ArrayList<Comment> comments=DataBaseManager.getListComment_userGet(channelInfo);
-            String response="1#"+gson.toJson(comments);
+            String response=gson.toJson(comments);
             return response;
         }catch (Exception e){
             return ("0");
@@ -86,7 +93,7 @@ public class getApiService {
     private static String getUserComments(String userInfo) {
         try {
             ArrayList<Comment> comments=DataBaseManager.getListCommentUser(userInfo);
-            String response="1#"+gson.toJson(comments);
+            String response=gson.toJson(comments);
             return response;
         }catch (Exception e){
             return ("0");
@@ -96,7 +103,7 @@ public class getApiService {
     private static String getChannelPlaylists(String channelInfo) {
         try {
             ArrayList<PlayList> playLists=DataBaseManager.getPlayList(channelInfo);
-            String response="1#"+gson.toJson(playLists);
+            String response=gson.toJson(playLists);
             return response;
         }catch (Exception e){
             return ("0");
@@ -106,7 +113,7 @@ public class getApiService {
     private static String getChannelVideos(String channelInfo) {
         try {
             ArrayList<Video> videos=DataBaseManager.getList_video(channelInfo);
-            String response="1#"+gson.toJson(videos);
+            String response=gson.toJson(videos);
             return response;
         }catch (Exception e){
             return ("0");
@@ -115,7 +122,7 @@ public class getApiService {
     private static String getplaylistVideos(String playlistInfo) {
         try {
             ArrayList<Video> videos=DataBaseManager.getListVideoInPlayList(playlistInfo);
-            String response="1#"+gson.toJson(videos);
+            String response=gson.toJson(videos);
             return response;
         }catch (Exception e){
             return ("0");
@@ -124,12 +131,69 @@ public class getApiService {
     private static String getVideosByCategory(String categoryInfo) {
         try {
             ArrayList<Video> videos=DataBaseManager.getListVideoByCategory(categoryInfo);
-            String response="1#"+gson.toJson(videos);
+            String response=gson.toJson(videos);
             return response;
         }catch (Exception e){
             return ("0");
         }
     }
+    private static String getSavedVideos(String userInfo) {
+        try {
+            ArrayList<Video> videos=DataBaseManager.getlistVideoSave(userInfo);
+            String response=gson.toJson(videos);
+            return response;
+        }catch (Exception e){
+            return ("0");
+        }
+    }
+    private static String getSavedPlaylists(String userInfo) {
+        try {
+            ArrayList<PlayList> plylists=DataBaseManager.getListPlayListSave(userInfo);
+            String response=gson.toJson(plylists);
+            return response;
+        }catch (Exception e){
+            return ("0");
+        }
+    }
+    private static String getVideoHistory(String userInfo) {
+        try {
+            ArrayList<Video> videos=DataBaseManager.getListVideoInHistory(userInfo);
+            String response=gson.toJson(videos);
+            return response;
+        }catch (Exception e){
+            return ("0");
+        }
+    }
+    private static String getVideoByRandomCategory(String categoryInfo) {
+        try {
+            String[] info=categoryInfo.split("#",2);
+            ArrayList<Video> videos=DataBaseManager.getListVideoByCategoryRandom(Integer.parseInt(info[0]),info[1]);
+            String response=gson.toJson(videos);
+            return response;
+        }catch (Exception e){
+            return ("0");
+        }
+    }
+
+
+
+
+
+    //TODO get following
+
+
+
+
+
+
+    //TODO get followers
+
+
+
+
+
+
+
 
     private static class ErrorResponse {
         private String message;

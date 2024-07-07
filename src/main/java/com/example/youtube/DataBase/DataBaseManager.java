@@ -425,6 +425,7 @@ public class DataBaseManager {
         return videos;
     }
     public static synchronized ArrayList<Video> getListVideoByCategoryRandom(int numVideos,String ID ) {//TODO cehck
+                                                                                                        //TODO change channel ID TO user iD
         ArrayList<Integer>valus=new ArrayList<>();
         ArrayList<Video> videos = new ArrayList<>();
         ArrayList<String>category=new ArrayList<>(Arrays.asList("Sport","news","LifeStyle","Comedy"
@@ -514,7 +515,7 @@ public class DataBaseManager {
 
     //who follow you
     public static synchronized ArrayList<Channel> following(String IDC){//TODO check
-
+                                                                        //TODO change Channel ID to User ID
         ArrayList<Channel>chanels=new ArrayList<>();
         StartConnection();
 
