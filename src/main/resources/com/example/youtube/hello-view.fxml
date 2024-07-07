@@ -28,13 +28,13 @@
             <Rectangle fx:id="gamingBackGround" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="37.0" layoutY="377.0" onMouseClicked="#gamingClick" stroke="WHITE" strokeType="INSIDE" style="-fx-arc-width: 30; -fx-arc-height: 30;" width="197.0" />
             <Rectangle fx:id="musicBackGround" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="37.0" layoutX="5.0" layoutY="346.0" onMouseClicked="#musicClick" stroke="WHITE" strokeType="INSIDE" style="-fx-arc-width: 30; -fx-arc-height: 30;" width="197.0" />
             <Rectangle fx:id="TrendingBackGround" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="37.0" layoutX="-1.0" layoutY="313.0" onMouseClicked="#trendingClick" stroke="WHITE" strokeType="INSIDE" style="-fx-arc-width: 30; -fx-arc-height: 30;" width="197.0" />
-            <Rectangle fx:id="likedVideosBackGround" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="37.0" layoutY="239.0" stroke="WHITE" strokeType="INSIDE" style="-fx-arc-width: 30; -fx-arc-height: 30;" width="197.0" />
-            <Rectangle fx:id="watchLaterBackGround" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="37.0" layoutX="-1.0" layoutY="201.0" stroke="WHITE" strokeType="INSIDE" style="-fx-arc-width: 30; -fx-arc-height: 30;" width="197.0" />
+            <Rectangle fx:id="likedVideosBackGround" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="37.0" layoutY="239.0" onMouseClicked="#likedVideoClick" stroke="WHITE" strokeType="INSIDE" style="-fx-arc-width: 30; -fx-arc-height: 30;" width="197.0" />
+            <Rectangle fx:id="watchLaterBackGround" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="37.0" layoutX="-1.0" layoutY="201.0" onMouseClicked="#watchLaterClick" stroke="WHITE" strokeType="INSIDE" style="-fx-arc-width: 30; -fx-arc-height: 30;" width="197.0" />
             <Rectangle fx:id="playListsBackGround" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="37.0" layoutY="165.0" onMouseClicked="#playListsClick" stroke="WHITE" strokeType="INSIDE" style="-fx-arc-width: 30; -fx-arc-height: 30;" width="197.0" />
-            <Rectangle fx:id="shortBackGround" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="37.0" layoutX="-1.0" layoutY="45.0" onMouseClicked="#shortsClick" stroke="WHITE" strokeType="INSIDE" style="-fx-arc-width: 30; -fx-arc-height: 30;" width="197.0" />
+            <Rectangle fx:id="shortBackGround" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="37.0" layoutX="-1.0" layoutY="45.0" stroke="WHITE" strokeType="INSIDE" style="-fx-arc-width: 30; -fx-arc-height: 30;" width="197.0" />
             <Rectangle fx:id="homeBackGround" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="37.0" layoutY="9.0" onMouseClicked="#homeClick" stroke="WHITE" strokeType="INSIDE" style="-fx-arc-width: 30; -fx-arc-height: 30; -fx-fill: #CBC6C6;" width="197.0" />
             <Rectangle fx:id="subscriptionBackGround" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="37.0" layoutX="-1.0" layoutY="78.0" onMouseClicked="#subscriptionClick" stroke="WHITE" strokeType="INSIDE" style="-fx-arc-width: 30; -fx-arc-height: 30;" width="197.0" />
-            <Rectangle fx:id="historyBackGround" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="37.0" layoutY="130.0" stroke="WHITE" strokeType="INSIDE" style="-fx-arc-width: 30; -fx-arc-height: 30;" width="197.0" />
+            <Rectangle fx:id="historyBackGround" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="37.0" layoutY="130.0" onMouseClicked="#historyClick" stroke="WHITE" strokeType="INSIDE" style="-fx-arc-width: 30; -fx-arc-height: 30;" width="197.0" />
             <ImageView fitHeight="26.0" fitWidth="26.0" layoutX="13.0" layoutY="481.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@Images/svgexport-35.png" />
@@ -77,7 +77,7 @@
             <Label fx:id="history" layoutX="66.0" layoutY="135.0" prefHeight="26.0" prefWidth="65.0" text="History" />
             <Label fx:id="podcast" layoutX="66.0" layoutY="481.0" onMouseClicked="#podcastsClick" prefHeight="26.0" prefWidth="65.0" text="Podcasts" />
             <Label fx:id="likedVideos" layoutX="66.0" layoutY="245.0" prefHeight="26.0" prefWidth="65.0" text="Liked videos" />
-            <Label fx:id="watchLater" layoutX="66.0" layoutY="206.0" prefHeight="26.0" prefWidth="65.0" text="Watch later" />
+            <Label fx:id="watchLater" layoutX="66.0" layoutY="206.0" onMouseClicked="#watchLaterClick" prefHeight="26.0" prefWidth="65.0" text="Watch later" />
             <ImageView fitHeight="26.0" fitWidth="26.0" layoutX="13.0" layoutY="318.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@Images/svgexport-29.png" />
@@ -279,18 +279,6 @@
 <!--            <VBox fx:id="mainV12" prefHeight="320.0" prefWidth="309.0" style="-fx-background-color: black" />-->
          </TilePane>
       </ScrollPane>
-      <AnchorPane fx:id="shortsPane" layoutX="254.0" layoutY="56.0" prefHeight="552.0" prefWidth="918.0" visible="false">
-         <children>
-            <Label alignment="CENTER" layoutX="21.0" layoutY="14.0" prefHeight="78.0" prefWidth="268.0" text="Shorts">
-               <font>
-                  <Font size="60.0" />
-               </font>
-            </Label>
-            <ImageView fitHeight="352.0" fitWidth="242.0" layoutX="58.0" layoutY="136.0" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fitHeight="352.0" fitWidth="242.0" layoutX="338.0" layoutY="136.0" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fitHeight="352.0" fitWidth="242.0" layoutX="634.0" layoutY="136.0" pickOnBounds="true" preserveRatio="true" />
-         </children>
-      </AnchorPane>
       <ImageView fitHeight="26.0" fitWidth="46.0" layoutX="56.0" layoutY="16.0" onMouseClicked="#sideBarBtnClick" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@Images/iconmonstr-line-three-horizontal-lined-240.png" />
@@ -414,5 +402,95 @@
          </image>
       </ImageView>
       <ChoiceBox fx:id="searchFilter" layoutX="848.0" layoutY="16.0" prefHeight="24.0" prefWidth="88.0" />
+      <ScrollPane fx:id="HistoryPane" layoutX="254.0" layoutY="56.0" prefHeight="562.0" prefWidth="918.0" visible="false">
+         <TilePane fx:id="historyContainer" hgap="15" prefHeight="531.0" prefWidth="851.0" vgap="20">
+            <Label alignment="CENTER" prefHeight="74.0" prefWidth="232.0" text="History">
+               <font>
+                  <Font size="45.0" />
+               </font>
+            </Label>
+            <VBox prefHeight="320.0" prefWidth="309.0" style="-fx-background-color: red">
+               <ImageView fitHeight="191.0" fitWidth="261.0" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                     <Image url="@Images/hhh.png" />
+                  </image>
+               </ImageView>
+               <Label alignment="CENTER" prefHeight="45.0" prefWidth="264.0" text="Title">
+                  <font>
+                     <Font size="37.0" />
+                  </font>
+               </Label>
+               <Label alignment="CENTER" prefHeight="45.0" prefWidth="266.0" text="ChanelName">
+                  <font>
+                     <Font size="37.0" />
+                  </font>
+               </Label>
+            </VBox>
+         </TilePane>
+      </ScrollPane>
+      <ScrollPane fx:id="watchLaterPane" layoutX="264.0" layoutY="66.0" prefHeight="562.0" prefWidth="918.0" visible="false">
+         <content>
+            <TilePane fx:id="watchLaterContainer" hgap="15" prefHeight="531.0" prefWidth="851.0" vgap="20">
+               <children>
+                  <Label alignment="CENTER" prefHeight="74.0" prefWidth="232.0" text="WatchLater">
+                     <font>
+                        <Font size="45.0" />
+                     </font>
+                  </Label>
+                  <VBox prefHeight="320.0" prefWidth="309.0" style="-fx-background-color: red">
+                     <children>
+                        <ImageView fitHeight="191.0" fitWidth="261.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@Images/hhh.png" />
+                           </image>
+                        </ImageView>
+                        <Label alignment="CENTER" prefHeight="45.0" prefWidth="264.0" text="Title">
+                           <font>
+                              <Font size="37.0" />
+                           </font>
+                        </Label>
+                        <Label alignment="CENTER" prefHeight="45.0" prefWidth="266.0" text="ChanelName">
+                           <font>
+                              <Font size="37.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </VBox>
+               </children>
+            </TilePane>
+         </content>
+      </ScrollPane>
+      <ScrollPane fx:id="likedVideoPane" layoutX="274.0" layoutY="76.0" prefHeight="562.0" prefWidth="918.0" visible="false">
+         <content>
+            <TilePane fx:id="likedVideoContainer" hgap="15" prefHeight="531.0" prefWidth="851.0" vgap="20">
+               <children>
+                  <Label alignment="CENTER" prefHeight="74.0" prefWidth="232.0" text="LikedVideo">
+                     <font>
+                        <Font size="45.0" />
+                     </font>
+                  </Label>
+                  <VBox prefHeight="320.0" prefWidth="309.0" style="-fx-background-color: red">
+                     <children>
+                        <ImageView fitHeight="191.0" fitWidth="261.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@Images/hhh.png" />
+                           </image>
+                        </ImageView>
+                        <Label alignment="CENTER" prefHeight="45.0" prefWidth="264.0" text="Title">
+                           <font>
+                              <Font size="37.0" />
+                           </font>
+                        </Label>
+                        <Label alignment="CENTER" prefHeight="45.0" prefWidth="266.0" text="ChanelName">
+                           <font>
+                              <Font size="37.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </VBox>
+               </children>
+            </TilePane>
+         </content>
+      </ScrollPane>
    </children>
 </AnchorPane>

@@ -33,6 +33,11 @@ public class HelloController {
     public TilePane container;
     public TilePane playListsContainer;
     public TilePane subscriptionContainer;
+    public TilePane historyContainer;
+    public ScrollPane HistoryPane;
+    public TilePane watchLaterContainer;
+    public ScrollPane watchLaterPane;
+    public ScrollPane likedVideoPane;
     @FXML
     private Rectangle homeBackGround;
     @FXML
@@ -278,8 +283,10 @@ public class HelloController {
         playListsPane.setVisible(false);
         videoView.setVisible(false);
         subscriptionPane.setVisible(false);
-        shortsPane.setVisible(false);
         notificationPane.setVisible(false);
+        HistoryPane.setVisible(false);
+        watchLaterPane.setVisible(false);
+        likedVideoPane.setVisible(false);
         if (mediaPlayer != null) {
             mediaPlayer.pause();
         }
@@ -296,21 +303,19 @@ public class HelloController {
     @FXML
     protected void settingClick() {
         sideBar.setVisible(false);
+        closeAllPanes();
         settingSideBar.setVisible(true);
         videos.setVisible(false);
-        videoView.setVisible(false);
         explore.setVisible(false);
-        notificationPane.setVisible(false);
         firstSideBar.setVisible(false);
     }
     @FXML
     protected void playListsClick() {
-        playListsPane.setVisible(true);
+        closeAllPanes();
         videos.setVisible(false);
-        videoView.setVisible(false);
         explore.setVisible(false);
-        notificationPane.setVisible(false);
         subscriptionPane.setVisible(false);
+        playListsPane.setVisible(true);
     }
     @FXML
     protected void trendingClick() {
@@ -335,21 +340,20 @@ public class HelloController {
     }
     @FXML
     protected void newsClick() {
-        explore.setVisible(true);
         exploreLabel.setText("News");
         videos.setVisible(false);
         closeAllPanes();
+        explore.setVisible(true);
     }
     @FXML
     protected void sportsClick() {
-        explore.setVisible(true);
         exploreLabel.setText("Sports");
         videos.setVisible(false);
         closeAllPanes();
+        explore.setVisible(true);
     }
     @FXML
     protected void podcastsClick() {
-        explore.setVisible(true);
         exploreLabel.setText("Podcasts");
         videos.setVisible(false);
         closeAllPanes();
@@ -357,13 +361,14 @@ public class HelloController {
         if (mediaPlayer != null) {
             mediaPlayer.pause();
         }
+        explore.setVisible(true);
     }
 
     @FXML
     protected void openVideoPage() {
-        playListsPane.setVisible(false);
         videos.setVisible(false);
         explore.setVisible(false);
+        closeAllPanes();
         videoView.setVisible(true);
         if (mediaPlayer != null) {
             mediaPlayer.pause();
@@ -372,32 +377,27 @@ public class HelloController {
 
     @FXML
     protected void subscriptionClick() {
-        subscriptionPane.setVisible(true);
-        playListsPane.setVisible(false);
         videos.setVisible(false);
         explore.setVisible(false);
-        playListsPane.setVisible(false);
-        videoView.setVisible(false);
+        closeAllPanes();
 
         if (mediaPlayer != null) {
             mediaPlayer.pause();
         }
+        subscriptionPane.setVisible(true);
     }
 
     @FXML
     protected void shortsClick() {
         subscriptionPane.setVisible(false);
-        playListsPane.setVisible(false);
         videos.setVisible(false);
         explore.setVisible(false);
-        playListsPane.setVisible(false);
-        videoView.setVisible(false);
-        subscriptionPane.setVisible(false);
-        shortsPane.setVisible(true);
+        closeAllPanes();
 
         if (mediaPlayer != null) {
             mediaPlayer.pause();
         }
+        shortsPane.setVisible(true);
     }
 
     @FXML
@@ -405,7 +405,29 @@ public class HelloController {
         sideBar.setVisible(false);
         videoView.setVisible(false);
         explore.setVisible(false);
+        closeAllPanes();
         notificationPane.setVisible(true);
+    }
+
+    @FXML
+    public void historyClick() {
+        explore.setVisible(false);
+        closeAllPanes();
+        HistoryPane.setVisible(true);
+    }
+
+    @FXML
+    public void watchLaterClick() {
+        explore.setVisible(false);
+        closeAllPanes();
+        watchLaterPane.setVisible(true);
+    }
+
+    @FXML
+    public void likedVideoClick() {
+        closeAllPanes();
+        explore.setVisible(false);
+        likedVideoPane.setVisible(true);
     }
 
     @FXML
