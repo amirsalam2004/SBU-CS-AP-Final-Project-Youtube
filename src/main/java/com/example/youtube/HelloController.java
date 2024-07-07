@@ -6,21 +6,25 @@ import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Slider;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -29,6 +33,9 @@ import java.io.File;
 import java.io.IOException;
 
 public class HelloController {
+    public TilePane container;
+    public TilePane playListsContainer;
+    public TilePane subscriptionContainer;
     @FXML
     private Rectangle homeBackGround;
     @FXML
@@ -100,11 +107,15 @@ public class HelloController {
     @FXML
     private AnchorPane videoView;
     @FXML
-    private AnchorPane playListsPane;
+    private ScrollPane playListsPane;
     @FXML
-    private AnchorPane explore;
+    private ScrollPane explore;
     @FXML
-    private AnchorPane subscriptionPane;
+    private ScrollPane subscriptionPane;
+    @FXML
+    private AnchorPane shortsPane;
+    @FXML
+    private ScrollPane notificationPane;
 
     private boolean isSideBarOn = false;
     @FXML
@@ -112,6 +123,7 @@ public class HelloController {
     private boolean isFirstSideBarOn;
     private Parent root;
     private Stage stage = new Stage();
+
 
     MediaPlayer mediaPlayer;
 
@@ -133,6 +145,8 @@ public class HelloController {
     private ImageView notDisLikedImg;
     @FXML
     private ImageView disLikedImg;
+    @FXML
+    private VBox playlistV1;
 
 
     @FXML
@@ -260,7 +274,11 @@ public class HelloController {
         playListsPane.setVisible(false);
         videoView.setVisible(false);
         subscriptionPane.setVisible(false);
-        mediaPlayer.pause();
+        shortsPane.setVisible(false);
+        notificationPane.setVisible(false);
+        if (mediaPlayer != null) {
+            mediaPlayer.pause();
+        }
     }
 
     @FXML
@@ -278,6 +296,8 @@ public class HelloController {
         videos.setVisible(false);
         videoView.setVisible(false);
         explore.setVisible(false);
+        notificationPane.setVisible(false);
+        firstSideBar.setVisible(false);
     }
     @FXML
     protected void playListsClick() {
@@ -285,6 +305,8 @@ public class HelloController {
         videos.setVisible(false);
         videoView.setVisible(false);
         explore.setVisible(false);
+        notificationPane.setVisible(false);
+        subscriptionPane.setVisible(false);
     }
     @FXML
     protected void trendingClick() {
@@ -328,7 +350,9 @@ public class HelloController {
         videos.setVisible(false);
         closeAllPanes();
         videoView.setVisible(false);
-        mediaPlayer.pause();
+        if (mediaPlayer != null) {
+            mediaPlayer.pause();
+        }
     }
 
     @FXML
@@ -337,7 +361,9 @@ public class HelloController {
         videos.setVisible(false);
         explore.setVisible(false);
         videoView.setVisible(true);
-        mediaPlayer.pause();
+        if (mediaPlayer != null) {
+            mediaPlayer.pause();
+        }
     }
 
     @FXML
@@ -348,8 +374,34 @@ public class HelloController {
         explore.setVisible(false);
         playListsPane.setVisible(false);
         videoView.setVisible(false);
-        mediaPlayer.pause();
+
+        if (mediaPlayer != null) {
+            mediaPlayer.pause();
+        }
+    }
+
+    @FXML
+    protected void shortsClick() {
         subscriptionPane.setVisible(false);
+        playListsPane.setVisible(false);
+        videos.setVisible(false);
+        explore.setVisible(false);
+        playListsPane.setVisible(false);
+        videoView.setVisible(false);
+        subscriptionPane.setVisible(false);
+        shortsPane.setVisible(true);
+
+        if (mediaPlayer != null) {
+            mediaPlayer.pause();
+        }
+    }
+
+    @FXML
+    public void notificationsClick() {
+        sideBar.setVisible(false);
+        videoView.setVisible(false);
+        explore.setVisible(false);
+        notificationPane.setVisible(true);
     }
 
     @FXML
@@ -359,6 +411,37 @@ public class HelloController {
         stage.setTitle("addVideo");
         stage.setScene(scene);
         stage.show();
+    }
+
+    // pass video here
+    // pass playList here
+    public void createVideoBox(TilePane tilePane) {
+        VBox vbox = new VBox();
+        vbox.prefWidth(309.0);
+        vbox.prefHeight(680.0);
+
+        ImageView imageView = new ImageView();
+//        imageView.setImage(new Image(// path));
+        imageView.setFitHeight(191.0);
+        imageView.setFitWidth(261.0);
+
+        Label title = new Label();
+        title.setAlignment(Pos.CENTER);
+        title.setPrefHeight(45.0);
+        title.setPrefWidth(264.0);
+        title.setFont(Font.font(37.0));
+        // text from server
+
+        Label channelName = new Label();
+        channelName.setAlignment(Pos.CENTER);
+        channelName.setPrefHeight(45.0);
+        channelName.setPrefWidth(266.0);
+        channelName.setFont(Font.font(37.0));
+        // text from server
+
+        vbox.getChildren().addAll(imageView, title, channelName);
+
+        tilePane.getChildren().add(vbox);
     }
 
 
