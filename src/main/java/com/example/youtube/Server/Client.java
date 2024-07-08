@@ -403,13 +403,13 @@ public Boolean addUserRequest(User user) throws IOException{
             return false;
         }
     }
-    public boolean addFollowerOrFollowingRequest(String videoID, String userID) throws IOException{
+    public boolean addFollowerOrFollowingRequest(String userID, String channelID,int identifier) throws IOException{
         try {
-            String request="2#26#"+videoID+"#"+userID;
+            String request="2#27#"+userID+"#"+channelID+"#"+identifier;
             out.writeUTF(request);
             String response=in.readUTF();
             if(response.equals("1"))
-                return true; //TODO
+                return true;
             else
                 return false;
         }catch (IOException e){
@@ -417,4 +417,19 @@ public Boolean addUserRequest(User user) throws IOException{
             return false;
         }
     }
+    public boolean addKarmaRequest(int karma, String userID,String videoID) throws IOException{
+        try {
+            String request="2#28#"+karma+"#"+userID+"#"+videoID;
+            out.writeUTF(request);
+            String response=in.readUTF();
+            if(response.equals("1"))
+                return true;
+            else
+                return false;
+        }catch (IOException e){
+            System.out.println(e.getMessage());
+            return false;
+        }
+    }
+
 }
