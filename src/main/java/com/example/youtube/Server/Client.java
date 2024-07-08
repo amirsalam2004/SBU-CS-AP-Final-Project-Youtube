@@ -509,4 +509,179 @@ public Boolean addUserRequest(User user) throws IOException{
             return false;
         }
     }
+
+    //TODO delete from history api and request
+
+    /***
+     * update requests methods
+     */
+
+    public boolean editPasswordRequest(String userID,String newPassword) throws IOException{
+        try {
+            String request="4#41#"+userID+"#"+newPassword;
+            out.writeUTF(request);
+            String response=in.readUTF();
+            if(response.equals("1"))
+                return true;
+            else
+                return false;
+        }catch (IOException e){
+            System.out.println(e.getMessage());
+            return false;
+        }
+    }
+    public boolean editUsernameRequest(String exUsername,String newUsername) throws IOException{
+        try {
+            String request="4#42#"+exUsername+"#"+newUsername;
+            out.writeUTF(request);
+            String response=in.readUTF();
+            if(response.equals("1"))
+                return true;
+            else
+                return false;
+        }catch (IOException e){
+            System.out.println(e.getMessage());
+            return false;
+        }
+    }
+    public boolean editPlaylistNameRequest(String name,String playlistID) throws IOException{
+        try {
+            String request="4#43#"+name+"#"+playlistID;
+            out.writeUTF(request);
+            String response=in.readUTF();
+            if(response.equals("1"))
+                return true;
+            else
+                return false;
+        }catch (IOException e){
+            System.out.println(e.getMessage());
+            return false;
+        }
+    }
+    public boolean updateCommentLikeRequest(String commentID) throws IOException{
+        try {
+            String request="4#44#"+ commentID;
+            out.writeUTF(request);
+            String response=in.readUTF();
+            if(response.equals("1"))
+                return true;
+            else
+                return false;
+        }catch (IOException e){
+            System.out.println(e.getMessage());
+            return false;
+        }
+    }
+    public boolean editCommentTextRequest(String commentID,String newText) throws IOException{
+        try {
+            String request="4#45#"+commentID+"#"+newText;
+            out.writeUTF(request);
+            String response=in.readUTF();
+            if(response.equals("1"))
+                return true;
+            else
+                return false;
+        }catch (IOException e){
+            System.out.println(e.getMessage());
+            return false;
+        }
+    }
+    public boolean updateDeslikeRequest(String commentID) throws IOException{
+        try {
+            String request="4#46#"+commentID;
+            out.writeUTF(request);
+            String response=in.readUTF();
+            if(response.equals("1"))
+                return true;
+            else
+                return false;
+        }catch (IOException e){
+            System.out.println(e.getMessage());
+            return false;
+        }
+    }
+    public boolean editChannelNameRequest(String channelID,String newName) throws IOException{
+        try {
+            String request="4#47#"+channelID+"#"+newName;
+            out.writeUTF(request);
+            String response=in.readUTF();
+            if(response.equals("1"))
+                return true;
+            else
+                return false;
+        }catch (IOException e){
+            System.out.println(e.getMessage());
+            return false;
+        }
+    }
+    public boolean editChannelDescriptionRequest(String newDescription,String channelID) throws IOException{
+        try {
+            String request="4#48#"+newDescription+"#"+channelID;
+            out.writeUTF(request);
+            String response=in.readUTF();
+            if(response.equals("1"))
+                return true;
+            else
+                return false;
+        }catch (IOException e){
+            System.out.println(e.getMessage());
+            return false;
+        }
+    }
+    public boolean editChannelLinksRequest(String newLinks,String channelID) throws IOException{
+        try {
+            String request="4#49#"+newLinks+"#"+channelID;
+            out.writeUTF(request);
+            String response=in.readUTF();
+            if(response.equals("1"))
+                return true;
+            else
+                return false;
+        }catch (IOException e){
+            System.out.println(e.getMessage());
+            return false;
+        }
+    }
+    public boolean updateVideoViewsRequest(String videoID,String channelID) throws IOException{
+        try {
+            String request="4#410#"+videoID+"#"+channelID;
+            out.writeUTF(request);
+            String response=in.readUTF();
+            if(response.equals("1"))
+                return true;
+            else
+                return false;
+        }catch (IOException e){
+            System.out.println(e.getMessage());
+            return false;
+        }
+    }
+    public boolean updateVideoLikesRequest(String videoID,String channelID) throws IOException{
+        try {
+            String request="4#411#"+videoID+"#"+channelID;
+            out.writeUTF(request);
+            String response=in.readUTF();
+            if(response.equals("1"))
+                return true;
+            else
+                return false;
+        }catch (IOException e){
+            System.out.println(e.getMessage());
+            return false;
+        }
+    }
+    public boolean updateVideoDeslikesRequest(String videoID,String channelID) throws IOException{
+        try {
+            String request="4#412#"+videoID+"#"+channelID;
+            out.writeUTF(request);
+            String response=in.readUTF();
+            if(response.equals("1"))
+                return true;
+            else
+                return false;
+        }catch (IOException e){
+            System.out.println(e.getMessage());
+            return false;
+        }
+    }
 }

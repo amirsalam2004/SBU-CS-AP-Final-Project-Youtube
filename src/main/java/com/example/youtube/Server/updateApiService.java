@@ -31,7 +31,14 @@ public class updateApiService {
             case "48":
                 return editChannelDescription(body);
             case "49":
-                return editChannelLinks(body); // video?
+                return editChannelLinks(body);
+            case "410":
+                return updateVideoViews(body);
+            case "411":
+                return updateVideoLikes(body);
+            case "412":
+                return updateVideoDeslikes(body);
+            // video?
             //               ####
             //               update image??????
             //               ####
@@ -49,6 +56,7 @@ public class updateApiService {
             }
             return "0";
         }catch (Exception e){
+            System.out.println(e.getMessage());
             //if wasn't successfully, return 0
             return "0";
         }
@@ -63,6 +71,7 @@ public class updateApiService {
             }
             return "0";
         }catch (Exception e){
+            System.out.println(e.getMessage());
             //if wasn't successfully, return 0
             return "0";
         }
@@ -77,6 +86,7 @@ public class updateApiService {
             }
             return "0";
         }catch (Exception e){
+            System.out.println(e.getMessage());
             //if wasn't successfully, return 0
             return "0";
         }
@@ -90,6 +100,7 @@ public class updateApiService {
             }
             return "0";
         }catch (Exception e){
+            System.out.println(e.getMessage());
             //if wasn't successfully, return 0
             return "0";
         }
@@ -104,6 +115,7 @@ public class updateApiService {
             }
             return "0";
         }catch (Exception e){
+            System.out.println(e.getMessage());
             //if wasn't successfully, return 0
             return "0";
         }
@@ -117,6 +129,7 @@ public class updateApiService {
             }
             return "0";
         }catch (Exception e){
+            System.out.println(e.getMessage());
             //if wasn't successfully, return 0
             return "0";
         }
@@ -131,6 +144,7 @@ public class updateApiService {
             }
             return "0";
         }catch (Exception e){
+            System.out.println(e.getMessage());
             //if wasn't successfully, return 0
             return "0";
         }
@@ -145,6 +159,7 @@ public class updateApiService {
             }
             return "0";
         }catch (Exception e){
+            System.out.println(e.getMessage());
             //if wasn't successfully, return 0
             return "0";
         }
@@ -158,12 +173,53 @@ public class updateApiService {
             }
             return "0";
         }catch (Exception e){
+            System.out.println(e.getMessage());
             //if wasn't successfully, return 0
             return "0";
         }
     }
-
-
+    private static String updateVideoViews(String videoInfo) {
+        try {
+            String[] info=videoInfo.split("#",2);
+            if(DataBaseManager.UP_view_vidoe(info[0],info[1])) {
+                //If the changes are applied successfully, return 1
+                return "1";
+            }
+            return "0";
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+            //if wasn't successfully, return 0
+            return "0";
+        }
+    }
+    private static String updateVideoLikes(String videoInfo) {
+        try {
+            String[] info=videoInfo.split("#",2);
+            if(DataBaseManager.UP_Like_Vidoe(info[0],info[1])) {
+                //If the changes are applied successfully, return 1
+                return "1";
+            }
+            return "0";
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+            //if wasn't successfully, return 0
+            return "0";
+        }
+    }
+    private static String updateVideoDeslikes(String videoInfo) {
+        try {
+            String[] info=videoInfo.split("#",2);
+            if(DataBaseManager.UP_DisLike_Vidoe(info[0],info[1])) {
+                //If the changes are applied successfully, return 1
+                return "1";
+            }
+            return "0";
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+            //if wasn't successfully, return 0
+            return "0";
+        }
+    }
     private static class ErrorResponse {
         private String message;
 
