@@ -24,9 +24,9 @@ public class HelloApplication extends Application {
         stage.getIcons().add(new Image("file:src/main/resources/com/example/youtube/Images/unnamed.jpg"));
 
         stage.show();
-        Client client=new Client("localhost");
-        HelloController helloController=new HelloController();
-        System.out.println(client.addUserRequest(new User("123","!@3","!23","!23","!23","!23","!23")));
+//        HelloController helloController=new HelloController();
+
+//        System.out.println(client.addUserRequest(new User("123","!@3","!23","!23","!23","!23","!23")));
 
 //        System.out.println( client.sendRequest(8,"unnamed"));
 //        System.out.println( client.getImageBytes("unnamed"));

@@ -253,7 +253,7 @@
          </image>
       </ImageView>
       <TextField layoutX="442.0" layoutY="16.0" prefHeight="17.0" prefWidth="393.0" promptText="Search" style="-fx-background-color: #49FF00; -fx-background-radius: 100; -fx-border-radius: 200; -fx-border-color: #000000;" />
-      <Button layoutX="300.0" layoutY="12.0" mnemonicParsing="false" onAction="#onHelloButtonClick" prefHeight="34.0" prefWidth="88.0" style="-fx-background-color: #F11212; -fx-background-radius: 200; -fx-border-radius: 200; -fx-border-color: #000000;" text="DarkModeCheck" />
+      <Button layoutX="300.0" layoutY="12.0" mnemonicParsing="false" onAction="#onHelloButtonClick" prefHeight="34.0" prefWidth="88.0" text="DarkModeCheck" />
       <ImageView fitHeight="29.0" fitWidth="26.0" layoutX="1001.0" layoutY="15.0" onMouseClicked="#notificationsClick" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@Images/svgexport-14.png" />
@@ -467,8 +467,8 @@
             </TilePane>
          </content>
       </ScrollPane>
-      <Button layoutX="200.0" layoutY="12.0" mnemonicParsing="false" onAction="#openVideoPage" prefHeight="34.0" prefWidth="88.0" style="-fx-background-color: #F11212; -fx-background-radius: 200; -fx-border-color: #000000; -fx-border-radius: 200;" text="VideoPage" />
-      <Button fx:id="Continue" layoutX="1044.0" layoutY="17.0" mnemonicParsing="false" style="-fx-background-radius: 100; -fx-border-color: #000000; -fx-border-radius: 100; -fx-background-color: #F11212;" text="Account">
+      <Button layoutX="200.0" layoutY="12.0" mnemonicParsing="false" onAction="#openVideoPage" prefHeight="34.0" prefWidth="88.0" text="VideoPage" />
+      <Button fx:id="Continue" layoutX="1044.0" layoutY="17.0" mnemonicParsing="false" text="Account">
          <font>
             <Font name="Californian FB Bold" size="14.0" />
          </font></Button>
@@ -479,7 +479,7 @@
                   <Font name="Californian FB" size="14.0" />
                </font>
             </Label>
-            <Button fx:id="LogOut" mnemonicParsing="false" prefHeight="26.0" prefWidth="66.0" style="-fx-background-radius: 100; -fx-background-color: #F11212; -fx-border-radius: 100; -fx-border-color: #000000;" text="logOut">
+            <Button fx:id="LogOut" mnemonicParsing="false" prefHeight="26.0" prefWidth="66.0" text="logOut">
                <font>
                   <Font name="Californian FB" size="12.0" />
                </font>

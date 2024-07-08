@@ -62,8 +62,8 @@ public class signUpController implements Initializable {
     Button Sign_UP=new Button();
     @FXML
     Label emilCh = new Label();
-
-
+    @FXML
+    Label con=new Label();
     @FXML
     Label errorEmail=new Label();
 
@@ -127,19 +127,26 @@ public class signUpController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        //check connection client
+        if (client!=null) {
+            con.setText("[ CONNECT ]");
+            con.setTextFill(Color.RED);
+            con.setVisible(true);
+        }
         Continue.setVisible(false);
         System.out.println("[START] SING_UP");
         error.setVisible(false);
         error.setTextFill(Color.RED);
 
-        //this is for start sing up
+        //get first information value gmail and passWord
         next.setOnAction(e -> {
+            /* check request */
             if (UserEixst()) {
+                /* valid email ***@***.*** */
                 if (validateEmailStrict(emailField.getText())) {
                     if (passwordField.getText().equals(secondPasswordField.getText())) {
-                        System.out.println(passwordField.getText().equals(passwordField.getText()));
+                        /* passWord should be bigger than 5 */
                         if (passwordField.getText().length() > 5) {
-                            //passWord Should be bigger than 5 length
                                 System.out.println("[ACCEPT USER AND CHANEL ]");
                                 Continue.setVisible(true);
                                 next.setVisible(false);
@@ -159,19 +166,16 @@ public class signUpController implements Initializable {
                                 errorEmail.setText("");
                                 errorEmail.setVisible(false);
                         } else {
-//                            passCH.setAutoSizeChildren(true);
                         error.setVisible(true);
                         error.setText("THR PASSWORD  IS  NOT  STRONG ");
                         }
                     } else {
-//                    passCH.setAutoSizeChildren(true);
                     error.setVisible(true);
                     error.setText("NOT EQUAL");
 
                     }
                 } else {
                     emilCh.setVisible(true);
-//                    System.out.println("YOUR EMAIL IS NOT CORRECT ");
                     errorEmail.setVisible(true);
                     errorEmail.setTextFill(Color.RED);
                     errorEmail.setText("YOUR EMAIL IS NOT CORRECT");
@@ -184,11 +188,11 @@ public class signUpController implements Initializable {
             }
         });
 
-
+        // complete getting value age userName and country and create  an ID for user
         Continue.setOnAction(e -> {
             Age=passwordField.getText();
             country=secondPasswordField.getText();
-            if(CheckUserName(emailField.getText())) {//ToDO
+            if(CheckUserName(emailField.getText())) {   //ToDO
                 System.out.println(isInteger(Age));
                 System.out.println(Age);
                 if (isInteger(Age)) {
@@ -214,43 +218,46 @@ public class signUpController implements Initializable {
                     try {
                         System.out.println("[TRY ] ");
                         System.out.println("[AFTER RESPONSE] ");
-                        if (client.addUserRequest(user)) {
-                            if (client.addChannelRequest(channel)) {
-                                System.out.println("[ACCEPT User AND channel] ");
-                                FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));//go to Home page
-                                Scene scene = null;
-                                try {
-                                    scene = new Scene(fxmlLoader.load(), 1190, 627);
-                                } catch (IOException ex) {
-                                    throw new RuntimeException(ex);
+                        if (client != null) {
+                            if (client.addUserRequest(user)) {
+                                if (client.addChannelRequest(channel)) {
+                                    System.out.println("[ACCEPT User AND channel] ");
+                                    FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));//go to Home page
+                                    Scene scene = null;
+                                    try {
+                                        scene = new Scene(fxmlLoader.load(), 1190, 627);
+                                    } catch (IOException ex) {
+                                        throw new RuntimeException(ex);
+                                    }
+                                    HelloController helloController = fxmlLoader.getController();
+                                    //insert user and channel and true
+                                    helloController.user = user;
+                                    helloController.channel = channel;
+                                    helloController.loginOn = true;
+                                    stage.setTitle("Youtube");
+                                    stage.setScene(scene);
+                                    stage.show();
+                                } else {
+                                    System.out.println("[ADD CHANNEL ] FAIL");
                                 }
-                                HelloController helloController = fxmlLoader.getController();
-                                //insert user and channel and true
-                                helloController.user = user;
-                                helloController.channel = channel;
-                                helloController.loginOn = true;
-                                stage.setTitle("Youtube");
-                                stage.setScene(scene);
-                                stage.show();
                             } else {
-                                System.out.println("[ADD CHANNEL ] FAIL");
+                                System.out.println("[ADD USER] FAIL");
                             }
-                        } else {
-                            System.out.println("[ADD USER] FAIL");
                         }
-                    } catch (IOException ex) {
-                        throw new RuntimeException(ex);
+                        } catch(IOException ex){
+                            throw new RuntimeException(ex);
+                        }
+                    } else{
+                        error.setVisible(true);
+                        error.setTextFill(Color.RED);
+                        error.setText("Please inter correct Number ");
                     }
                 } else {
-                    error.setVisible(true);
-                    error.setTextFill(Color.RED);
-                    error.setText("Please inter correct Number ");
+                    errorEmail.setVisible(true);
+                    errorEmail.setTextFill(Color.RED);
+                    errorEmail.setText("Your user name is used ");
                 }
-            }else {
-                errorEmail.setVisible(true);
-                errorEmail.setTextFill(Color.RED);
-                errorEmail.setText("Your user name is used ");
-            }
+
         });
 
         Login.setOnAction(e->{
@@ -261,9 +268,9 @@ public class signUpController implements Initializable {
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
             }
-            LoginController loginController=new LoginController();
+            //pass the client
+            LoginController loginController=fxmlLoader.getController();
             loginController.client=this.client;
-
             stage.setTitle("Youtube");
             stage.setScene(scene);
             stage.show();
@@ -303,6 +310,7 @@ public class signUpController implements Initializable {
         String regexPattern = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$";
         return Pattern.matches(regexPattern, email);
     }
+
 
 
 

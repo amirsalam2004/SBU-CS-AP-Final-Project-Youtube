@@ -202,6 +202,7 @@ public class HelloController {
             videos.setLayoutX(100);
         }
     }
+    Client client=null;
 
 
     private void handleRectangleHover(Rectangle rectangle, Paint hoverColor, Paint normalColor) {
@@ -267,32 +268,30 @@ public class HelloController {
     @FXML
     public void initialize() throws IOException {
         Massage.setVisible(false);
-        Client client = new Client("localhost");
+        this.client=new Client("127.0.0.1");
 
-//        Client finalClient = client;
 
         Continue.setOnAction(e->{
             if (loginOn){
 
-//                FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("signUp-view.fxml"));
-//                Scene scene = null;
-//                try {
-//                    scene = new Scene(fxmlLoader.load(), 1190, 627);
-//                } catch (IOException ex) {
-//                    throw new RuntimeException(ex);
-//                }
-//
-//                stage.setTitle("Youtube");
-//                stage.setScene(scene);
-//                stage.show();
+                    FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("signUp-view.fxml"));
+                    Scene scene = null;
+                    try {
+                        scene = new Scene(fxmlLoader.load(), 1190, 627);
+                    } catch (IOException ex) {
+                        throw new RuntimeException(ex);
+                    }
 
-                signUpController signUpController=new signUpController();
-                signUpController.client = client;
-                try {
-                    System.out.println(client.getUserRequest("!@3","!23")+"12312123");
-                } catch (IOException ex) {
-                    throw new RuntimeException(ex);
-                }
+                    // pass the client
+                    signUpController signUpController=fxmlLoader.getController();
+                    signUpController.client=this.client;
+                    stage.setTitle("Youtube");
+                    stage.setScene(scene);
+                    stage.show();
+
+
+
+
                 Continue.getScene().getWindow().hide();
 //                loginOn=false;
             }
@@ -495,7 +494,7 @@ public class HelloController {
         vbox.prefHeight(680.0);
 
         ImageView imageView = new ImageView();
-//        imageView.setImage(new Image(// path));
+//        imageView.setImage(new Image( ""));
         imageView.setFitHeight(191.0);
         imageView.setFitWidth(261.0);
 
