@@ -1,28 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.Group?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.shape.Line?>
-<?import javafx.scene.shape.Polyline?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="530.0" prefWidth="805.0" style="-fx-background-color: #cfcfcf;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.youtube.Controller.Category">
    <children>
-      <Button layoutX="490.0" layoutY="130.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="95.0" style="-fx-background-color: 000000;" />
-      <Button layoutX="200.0" layoutY="130.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="65.0" style="-fx-background-color: 000000;" />
-      <Button layoutX="198.0" layoutY="300.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="95.0" style="-fx-background-color: 000000;" />
-      <Button layoutX="43.0" layoutY="130.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="95.0" style="-fx-background-color: 000000;" />
-      <Button layoutX="49.0" layoutY="300.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="30.0" style="-fx-background-color: 000000;" />
-      <Button layoutX="490.0" layoutY="300.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="65.0" style="-fx-background-color: 000000;" />
-      <Button layoutX="340.0" layoutY="130.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="65.0" style="-fx-background-color: 000000;" />
-      <Button layoutX="630.0" layoutY="130.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="65.0" style="-fx-background-color: 000000;" />
-      <Button layoutX="340.0" layoutY="300.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="95.0" style="-fx-background-color: 000000;" />
-      <Button layoutX="630.0" layoutY="300.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="65.0" style="-fx-background-color: 000000;" />
       <Label layoutX="200.0" layoutY="47.0" text="please write informatin  ">
          <font>
             <Font name="Castellar" size="24.0" />
@@ -43,23 +30,21 @@
             <Font name="Castellar" size="17.0" />
          </font>
       </Label>
-      <TextArea layoutX="230.0" layoutY="100.0" prefHeight="96.0" prefWidth="546.0" promptText="inter your describtion " style="-fx-background-color: 100;">
+      <TextArea fx:id="discribtion" layoutX="230.0" layoutY="100.0" prefHeight="96.0" prefWidth="546.0" promptText="inter your describtion " style="-fx-background-color: #212F3C;">
          <font>
             <Font name="Lucida Calligraphy Italic" size="17.0" />
          </font>
       </TextArea>
-      <TextField layoutX="195.0" layoutY="241.0" prefHeight="38.0" prefWidth="206.0" promptText="TITEL">
+      <TextField fx:id="titel" layoutX="195.0" layoutY="241.0" prefHeight="38.0" prefWidth="206.0" promptText="TITEL" style="-fx-background-radius: 200;">
          <font>
             <Font name="Californian FB" size="12.0" />
          </font>
       </TextField>
-      <Button layoutX="256.0" layoutY="363.0" mnemonicParsing="false" text="Choose" />
+      <Button fx:id="chooseFile" layoutX="237.0" layoutY="363.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="91.0" style="-fx-background-color: #212F3C; -fx-background-radius: 200;" text="Choose" textFill="WHITE">
+         <font>
+            <Font name="Californian FB" size="12.0" />
+         </font>
+      </Button>
       <ImageView fitHeight="253.0" fitWidth="257.0" layoutX="464.0" layoutY="228.0" pickOnBounds="true" preserveRatio="true" />
-      <Group layoutX="384.0" layoutY="344.0">
-         <children>
-            <Polyline fill="#80ff0000" layoutX="0.707122802734375" layoutY="1.52587890625E-5" points="65.185791015625, -122.50709533691406, 361.5999755859375, -120.29998779296875, 361.5999755859375, 141.5999755859375, 65.185791015625, 141.59996032714844" strokeType="INSIDE" />
-            <Line endX="42.892913818359375" endY="-105.507080078125" layoutX="23.0" layoutY="-17.0" startX="43.600006103515625" startY="157.5999755859375" />
-         </children>
-      </Group>
    </children>
 </AnchorPane>

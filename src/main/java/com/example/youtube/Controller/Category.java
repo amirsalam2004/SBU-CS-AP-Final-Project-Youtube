@@ -1,5 +1,6 @@
 package com.example.youtube.Controller;
 
+
 import javafx.fxml.Initializable;
 
 import java.net.URL;
@@ -10,9 +11,6 @@ public class Category implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
-
-
-
+        
     }
 }

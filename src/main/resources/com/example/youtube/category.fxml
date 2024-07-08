@@ -105,7 +105,7 @@
             <Font name="Castellar" size="24.0" />
          </font>
       </Label>
-      <Label layoutX="91.0" layoutY="269.0" text="news">
+      <Label layoutX="85.0" layoutY="269.0" text="news">
          <font>
             <Font name="Castellar" size="17.0" />
          </font>
