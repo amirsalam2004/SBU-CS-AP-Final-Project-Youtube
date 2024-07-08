@@ -15,6 +15,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -38,8 +40,11 @@ public class signUpController implements Initializable {
     private Stage stage = new Stage();
     private Parent root;
     @FXML
-    private Button endSignUp;
+    private Button next;
     Gson gson=new Gson();
+    @FXML
+    Label error=new Label();
+
 
     @FXML
     private Label Passagain = new Label();
@@ -52,19 +57,41 @@ public class signUpController implements Initializable {
     @FXML
     private Label passWord = new Label();
     @FXML
+    Label errorUserName=new Label();
+    @FXML
     Button Sign_UP=new Button();
     @FXML
     Label emilCh = new Label();
+
+
     @FXML
-    Group PASSCH = new Group();
+    Label errorEmail=new Label();
+
     String Email;
     String password;
     String country;
     String Age ;
+    String Username;
     @FXML
     Button Login=new Button();
 
+   //-------------------------------------------------------------
+   //this part is for object
    public Client client;
+    public  boolean loginOn=false;
+
+    public Channel channel;
+
+    public User user;
+
+    static Stage loginStage=null;
+
+
+
+
+
+
+    //-------------------------------------------------
 
 
 
@@ -102,82 +129,125 @@ public class signUpController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Continue.setVisible(false);
         System.out.println("[START] SING_UP");
-
-        endSignUp.setOnAction(e -> {
-            if (passwordField.getText().equals(passwordField.getText()) && passwordField.getText().length()>5 ) {//passWord Should be bigger than 5 length
+        error.setVisible(false);
+        error.setTextFill(Color.RED);
+        //this is for start sing up
+        next.setOnAction(e -> {
+            if (UserEixst()) {
                 if (validateEmailStrict(emailField.getText())) {
-                    System.out.println("");
-                    if (UserEixst()) {
-//                        System.out.println("123123123");
-                        Continue.setVisible(true);
-                        endSignUp.setVisible(false);
-                        passWord.setText("Age: ");
-                        email.setText("Country: ");
-                        Passagain.setVisible(true);
-                        secondPasswordField.setVisible(false);
-                        Passagain.setVisible(false);
-                        Email = emailField.getText();
-                        emailField.setText(" ");
-                        password = hashPasswordSHA256(passwordField.getText());
-                        passwordField.setText(" ");
+                    if (passwordField.getText().equals(secondPasswordField.getText())) {
+                        System.out.println(passwordField.getText().equals(passwordField.getText()));
+                        if (passwordField.getText().length() > 5) {
+                            //passWord Should be bigger than 5 length
+                                System.out.println("[ACCEPT USER AND CHANEL ]");
+                                Continue.setVisible(true);
+                                next.setVisible(false);
+                                passWord.setText("Age: ");
+                                email.setText("Username :");
+                                Passagain.setVisible(true);
+                                secondPasswordField.setVisible(true);
+                                secondPasswordField.setText("");
+                                Passagain.setText("County :");
+                                Email = emailField.getText();
+                                emailField.setText(" ");
+                                //this method hash the password TODO change the algorithm of hashing
+                                password = hashPasswordSHA256(passwordField.getText());
+                                passwordField.setText(" ");
+                                error.setText("");
+                                error.setVisible(false);
+                                errorEmail.setText("");
+                                errorEmail.setVisible(false);
+                        } else {
+//                            passCH.setAutoSizeChildren(true);
+                        error.setVisible(true);
+                        error.setText("THR PASSWORD  IS  NOT  STRONG ");
+                        }
+                    } else {
+//                    passCH.setAutoSizeChildren(true);
+                    error.setVisible(true);
+                    error.setText("NOT EQUAL");
+
                     }
                 } else {
                     emilCh.setVisible(true);
+//                    System.out.println("YOUR EMAIL IS NOT CORRECT ");
+                    errorEmail.setVisible(true);
+                    errorEmail.setTextFill(Color.RED);
+                    errorEmail.setText("YOUR EMAIL IS NOT CORRECT");
                 }
-            } else {
-                PASSCH.setAutoSizeChildren(true);
+            }else
+            {
+                errorEmail.setVisible(true);
+                errorEmail.setTextFill(Color.RED);
+                errorEmail.setText("[YOU HAVE AN ACCOUNT ] ");
             }
         });
 
 
         Continue.setOnAction(e -> {
             Age=passwordField.getText();
-            country=emailField.getText();
-            LocalDateTime localDateTime=LocalDateTime.now();
-            UUID uuid=UUID.randomUUID();
-            String ID=uuid.toString();
-            ID=ID+"rouzbeh";//ID+Username=ID
+            country=secondPasswordField.getText();
+            if(!CheckUserName(emailField.getText())) {
+                if (isInteger(Age)) {
+                    Username = emailField.getText();
+                    System.out.println("User :" +
+                            Age +
+                            country +
+                            Username);
 
-            User user=new User("rouzbeh",Email,localDateTime.toString(),password,country,ID,Age);//get username
-            Channel channel=new Channel(ID,"rouzbeh","l","rouzbeh",ID,"l","l");//get name and username
+                    LocalDateTime localDateTime = LocalDateTime.now();
+                    UUID uuid = UUID.randomUUID();
+                    String ID = uuid.toString();
+                    //ID+Username=ID
+                    ID = ID + "rouzbeh";
 
-            String request1=gson.toJson(channel);
 
-            String request=gson.toJson(user);
-            try {
-                System.out.println("[TRY ] ");
-                client.sendRequest(2,21,request);
-                System.out.println("[AFTER RESPONSE] ");
+//                Create a user
+                    User user = new User(Username, Email, localDateTime.toString(), password, country, ID, Age);
+//                Create a channel
+                    Channel channel = new Channel(ID, "", "", ID + "CHA", Username, ID + "POR", "l");//get name and username
 
-                if (client.getResponse().equals("1")) {
-                    client.sendRequest(2,22,request1);
-                    if (client.getResponse().equals("1")) {
-                        System.out.println("[ACCEPT User AND channel] ");
-                        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));//go to Home page
-                        Scene scene = null;
-                        try {
-                            scene = new Scene(fxmlLoader.load(), 1190, 627);
-                        } catch (IOException ex) {
-                            throw new RuntimeException(ex);
+
+                    try {
+                        System.out.println("[TRY ] ");
+                        System.out.println("[AFTER RESPONSE] ");
+                        if (client.addUserRequest(user)) {
+                            if (client.addChannelRequest(channel)) {
+                                System.out.println("[ACCEPT User AND channel] ");
+                                FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));//go to Home page
+                                Scene scene = null;
+                                try {
+                                    scene = new Scene(fxmlLoader.load(), 1190, 627);
+                                } catch (IOException ex) {
+                                    throw new RuntimeException(ex);
+                                }
+                                HelloController helloController = fxmlLoader.getController();
+                                //insert user and channel and true
+                                helloController.user = user;
+                                helloController.channel = channel;
+                                helloController.loginOn = true;
+                                stage.setTitle("Youtube");
+                                stage.setScene(scene);
+                                stage.show();
+                            } else {
+                                System.out.println("[ADD CHANNEL ] FAIL");
+                            }
+                        } else {
+                            System.out.println("[ADD USER] FAIL");
                         }
-                        HelloController helloController=fxmlLoader.getController();
-                        //insert user and channel and true
-                        helloController.user=user;
-                        helloController.channel=channel ;
-                        helloController.loginOn=true;
-                        stage.setTitle("Youtube");
-                        stage.setScene(scene);
-                        stage.show();
-                    } else {
-                        System.out.println("[ADD CHANNEL ] FAIL");
+                    } catch (IOException ex) {
+                        throw new RuntimeException(ex);
                     }
+                } else {
+                    error.setVisible(true);
+                    error.setTextFill(Color.RED);
+                    error.setText("Please inter correct Number ");
+                }
             }else {
-                    System.out.println("[ADD USER] FAIL");
+                errorEmail.setVisible(true);
+                errorEmail.setTextFill(Color.RED);
+                errorEmail.setText("Your user name is used ");
             }
-            } catch (IOException ex) {
-                throw new RuntimeException(ex);
-            }
-
         });
 
         Login.setOnAction(e->{
@@ -197,6 +267,21 @@ public class signUpController implements Initializable {
 
 
 
+    }
+    public boolean isInteger(String input) {
+        try {
+            Integer.valueOf(input);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
+    private boolean CheckUserName(String text) {
+
+
+        //this is for check the username is existed
+        //todo by default is true
+        return true;
     }
 
     private boolean UserEixst() {//check user is existed or not

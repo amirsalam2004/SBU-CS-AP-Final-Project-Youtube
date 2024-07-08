@@ -1,6 +1,8 @@
 package com.example.youtube;
 
 
+import com.example.youtube.Model.Channel;
+import com.example.youtube.Model.User;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -146,6 +148,17 @@ public class HelloController {
     private ImageView disLikedImg;
     @FXML
     private ChoiceBox searchFilter;
+
+    //--------------------------------------------------------------------------------------------------------------
+
+
+    public User user;
+    public Channel channel;
+    public Boolean loginOn;
+
+
+
+    //--------------------------------------------------------------------------------------------------------------
 
 
     @FXML

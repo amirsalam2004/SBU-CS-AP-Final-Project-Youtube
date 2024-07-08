@@ -726,9 +726,9 @@ public class DataBaseManager {
     public static boolean ADD_follower_following(String IDU,String IDC,int Identifier){
         StartConnection();
         String query;
-        if(Ch_Follower_Following(IDU,IDC,Identifier)) {
+        if(Check_Follower_Following(IDU,IDC,Identifier)) {
             if (Identifier == 1) {
-                query = "INSERT INTO follower (IDChanel,IDuser) VALUES ('%s','%s')";
+                query = "INSERT INTO follower (IDChanel,IDuser) VALUES ('%s','%s')";//TODO change
             } else
                 query = "INSERT  INTO following  (IDChanel,IDuser) VALUES ('%s','%s')";
 
@@ -747,7 +747,7 @@ public class DataBaseManager {
 
     }
 
-    private  static boolean Ch_Follower_Following(String IDU,String IDC,int Identifier) {
+    public  static boolean Check_Follower_Following(String IDU,String IDC,int Identifier) {
         String query;
 
         if (Identifier==1) {
@@ -1025,9 +1025,7 @@ public class DataBaseManager {
     public static boolean CH_PassWordUser(String IDU, String PassWord) {//TODO check
         StartConnection();
 
-        if (!isUserExists(IDU)) {
-            return false;
-        }
+
         String query = "UPDATE User SET passWord = ? WHERE IDuser = ?";
         try (PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setString(1, PassWord);
@@ -1042,23 +1040,10 @@ public class DataBaseManager {
 
         return true;
     }
-    public static boolean isUserExists(String IDU) {
-        StartConnection();
-        String query = "SELECT COUNT(*) FROM User WHERE IDuser = ?";
-        try (PreparedStatement statement = connection.prepareStatement(query)) {
-            statement.setString(1, IDU);
-            ResultSet resultSet = statement.executeQuery();
-            if (resultSet.next()) {
-                int count = resultSet.getInt(1);
-                return count > 0;
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            EncConnection();
-        }
-        return false;
-    }
+
+
+
+
     public static  boolean CH_UserName(String Username ,String NewUsername){
         UP_witter_Comment(Username,NewUsername);
         StartConnection();
@@ -1134,6 +1119,94 @@ public class DataBaseManager {
         }
         return null;
     }
+
+    //--------check method
+    public static boolean CheckEmailUser(String Email) {  //correct
+        StartConnection();
+        String query = "SELECT COUNT(*) FROM user WHERE Email = ?";
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setString(1, Email);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    int count = resultSet.getInt(1);
+                    return count > 0;
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+    public static boolean CheckUserName(String Usernaem) {  //correct
+        StartConnection();
+        String query = "SELECT COUNT(*) FROM user WHERE username = ?";
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setString(1, Usernaem);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    int count = resultSet.getInt(1);
+                    return count > 0;
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public static boolean CheckUserPass_Email(String Email,String Pass) {//TODO check
+        StartConnection();
+        String query = "SELECT COUNT(*) FROM user WHERE Email = ? And passWord=? ";
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setString(1, Email);
+            statement.setString(2, Pass);
+
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    int count = resultSet.getInt(1);
+                    return count > 0;
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+    public static boolean ChecksaveVideo(String IDV,String IDU) {//TODO check
+        StartConnection();
+        String query = "SELECT COUNT(*) FROM savevidoe WHERE IDVideo=? AND IDUser=? ";
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setString(1, IDV);
+            statement.setString(2, IDU);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    int count = resultSet.getInt(1);
+                    return count > 0;
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+    public static boolean ChecksavePlayllist(String IDP,String IDU) {//TODO check
+        StartConnection();
+        String query = "SELECT COUNT(*) FROM saveplaylist WHERE IDUser=? AND IDPalyList=? ";
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setString(1, IDU);
+            statement.setString(2, IDP);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    int count = resultSet.getInt(1);
+                    return count > 0;
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
 
 
 
