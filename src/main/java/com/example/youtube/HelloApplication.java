@@ -12,13 +12,18 @@ import java.io.IOException;
 public class HelloApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("signUp-view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 1190, 627);
         stage.setTitle("Youtube");
         stage.setScene(scene);
 //        Add icon
+//        stage.getIcons().add(new Image("file:icon.png"));
+//        stage.getIcons().add(new Image("src/main/resources/com/example/youtube/Images/unnamed.jpg"));
+// Add icon
+        stage.getIcons().add(new Image("file:src/main/resources/com/example/youtube/Images/unnamed.jpg"));
         stage.show();
         Client client=new Client("localhost");
+
 
 //        System.out.println( client.sendRequest(8,"unnamed"));
 //        System.out.println( client.getImageBytes("unnamed"));
