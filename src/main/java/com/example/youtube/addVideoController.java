@@ -4,6 +4,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Slider;
 import javafx.scene.image.ImageView;
 import javafx.scene.media.Media;
@@ -26,6 +27,8 @@ public class addVideoController {
     private ImageView pauseImg;
     @FXML
     private ImageView platImg;
+    @FXML
+    private ChoiceBox playLists;
 
     @FXML
     public void openSongMedia(ActionEvent event) {
@@ -129,7 +132,17 @@ public class addVideoController {
         }
     }
 
-//    public void initialize() {
-//        if ()
-//    }
+    @FXML
+    public void addToPlayList() {
+        String playListName = playLists.getValue().toString();
+//        mediaPlayer.getMedia()
+        // add video to playList
+    }
+
+    // pass List of Play Lists Here
+    public void initialize() {
+        playLists.getItems().add("Your Channel");
+        playLists.getSelectionModel().select("Your Channel");
+        // for play list in passed list : playLists.getItems().add("{playlist name}");
+    }
 }
