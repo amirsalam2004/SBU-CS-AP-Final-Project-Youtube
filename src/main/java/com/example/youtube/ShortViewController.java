@@ -4,8 +4,6 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextArea;
@@ -20,9 +18,8 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.File;
-import java.io.IOException;
 
-public class videoViewController {
+public class ShortViewController {
     MediaPlayer mediaPlayer;
 
     @FXML
@@ -116,7 +113,7 @@ public class videoViewController {
     public void nextBtnClick() {
         double d = mediaPlayer.getCurrentTime().toSeconds();
 
-        d += 15;
+        d += 5;
 
         mediaPlayer.seek(new Duration(d * 1000));
     }
@@ -125,7 +122,7 @@ public class videoViewController {
     public void preBtnClick() {
         double d = mediaPlayer.getCurrentTime().toSeconds();
 
-        d -= 10;
+        d -= 3;
 
         mediaPlayer.seek(new Duration(d * 1000));
     }
@@ -175,30 +172,6 @@ public class videoViewController {
         }
     }
 
-
-    // profile Image - comment content Pass here
-    public void addCommentInBox() {
-        HBox hBox = new HBox();
-        hBox.setPrefHeight(130.0);
-        hBox.setPrefWidth(133.0);
-
-        ImageView profileImg = new ImageView();
-        profileImg.setFitHeight(150.0);
-        profileImg.setFitWidth(133.0);
-
-        Label commentContent = new Label();
-        commentContent.setPrefWidth(274.0);
-        commentContent.setPrefHeight(150.0);
-
-        hBox.getChildren().addAll(profileImg, commentContent);
-        content.getChildren().add(hBox);
-    }
-
-    // pass description of video here
-    public void setDescription(String descriptionTxt) {
-        description.setText(descriptionTxt);
-    }
-
     @FXML
     public void exitBtnClick() {
         if (mediaPlayer != null) {
@@ -208,4 +181,8 @@ public class videoViewController {
         stage.close();
     }
 
+    @FXML
+    public void nextShortClick() {
+        // import next short here
+    }
 }

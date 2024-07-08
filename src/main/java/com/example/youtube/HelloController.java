@@ -24,6 +24,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.util.Duration;
 
 import java.io.File;
@@ -282,9 +283,6 @@ public class HelloController {
         HistoryPane.setVisible(false);
         watchLaterPane.setVisible(false);
         likedVideoPane.setVisible(false);
-        if (mediaPlayer != null) {
-            mediaPlayer.pause();
-        }
     }
 
     @FXML
@@ -363,23 +361,17 @@ public class HelloController {
         videos.setVisible(false);
         explore.setVisible(false);
         closeAllPanes();
-
-        if (mediaPlayer != null) {
-            mediaPlayer.pause();
-        }
         subscriptionPane.setVisible(true);
     }
 
     @FXML
-    protected void shortsClick() {
-        subscriptionPane.setVisible(false);
-        videos.setVisible(false);
-        explore.setVisible(false);
-        closeAllPanes();
-
-        if (mediaPlayer != null) {
-            mediaPlayer.pause();
-        }
+    protected void shortsClick() throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("shortView.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 600, 691);
+        stage.setTitle("---Short---");
+//        stage.initStyle(StageStyle.UNDECORATED);
+        stage.setScene(scene);
+        stage.show();
     }
 
     @FXML
@@ -585,8 +577,18 @@ public class HelloController {
     @FXML
     public void openVideoPage() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("videoView.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 870, 520);
-        stage.setTitle("addVideo");
+        Scene scene = new Scene(fxmlLoader.load(), 1029, 760);
+        stage.setTitle("---Video---");
+        stage.initStyle(StageStyle.UNDECORATED);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    @FXML
+    public void clickOnAPlayList() throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("playListView.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 1029, 760);
+        stage.setTitle("---playList---");
         stage.setScene(scene);
         stage.show();
     }
