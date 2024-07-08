@@ -1,6 +1,10 @@
 package com.example.youtube.Controller;
 
 import com.example.youtube.HelloApplication;
+import com.example.youtube.HelloController;
+import com.example.youtube.Model.Channel;
+import com.example.youtube.Model.User;
+import com.example.youtube.Server.Client;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -10,6 +14,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Border;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -29,14 +35,16 @@ public class LoginController implements Initializable {
     private Button endLogin=new Button();
 
     @FXML
-    private  Button signUp=new Button();
+    private Label check=new Label();
+
+    //-----------------------------------------------------------------------------
+   public Client client=null;
 
 
 
 
 
-
-
+    //------------------------------------------------------------------------------
     @FXML
     public void emailFieldClick() {
         emailField.setStyle("-fx-border-color : #4de4ff; -fx-border-radius : 6; -fx-background-color:  #2C2829; -fx-text-inner-color : #ffff");
@@ -74,16 +82,45 @@ public class LoginController implements Initializable {
                 Stage currentStage = (Stage) emailField.getScene().getWindow();
                 currentStage.close();
                 try {
-                    root = FXMLLoader.load(getClass().getResource("hello-view.fxml"));
-                } catch (IOException ex) {
-                    throw new RuntimeException(ex);
+                    FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));//go to Home page
+                    Scene scene = null;
+                    try {
+                        scene = new Scene(fxmlLoader.load(), 1190, 627);
+                    } catch (IOException ex) {
+                        throw new RuntimeException(ex);
+                    }
+                    //get user
+                    try {
+                        User user = client.getUserRequest(emailField.getText(), hashPasswordSHA256(passwordField.getText()));
+                        System.out.println("[GET  USER--> COMPLETE  ]");
+
+                        //get chanel
+                        Channel channel = client.getChannelRequest(user.getUsername(), 0);
+                        System.out.println("[GET  CHANNEL--> COMPLETE  ]");
+
+                    HelloController helloController=new HelloController();
+                    helloController.user = user;
+                    helloController.channel = channel;
+                    helloController.loginOn = true;
+                    stage.setTitle("Youtube");
+                    stage.setScene(scene);
+                    stage.show();
+                    }catch (Exception r){
+                        r.printStackTrace();
+                    }
+
+
+
+
+                }catch (Exception ee){
+                    ee.printStackTrace();
                 }
-                stage.setScene(new Scene(root));
-                stage.setTitle("");
-                stage.show();
+            }else {
+                check.setText("Not Correct ");
+                check.setTextFill(Color.RED);
+                check.setFont(Font.font("Californian FB"));
+
             }
-
-
         });
 
 

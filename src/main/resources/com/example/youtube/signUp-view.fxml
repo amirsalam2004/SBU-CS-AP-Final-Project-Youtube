@@ -26,7 +26,7 @@
                 <Label fx:id="Passagain" layoutX="25.0" layoutY="168.0" text="Password again" textFill="#4de4ff" />
             <Label fx:id="error" layoutX="26.0" layoutY="60.0" textFill="RED" visible="false" />
             <Label fx:id="errorEmail" layoutX="22.0" layoutY="-19.0" textFill="RED" />
-            <Label fx:id="errorUserName" layoutX="32.0" layoutY="142.0" textFill="RED" />
+            <Label fx:id="errorUserName" layoutX="32.0" layoutY="142.0" textFill="RED" visible="false" />
             </children>
         </Group>
         <Button fx:id="next" layoutX="329.0" layoutY="555.0" mnemonicParsing="false" onAction="#endOfSignUp" prefHeight="42.0" prefWidth="82.0" style="-fx-background-color: #2C2829; -fx-background-radius: 15;" text="next" textFill="WHITE">

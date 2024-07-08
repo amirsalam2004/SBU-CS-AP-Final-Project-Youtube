@@ -131,6 +131,7 @@ public class signUpController implements Initializable {
         System.out.println("[START] SING_UP");
         error.setVisible(false);
         error.setTextFill(Color.RED);
+
         //this is for start sing up
         next.setOnAction(e -> {
             if (UserEixst()) {
@@ -187,7 +188,9 @@ public class signUpController implements Initializable {
         Continue.setOnAction(e -> {
             Age=passwordField.getText();
             country=secondPasswordField.getText();
-            if(!CheckUserName(emailField.getText())) {
+            if(CheckUserName(emailField.getText())) {//ToDO
+                System.out.println(isInteger(Age));
+                System.out.println(Age);
                 if (isInteger(Age)) {
                     Username = emailField.getText();
                     System.out.println("User :" +
@@ -258,6 +261,9 @@ public class signUpController implements Initializable {
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
             }
+            LoginController loginController=new LoginController();
+            loginController.client=this.client;
+
             stage.setTitle("Youtube");
             stage.setScene(scene);
             stage.show();
@@ -270,7 +276,7 @@ public class signUpController implements Initializable {
     }
     public boolean isInteger(String input) {
         try {
-            Integer.valueOf(input);
+            Integer.parseInt(input);
             return true;
         } catch (NumberFormatException e) {
             return false;

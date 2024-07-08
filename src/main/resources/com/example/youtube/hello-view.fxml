@@ -5,11 +5,16 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.Light.Distant?>
+<?import javafx.scene.effect.Lighting?>
+<?import javafx.scene.effect.Shadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.TilePane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.Color?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
@@ -247,8 +252,8 @@
             <Image url="@Images/glass+magnifier+magnifying+search+zoom+icon-1320191179291597730.png" />
          </image>
       </ImageView>
-      <TextField layoutX="442.0" layoutY="16.0" prefHeight="17.0" prefWidth="393.0" promptText="Search" />
-      <Button layoutX="300.0" layoutY="12.0" mnemonicParsing="false" onAction="#onHelloButtonClick" prefHeight="34.0" prefWidth="88.0" text="DarkModeCheck" />
+      <TextField layoutX="442.0" layoutY="16.0" prefHeight="17.0" prefWidth="393.0" promptText="Search" style="-fx-background-color: #49FF00; -fx-background-radius: 100; -fx-border-radius: 200; -fx-border-color: #000000;" />
+      <Button layoutX="300.0" layoutY="12.0" mnemonicParsing="false" onAction="#onHelloButtonClick" prefHeight="34.0" prefWidth="88.0" style="-fx-background-color: #F11212; -fx-background-radius: 200; -fx-border-radius: 200; -fx-border-color: #000000;" text="DarkModeCheck" />
       <ImageView fitHeight="29.0" fitWidth="26.0" layoutX="1001.0" layoutY="15.0" onMouseClicked="#notificationsClick" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@Images/svgexport-14.png" />
@@ -358,7 +363,20 @@
             <Image url="@Images/svgexport-13%20(1).png" />
          </image>
       </ImageView>
-      <ChoiceBox fx:id="searchFilter" layoutX="848.0" layoutY="16.0" prefHeight="24.0" prefWidth="88.0" />
+      <ChoiceBox fx:id="searchFilter" layoutX="848.0" layoutY="16.0" prefHeight="24.0" prefWidth="88.0" style="-fx-background-color: #F11212; -fx-background-repeat: 12;">
+         <effect>
+            <Lighting diffuseConstant="1.15" specularConstant="1.14" specularExponent="17.43" surfaceScale="3.48">
+               <bumpInput>
+                  <Shadow height="47.37" radius="25.365000000000002" width="56.09" />
+               </bumpInput>
+               <light>
+                  <Light.Distant>
+                     <color>
+                        <Color red="1.0" />
+                     </color></Light.Distant>
+               </light>
+            </Lighting>
+         </effect></ChoiceBox>
       <ScrollPane fx:id="HistoryPane" layoutX="254.0" layoutY="56.0" prefHeight="562.0" prefWidth="918.0" visible="false">
          <TilePane fx:id="historyContainer" hgap="15" prefHeight="531.0" prefWidth="851.0" vgap="20">
             <Label alignment="CENTER" prefHeight="74.0" prefWidth="232.0" text="History">
@@ -449,7 +467,24 @@
             </TilePane>
          </content>
       </ScrollPane>
-      <Button layoutX="200.0" layoutY="12.0" mnemonicParsing="false" onAction="#openVideoPage" prefHeight="34.0" prefWidth="88.0" text="VideoPage" />
-      <Button fx:id="Continue" layoutX="1044.0" layoutY="17.0" mnemonicParsing="false" text="Login" />
+      <Button layoutX="200.0" layoutY="12.0" mnemonicParsing="false" onAction="#openVideoPage" prefHeight="34.0" prefWidth="88.0" style="-fx-background-color: #F11212; -fx-background-radius: 200; -fx-border-color: #000000; -fx-border-radius: 200;" text="VideoPage" />
+      <Button fx:id="Continue" layoutX="1044.0" layoutY="17.0" mnemonicParsing="false" style="-fx-background-radius: 100; -fx-border-color: #000000; -fx-border-radius: 100; -fx-background-color: #F11212;" text="Account">
+         <font>
+            <Font name="Californian FB Bold" size="14.0" />
+         </font></Button>
+      <HBox fx:id="Massage" layoutX="967.0" layoutY="52.0" prefHeight="28.0" prefWidth="200.0">
+         <children>
+            <Label prefHeight="20.0" prefWidth="134.0" text="Do you want to LogOut ">
+               <font>
+                  <Font name="Californian FB" size="14.0" />
+               </font>
+            </Label>
+            <Button fx:id="LogOut" mnemonicParsing="false" prefHeight="26.0" prefWidth="66.0" style="-fx-background-radius: 100; -fx-background-color: #F11212; -fx-border-radius: 100; -fx-border-color: #000000;" text="logOut">
+               <font>
+                  <Font name="Californian FB" size="12.0" />
+               </font>
+            </Button>
+         </children>
+      </HBox>
    </children>
 </AnchorPane>
