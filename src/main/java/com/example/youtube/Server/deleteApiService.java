@@ -23,6 +23,8 @@ public class deleteApiService {
                 return deleteComment(body);
             case "34":
                 return unfollow(body);
+            case "35":
+                return deleteVideoComments(body);
             default:
                 return gson.toJson(new deleteApiService.ErrorResponse("Unknown endpoint"));
         }
@@ -35,6 +37,7 @@ public class deleteApiService {
             //If the changes are applied successfully, return 1
             return "1";
         }catch (Exception e){
+            System.out.println(e.getMessage());
             //if wasn't successfully, return 0
             return "0";
         }
@@ -47,6 +50,7 @@ public class deleteApiService {
             //If the changes are applied successfully, return 1
             return "1";
         }catch (Exception e){
+            System.out.println(e.getMessage());
             //if wasn't successfully, return 0
             return "0";
         }
@@ -60,6 +64,7 @@ public class deleteApiService {
             //If the changes are applied successfully, return 1
             return "1";
         }catch (Exception e){
+            System.out.println(e.getMessage());
             //if wasn't successfully, return 0
             return "0";
         }
@@ -72,6 +77,18 @@ public class deleteApiService {
             //If the changes are applied successfully, return 1
             return "1";
         }catch (Exception e){
+            System.out.println(e.getMessage());
+            //if wasn't successfully, return 0
+            return "0";
+        }
+    }
+    private static String deleteVideoComments(String videoInfo) {
+        try {
+            DataBaseManager.delete_Comment_ALL(videoInfo);
+            //If the changes are applied successfully, return 1
+            return "1";
+        }catch (Exception e){
+            System.out.println(e.getMessage());
             //if wasn't successfully, return 0
             return "0";
         }

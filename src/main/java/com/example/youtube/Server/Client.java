@@ -313,9 +313,12 @@ public class Client {
     //TODO get follwing
 
 
-/***
- * add request methods
- */
+    /***
+     *
+     * @param user
+     * @return
+     * @throws IOException
+     */
 // this make a request to create a new user and return server response
 public Boolean addUserRequest(User user) throws IOException{
     try {
@@ -432,4 +435,78 @@ public Boolean addUserRequest(User user) throws IOException{
         }
     }
 
+    /***
+     * Delete request methods
+     */
+
+    public boolean deleteVideoRequest(String videoID,String channelID) throws IOException{
+        try {
+            String request="3#31#"+videoID+"#"+channelID;
+            out.writeUTF(request);
+            String response=in.readUTF();
+            if(response.equals("1"))
+                return true;
+            else
+                return false;
+        }catch (IOException e){
+            System.out.println(e.getMessage());
+            return false;
+        }
+    }
+    public boolean deletePlaylistRequest(String playlistID) throws IOException{
+        try {
+            String request="3#32#"+playlistID;
+            out.writeUTF(request);
+            String response=in.readUTF();
+            if(response.equals("1"))
+                return true;
+            else
+                return false;
+        }catch (IOException e){
+            System.out.println(e.getMessage());
+            return false;
+        }
+    }
+    public boolean deleteCommentRequest(String videoID,String commentID) throws IOException{
+        try {
+            String request="3#33#"+videoID+"#"+commentID;
+            out.writeUTF(request);
+            String response=in.readUTF();
+            if(response.equals("1"))
+                return true;
+            else
+                return false;
+        }catch (IOException e){
+            System.out.println(e.getMessage());
+            return false;
+        }
+    }
+    public boolean unfollowRequest(String userID,String channelID,int identifier) throws IOException{
+        try {
+            String request="3#34#"+userID+"#"+channelID+"#"+identifier;
+            out.writeUTF(request);
+            String response=in.readUTF();
+            if(response.equals("1"))
+                return true;
+            else
+                return false;
+        }catch (IOException e){
+            System.out.println(e.getMessage());
+            return false;
+        }
+    }
+    public boolean deleteVideoCommentsRequest(String videoID) throws IOException{
+        try {
+            String request="3#35#"+videoID;
+            out.writeUTF(request);
+            String response=in.readUTF();
+            if(response.equals("1"))
+                return true;
+            else
+                return false;
+        }catch (IOException e){
+            System.out.println(e.getMessage());
+            return false;
+        }
+    }
 }
