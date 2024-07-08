@@ -31,38 +31,6 @@ public class Client {
             System.out.println(e.getMessage());
         }
     }
-    public boolean sendRequest(int type,int endpoint,String body) throws  IOException{
-        try {
-            String request=type+"#"+endpoint+"#"+body;
-            System.out.println("request is "+request);
-            out.writeUTF(request);
-            return true;
-        }catch (IOException e){
-            System.out.println(e.getMessage());
-            return false;
-        }
-    }
-    public boolean sendRequest(int type,String body) throws  IOException{
-        try {
-            String request=type+"#"+body;
-            System.out.println("request is "+request);
-            out.writeUTF(request);
-            return true;
-        }catch (IOException e){
-            System.out.println(e.getMessage());
-            return false;
-        }
-    }
-    public String getResponse() throws IOException{
-        try {
-            String input=in.readUTF();
-            System.out.println("Response is "+ input);
-            return input;
-        }catch (IOException e){
-            System.out.println(e.getMessage());
-            return "0";
-        }
-    }
     public void closeConnection(){
         try {
             // Close input and output streams and the client socket when done
@@ -159,7 +127,7 @@ public class Client {
             fos.close();
         }
     }
-
+    //send a request to get a User class and return response
     public User getUserRequest(String email, String passWord) throws IOException {
         try {
             String request = "1#11#"+email+"#"+passWord;
@@ -171,6 +139,7 @@ public class Client {
             return null;
         }
     }
+    //send a request to get a Channel class and return response
     public Channel getChannelRequest(String identifier, int number) throws IOException {
         try {
             String request = "1#12#"+identifier+"#"+number;
