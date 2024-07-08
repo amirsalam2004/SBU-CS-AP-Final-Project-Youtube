@@ -42,6 +42,7 @@ public class addApiService {
         try {
             System.out.println("[ADD USER]");
             User user = gson.fromJson(userJson, User.class);
+            System.out.println(user.getID());
             if(DataBaseManager.Cr_User(user)) {
                 //If the changes are applied successfully, return 1
                 return "1";
@@ -55,9 +56,12 @@ public class addApiService {
     //to add a new channel
     private static String addChannel(String channelJson) {
         try {
+            System.out.println("[START ADD CHANNEL ]");
             Channel channel = gson.fromJson(channelJson, Channel.class);
+            System.out.println(channel.getName());
             if(DataBaseManager.Cr_Chanel(channel)) {
                 //If the changes are applied successfully, return 1
+                System.out.println("[ADD CHANNEL ]");
                 return "1";
             }
             return "0";

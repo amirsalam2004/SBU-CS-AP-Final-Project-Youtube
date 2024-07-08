@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="530.0" prefWidth="805.0" style="-fx-background-color: #cfcfcf;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.youtube.Controller.Category">
+   <children>
+      <Label layoutX="200.0" layoutY="47.0" text="please write informatin  ">
+         <font>
+            <Font name="Castellar" size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="119.0" layoutY="249.0" text="title :">
+         <font>
+            <Font name="Castellar" size="17.0" />
+         </font>
+      </Label>
+      <Label layoutX="87.0" layoutY="119.0" text="discribtion :">
+         <font>
+            <Font name="Castellar" size="17.0" />
+         </font>
+      </Label>
+      <Label layoutX="108.0" layoutY="365.0" text="Image : ">
+         <font>
+            <Font name="Castellar" size="17.0" />
+         </font>
+      </Label>
+      <TextArea fx:id="discribtion" layoutX="230.0" layoutY="100.0" prefHeight="96.0" prefWidth="546.0" promptText="inter your describtion " style="-fx-background-color: #212F3C;">
+         <font>
+            <Font name="Lucida Calligraphy Italic" size="17.0" />
+         </font>
+      </TextArea>
+      <TextField fx:id="titel" layoutX="195.0" layoutY="241.0" prefHeight="38.0" prefWidth="206.0" promptText="TITEL" style="-fx-background-radius: 200;">
+         <font>
+            <Font name="Californian FB" size="12.0" />
+         </font>
+      </TextField>
+      <Button fx:id="chooseFile" layoutX="237.0" layoutY="363.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="91.0" style="-fx-background-color: #212F3C; -fx-background-radius: 200;" text="Choose" textFill="WHITE">
+         <font>
+            <Font name="Californian FB" size="12.0" />
+         </font>
+      </Button>
+      <ImageView fitHeight="253.0" fitWidth="257.0" layoutX="464.0" layoutY="228.0" pickOnBounds="true" preserveRatio="true" />
+   </children>
+</AnchorPane>

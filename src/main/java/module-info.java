@@ -9,7 +9,7 @@ module com.example.youtube {
 //    requires org.kordamp.ikonli.javafx;
     requires java.sql;
     requires com.google.gson;
-
+    opens com.example.youtube.Model to com.google.gson;
     opens com.example.youtube to javafx.fxml;
     exports com.example.youtube;
     exports com.example.youtube.Controller;

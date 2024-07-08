@@ -32,21 +32,22 @@ public class Math {
 
 
         for (int x:random){
-            if(x<value.get(0))  result.set(0,result.get(0)+1);
-            else if(x> value.get(0)&&x<value.get(1))  result.set(1,result.get(1)+1);
-            else if(x> value.get(1)&&x<value.get(2))  result.set(2,result.get(2)+1);
-            else if(x> value.get(2)&&x<value.get(3))  result.set(3,result.get(3)+1);
-            else if(x> value.get(3)&&x<value.get(4))  result.set(4,result.get(4)+1);
-            else if(x> value.get(4)&&x<value.get(5))  result.set(5,result.get(5)+1);
-            else if(x> value.get(5)&&x<value.get(6))  result.set(6,result.get(6)+1);
-            else if(x> value.get(6)&&x<value.get(7))  result.set(7,result.get(7)+1);
-            else if(x> value.get(7)&&x<value.get(8))  result.set(8,result.get(8)+1);
-            else if(x> value.get(8)&&x<value.get(9))  result.set(9,result.get(9)+1);
-            else if(x> value.get(9)&&x<value.get(10)) result.set(10,result.get(10)+1);
+
+                if(x<value.get(0))  result.set(0,result.get(0)+1);
+           else if(x> value.get(0)&&x<value.get(1))  result.set(1,result.get(1)+1);
+           else if(x> value.get(1)&&x<value.get(2))  result.set(2,result.get(2)+1);
+           else if(x> value.get(2)&&x<value.get(3))  result.set(3,result.get(3)+1);
+           else if(x> value.get(3)&&x<value.get(4))  result.set(4,result.get(4)+1);
+           else if(x> value.get(4)&&x<value.get(5))  result.set(5,result.get(5)+1);
+           else if(x> value.get(5)&&x<value.get(6))  result.set(6,result.get(6)+1);
+           else if(x> value.get(6)&&x<value.get(7))  result.set(7,result.get(7)+1);
+           else if(x> value.get(7)&&x<value.get(8))  result.set(8,result.get(8)+1);
+           else if(x> value.get(8)&&x<value.get(9))  result.set(9,result.get(9)+1);
+           else if(x> value.get(9)&&x<value.get(10)) result.set(10,result.get(10)+1);
+
         }
         return result;
     }
-
 
 
 

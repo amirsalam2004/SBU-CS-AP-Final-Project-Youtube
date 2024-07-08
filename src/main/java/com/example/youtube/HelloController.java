@@ -1,6 +1,10 @@
 package com.example.youtube;
 
 
+import com.example.youtube.Controller.LoginController;
+import com.example.youtube.Controller.signUpController;
+import com.example.youtube.Model.Channel;
+import com.example.youtube.Model.User;
 import com.example.youtube.Server.Client;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -23,6 +27,7 @@ import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -110,12 +115,32 @@ public class HelloController{
     @FXML
     private AnchorPane subscriptionPane;
 
+    //------------------------------------------------------------------------------
+    //this part is for object
+    public Client client;
+    public  boolean loginOn=false;
+
+    public Channel channel;
+
+    public User user;
+
+    static Stage loginStage=null;
+
+
+
+
+
+
+
+    //------------------------------------------------------------------------------
     private boolean isSideBarOn = false;
     @FXML
     private AnchorPane firstSideBar;
     private boolean isFirstSideBarOn;
     private Parent root;
     private Stage stage = new Stage();
+    @FXML
+    Button login=new Button();
 
     MediaPlayer mediaPlayer;
 
@@ -137,6 +162,7 @@ public class HelloController{
     private ImageView notDisLikedImg;
     @FXML
     private ImageView disLikedImg;
+
 
 
     @FXML
@@ -228,20 +254,86 @@ public class HelloController{
             label.setOnMouseExited(event -> settingBackGround.setFill(normalColor));
         }
     }
+    Scene scene=null;
 
     @FXML
     public void initialize() throws IOException {
 
-        //Strat cilit
-        Client client=new Client("localhost");
+//        Start client
+        client=new Client("localhost");
 
-        // SideBar Hovers
+//        this part of code for show the logOut
+//        -------------------------------------------------------------------------------------------------
+//        //label meeting
+//        Label meeting=new Label("I am looking forward to meeting you");
+//        meeting.setFont(Font.font("Californian FB"));
+//        meeting.setFont(Font.font(20));
+//        //label youTube
+//        Label YouTube=new Label("YouTube");
+//        meeting.setFont(Font.font("Californian FB"));
+//        meeting.setFont(Font.font(20));
+//        //button
+//        Button exit=new Button("Exit");
+//        exit.setStyle("-fx-background-color:  #838384");
+//        exit.setStyle("-fx-background-radius: 100");
+//
+//        Button Out=new Button("Exit");
+//        exit.setStyle("-fx-background-color:  #838384");
+//        exit.setStyle("-fx-background-radius: 100");
+//
+//        VBox vBox=new VBox(exit,Out);
+//
+//        HBox hBox=new HBox(YouTube,exit,vBox);
+//        hBox.setVisible(false);
+//
+//
+//
+//
+//        login.setOnMouseEntered(e->{
+//            if (!loginOn){
+//
+//                hBox.setVisible(true);
+//                scene = new Scene(hBox, 300, 200);
+//                stage.setScene(scene);
+//                stage.show();
+//
+//            }
+//        });
+//        login.setOnMouseExited(event->{
+//            hBox.setVisible(false);
+//            stage.close();
+//        });
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+        login.setOnAction(e->{
+                if(!loginOn) {
+                    if (loginStage==null) {
+                        FXMLLoader loader = new FXMLLoader(getClass().getResource("signUp-view.fxml"));
+                        Parent root = null;
+                        try {
+                            root = loader.load();
+                        } catch (IOException ex) {
+                            throw new RuntimeException(ex);
+                        }
+                        signUpController playGame = loader.getController();
+                        playGame.client = this.client;
+
+                        loginStage = new Stage();
+                        loginStage.setScene(new Scene(root));
+                        loginStage.show();
+                    }
+                }else{
+                    //now should  open the new stage for LogOut and Exit //TODO THIS PART FOR END
+                    System.out.println("[YOU ARE LOGIN ]");
+                }
+            });
+            // SideBar Hovers
         Paint hoverColor, normalColor;
         if (mainField.getId().equals("1")) {
             hoverColor = Paint.valueOf("#CBC6C6");
             normalColor = Paint.valueOf("#fff");
         }
-        else {
+        else{
             hoverColor = Paint.valueOf("#7F7C7C");
             normalColor = Paint.valueOf("#272424");
         }
