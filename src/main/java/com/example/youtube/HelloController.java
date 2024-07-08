@@ -1,26 +1,20 @@
 package com.example.youtube;
 
 
-import com.example.youtube.Controller.LoginController;
-import com.example.youtube.Controller.signUpController;
-import com.example.youtube.Model.Channel;
-import com.example.youtube.Model.User;
-import com.example.youtube.Server.Client;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.Slider;
+import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -30,14 +24,21 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.util.Duration;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
 
-public class HelloController{
+public class HelloController {
+    public TilePane container;
+    public TilePane playListsContainer;
+    public TilePane subscriptionContainer;
+    public TilePane historyContainer;
+    public ScrollPane HistoryPane;
+    public TilePane watchLaterContainer;
+    public ScrollPane watchLaterPane;
+    public ScrollPane likedVideoPane;
     @FXML
     private Rectangle homeBackGround;
     @FXML
@@ -107,40 +108,21 @@ public class HelloController{
     @FXML
     private ScrollPane videos;
     @FXML
-    private AnchorPane videoView;
+    private ScrollPane playListsPane;
     @FXML
-    private AnchorPane playListsPane;
+    private ScrollPane explore;
     @FXML
-    private AnchorPane explore;
+    private ScrollPane subscriptionPane;
     @FXML
-    private AnchorPane subscriptionPane;
+    private ScrollPane notificationPane;
 
-    //------------------------------------------------------------------------------
-    //this part is for object
-    public Client client;
-    public  boolean loginOn=false;
-
-    public Channel channel;
-
-    public User user;
-
-    static Stage loginStage=null;
-
-
-
-
-
-
-
-    //------------------------------------------------------------------------------
     private boolean isSideBarOn = false;
     @FXML
     private AnchorPane firstSideBar;
     private boolean isFirstSideBarOn;
     private Parent root;
     private Stage stage = new Stage();
-    @FXML
-    Button login=new Button();
+
 
     MediaPlayer mediaPlayer;
 
@@ -162,7 +144,8 @@ public class HelloController{
     private ImageView notDisLikedImg;
     @FXML
     private ImageView disLikedImg;
-
+    @FXML
+    private ChoiceBox searchFilter;
 
 
     @FXML
@@ -254,86 +237,16 @@ public class HelloController{
             label.setOnMouseExited(event -> settingBackGround.setFill(normalColor));
         }
     }
-    Scene scene=null;
 
     @FXML
-    public void initialize() throws IOException {
-
-//        Start client
-        client=new Client("localhost");
-
-//        this part of code for show the logOut
-//        -------------------------------------------------------------------------------------------------
-//        //label meeting
-//        Label meeting=new Label("I am looking forward to meeting you");
-//        meeting.setFont(Font.font("Californian FB"));
-//        meeting.setFont(Font.font(20));
-//        //label youTube
-//        Label YouTube=new Label("YouTube");
-//        meeting.setFont(Font.font("Californian FB"));
-//        meeting.setFont(Font.font(20));
-//        //button
-//        Button exit=new Button("Exit");
-//        exit.setStyle("-fx-background-color:  #838384");
-//        exit.setStyle("-fx-background-radius: 100");
-//
-//        Button Out=new Button("Exit");
-//        exit.setStyle("-fx-background-color:  #838384");
-//        exit.setStyle("-fx-background-radius: 100");
-//
-//        VBox vBox=new VBox(exit,Out);
-//
-//        HBox hBox=new HBox(YouTube,exit,vBox);
-//        hBox.setVisible(false);
-//
-//
-//
-//
-//        login.setOnMouseEntered(e->{
-//            if (!loginOn){
-//
-//                hBox.setVisible(true);
-//                scene = new Scene(hBox, 300, 200);
-//                stage.setScene(scene);
-//                stage.show();
-//
-//            }
-//        });
-//        login.setOnMouseExited(event->{
-//            hBox.setVisible(false);
-//            stage.close();
-//        });
-//--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-        login.setOnAction(e->{
-                if(!loginOn) {
-                    if (loginStage==null) {
-                        FXMLLoader loader = new FXMLLoader(getClass().getResource("signUp-view.fxml"));
-                        Parent root = null;
-                        try {
-                            root = loader.load();
-                        } catch (IOException ex) {
-                            throw new RuntimeException(ex);
-                        }
-                        signUpController playGame = loader.getController();
-                        playGame.client = this.client;
-
-                        loginStage = new Stage();
-                        loginStage.setScene(new Scene(root));
-                        loginStage.show();
-                    }
-                }else{
-                    //now should  open the new stage for LogOut and Exit //TODO THIS PART FOR END
-                    System.out.println("[YOU ARE LOGIN ]");
-                }
-            });
-            // SideBar Hovers
+    public void initialize() {
+        // SideBar Hovers
         Paint hoverColor, normalColor;
         if (mainField.getId().equals("1")) {
             hoverColor = Paint.valueOf("#CBC6C6");
             normalColor = Paint.valueOf("#fff");
         }
-        else{
+        else {
             hoverColor = Paint.valueOf("#7F7C7C");
             normalColor = Paint.valueOf("#272424");
         }
@@ -354,13 +267,22 @@ public class HelloController{
         for (Label label : labels) {
             handleLabelHover(label, hoverColor, normalColor);
         }
+
+
+        // search filter
+        searchFilter.getSelectionModel().select("Video");
+        searchFilter.getItems().add("Video");
+        searchFilter.getItems().add("Channel");
+        searchFilter.getItems().add("Playlist");
     }
 
     private void closeAllPanes() {
         playListsPane.setVisible(false);
-        videoView.setVisible(false);
         subscriptionPane.setVisible(false);
-        mediaPlayer.pause();
+        notificationPane.setVisible(false);
+        HistoryPane.setVisible(false);
+        watchLaterPane.setVisible(false);
+        likedVideoPane.setVisible(false);
     }
 
     @FXML
@@ -368,32 +290,25 @@ public class HelloController{
         videos.setVisible(true);
         explore.setVisible(false);
         closeAllPanes();
-//        get _image
-//        get list of video
-//        for(for each video get image of video
-
-//
-//
-//
-//
-
 
     }
 
     @FXML
     protected void settingClick() {
         sideBar.setVisible(false);
+        closeAllPanes();
         settingSideBar.setVisible(true);
         videos.setVisible(false);
-        videoView.setVisible(false);
         explore.setVisible(false);
+        firstSideBar.setVisible(false);
     }
     @FXML
     protected void playListsClick() {
-        playListsPane.setVisible(true);
+        closeAllPanes();
         videos.setVisible(false);
-        videoView.setVisible(false);
         explore.setVisible(false);
+        subscriptionPane.setVisible(false);
+        playListsPane.setVisible(true);
     }
     @FXML
     protected void trendingClick() {
@@ -418,47 +333,74 @@ public class HelloController{
     }
     @FXML
     protected void newsClick() {
-        explore.setVisible(true);
         exploreLabel.setText("News");
         videos.setVisible(false);
         closeAllPanes();
+        explore.setVisible(true);
     }
     @FXML
     protected void sportsClick() {
-        explore.setVisible(true);
         exploreLabel.setText("Sports");
         videos.setVisible(false);
         closeAllPanes();
+        explore.setVisible(true);
     }
     @FXML
     protected void podcastsClick() {
-        explore.setVisible(true);
         exploreLabel.setText("Podcasts");
         videos.setVisible(false);
         closeAllPanes();
-        videoView.setVisible(false);
-        mediaPlayer.pause();
-    }
-
-    @FXML
-    protected void openVideoPage() {
-        playListsPane.setVisible(false);
-        videos.setVisible(false);
-        explore.setVisible(false);
-        videoView.setVisible(true);
-        mediaPlayer.pause();
+        if (mediaPlayer != null) {
+            mediaPlayer.pause();
+        }
+        explore.setVisible(true);
     }
 
     @FXML
     protected void subscriptionClick() {
-        subscriptionPane.setVisible(true);
-        playListsPane.setVisible(false);
         videos.setVisible(false);
         explore.setVisible(false);
-        playListsPane.setVisible(false);
-        videoView.setVisible(false);
-        mediaPlayer.pause();
-        subscriptionPane.setVisible(false);
+        closeAllPanes();
+        subscriptionPane.setVisible(true);
+    }
+
+    @FXML
+    protected void shortsClick() throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("shortView.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 600, 691);
+        stage.setTitle("---Short---");
+//        stage.initStyle(StageStyle.UNDECORATED);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    @FXML
+    public void notificationsClick() {
+        sideBar.setVisible(false);
+        explore.setVisible(false);
+        closeAllPanes();
+        notificationPane.setVisible(true);
+    }
+
+    @FXML
+    public void historyClick() {
+        explore.setVisible(false);
+        closeAllPanes();
+        HistoryPane.setVisible(true);
+    }
+
+    @FXML
+    public void watchLaterClick() {
+        explore.setVisible(false);
+        closeAllPanes();
+        watchLaterPane.setVisible(true);
+    }
+
+    @FXML
+    public void likedVideoClick() {
+        closeAllPanes();
+        explore.setVisible(false);
+        likedVideoPane.setVisible(true);
     }
 
     @FXML
@@ -468,6 +410,37 @@ public class HelloController{
         stage.setTitle("addVideo");
         stage.setScene(scene);
         stage.show();
+    }
+
+    // pass video here
+    // pass playList here
+    public void createVideoBox(TilePane tilePane) {
+        VBox vbox = new VBox();
+        vbox.prefWidth(309.0);
+        vbox.prefHeight(680.0);
+
+        ImageView imageView = new ImageView();
+//        imageView.setImage(new Image(// path));
+        imageView.setFitHeight(191.0);
+        imageView.setFitWidth(261.0);
+
+        Label title = new Label();
+        title.setAlignment(Pos.CENTER);
+        title.setPrefHeight(45.0);
+        title.setPrefWidth(264.0);
+        title.setFont(Font.font(37.0));
+        // text from server
+
+        Label channelName = new Label();
+        channelName.setAlignment(Pos.CENTER);
+        channelName.setPrefHeight(45.0);
+        channelName.setPrefWidth(266.0);
+        channelName.setFont(Font.font(37.0));
+        // text from server
+
+        vbox.getChildren().addAll(imageView, title, channelName);
+
+        tilePane.getChildren().add(vbox);
     }
 
 
@@ -601,5 +574,22 @@ public class HelloController{
         }
     }
 
+    @FXML
+    public void openVideoPage() throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("videoView.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 1029, 760);
+        stage.setTitle("---Video---");
+        stage.initStyle(StageStyle.UNDECORATED);
+        stage.setScene(scene);
+        stage.show();
+    }
 
+    @FXML
+    public void clickOnAPlayList() throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("playListView.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 1029, 760);
+        stage.setTitle("---playList---");
+        stage.setScene(scene);
+        stage.show();
+    }
 }
