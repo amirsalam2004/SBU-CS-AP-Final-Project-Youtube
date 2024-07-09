@@ -1,9 +1,6 @@
 package com.example.youtube.Server;
 
-import com.example.youtube.Server.API.addApiService;
-import com.example.youtube.Server.API.deleteApiService;
-import com.example.youtube.Server.API.getApiService;
-import com.example.youtube.Server.API.updateApiService;
+import com.example.youtube.Server.API.*;
 
 import java.io.*;
 import java.net.Socket;
@@ -42,7 +39,7 @@ public class ClientHandler implements Runnable {
                             response = updateApiService.handleRequest(request[1]);
                             break;
                         case "5":
-                            getVideoBytes(request[1]);
+                            response = checkApiService.handleRequest(request[1]);
                             break;
                         case "6":
                             getImageBytes(request[1]);

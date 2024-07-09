@@ -653,4 +653,77 @@ public Boolean addUserRequest(User user) throws IOException{
             return false;
         }
     }
+    /***
+     * checking request
+     */
+    public boolean checkingEmailRequest(String email) throws IOException{
+        try {
+            String request="5#51#"+email;
+            out.writeUTF(request);
+            String response=in.readUTF();
+            if(response.equals("1"))
+                return true;
+            else
+                return false;
+        }catch (IOException e){
+            System.out.println(e.getMessage());
+            return false;
+        }
+    }
+    public boolean checkingUsernameRequest(String username) throws IOException{
+        try {
+            String request="5#52#"+username;
+            out.writeUTF(request);
+            String response=in.readUTF();
+            if(response.equals("1"))
+                return true;
+            else
+                return false;
+        }catch (IOException e){
+            System.out.println(e.getMessage());
+            return false;
+        }
+    }
+    public boolean checkingUserExistsRequest(String email,String password) throws IOException{
+        try {
+            String request="5#53#"+email+"#"+password;
+            out.writeUTF(request);
+            String response=in.readUTF();
+            if(response.equals("1"))
+                return true;
+            else
+                return false;
+        }catch (IOException e){
+            System.out.println(e.getMessage());
+            return false;
+        }
+    }
+    public boolean checkingVideoSavingRequest(String videoID,String userID) throws IOException{
+        try {
+            String request="5#54#"+videoID+"#"+userID;
+            out.writeUTF(request);
+            String response=in.readUTF();
+            if(response.equals("1"))
+                return true;
+            else
+                return false;
+        }catch (IOException e){
+            System.out.println(e.getMessage());
+            return false;
+        }
+    }
+    public boolean checkingPlaylistSavingRequest(String playlistID,String userID) throws IOException{
+        try {
+            String request="5#55#"+playlistID+"#"+userID;
+            out.writeUTF(request);
+            String response=in.readUTF();
+            if(response.equals("1"))
+                return true;
+            else
+                return false;
+        }catch (IOException e){
+            System.out.println(e.getMessage());
+            return false;
+        }
+    }
 }
