@@ -696,4 +696,18 @@ public class HelloController {
         stage.setScene(scene);
         stage.show();
     }
+    @FXML
+    public void addStoryClick() throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("addShortView.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 533, 647);
+        if (isDarkModeOn) {
+            scene.getStylesheets().add(getClass().getResource("DarkStyles.css").toExternalForm());
+        }
+        else {
+            scene.getStylesheets().add(getClass().getResource("stylecss.css").toExternalForm());
+        }
+        stage.setTitle("---AddShort---");
+        stage.setScene(scene);
+        stage.show();
+    }
 }
