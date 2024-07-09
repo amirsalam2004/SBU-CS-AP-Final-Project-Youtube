@@ -41,7 +41,7 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.Scanner;
 
-public class HelloController  {
+public class HelloController {
     public TilePane container;
     public TilePane playListsContainer;
     public TilePane subscriptionContainer;
@@ -161,6 +161,7 @@ public class HelloController  {
     @FXML
     private ChoiceBox searchFilter;
 
+    public static boolean isDarkModeOn = true;
     @FXML
     private HBox LogOutHbox=new HBox();
 
@@ -515,11 +516,19 @@ public class HelloController  {
     }
 
     @FXML
-    public void notificationsClick() {
-        sideBar.setVisible(false);
-        explore.setVisible(false);
-        closeAllPanes();
-        notificationPane.setVisible(true);
+    public void notificationsClick() throws IOException {
+        // TODO : add Notification scene
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("NotificationView.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 715, 460);
+        if (isDarkModeOn) {
+            scene.getStylesheets().add(getClass().getResource("DarkStyles.css").toExternalForm());
+        }
+        else {
+            scene.getStylesheets().add(getClass().getResource("stylecss.css").toExternalForm());
+        }
+        stage.setTitle("---Notifications---");
+        stage.setScene(scene);
+        stage.show();
     }
 
     @FXML
@@ -546,7 +555,7 @@ public class HelloController  {
     @FXML
     protected void addVideoClick() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("addVideo.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 870, 520);
+        Scene scene = new Scene(fxmlLoader.load(), 863, 610);
         if (isDarkModeOn) {
             scene.getStylesheets().add(getClass().getResource("DarkStyles.css").toExternalForm());
         }
@@ -560,7 +569,7 @@ public class HelloController  {
 
     // pass video here
     // pass playList here
-    public void createVideoBox(TilePane tilePane,Video video) {
+    public void createVideoBox(TilePane tilePane) {
         VBox vbox = new VBox();
         vbox.prefWidth(309.0);
         vbox.prefHeight(680.0);
@@ -579,19 +588,9 @@ public class HelloController  {
 
 
         ImageView imageView = new ImageView();
-
-        imageView.setImage(new Image("file:C:\\Users\\Asus\\Desktop\\YouTube\\YOUTUBE\\src\\main\\resources\\com\\example\\youtube\\clientImages\\"+video.getID()+".jpg"));
+//        imageView.setImage(new Image(// path));
         imageView.setFitHeight(191.0);
         imageView.setFitWidth(261.0);
-        imageView.setOnMouseClicked(e->{
-            try {
-                openVideoPage(video);
-
-            } catch (IOException ex) {
-                throw new RuntimeException(ex);
-            }
-
-        });
 
         Label title = new Label();
         title.setAlignment(Pos.CENTER);
@@ -760,6 +759,7 @@ public class HelloController  {
             scene.getStylesheets().add(getClass().getResource("stylecss.css").toExternalForm());
         }
         stage.setTitle("---Video---");
+//        stage.initStyle(StageStyle.UNDECORATED);
         stage.setScene(scene);
         stage.show();
     }

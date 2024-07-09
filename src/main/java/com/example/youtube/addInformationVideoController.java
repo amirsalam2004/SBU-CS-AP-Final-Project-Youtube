@@ -17,5 +17,13 @@ public class addInformationVideoController {
         categories.getItems().add("sport");
         categories.getItems().add("travel");
         categories.getItems().add("education");
+        categories.getItems().add("news");
+        categories.getItems().add("game");
+        categories.getItems().add("comedy");
+        categories.getItems().add("car");
+        categories.getItems().add("science");
+        categories.getItems().add("lifeStyle");
+        categories.getItems().add("other");
+        categories.getSelectionModel().select("sport");
     }
 }

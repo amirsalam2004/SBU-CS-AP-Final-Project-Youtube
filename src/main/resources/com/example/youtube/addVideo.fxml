@@ -35,7 +35,7 @@
          <font>
             <Font size="15.0" />
          </font></CheckBox>
-      <Button layoutX="25.0" layoutY="555.0" mnemonicParsing="false" onAction="#openSongMedia" prefHeight="41.0" prefWidth="135.0" style="-fx-background-color: #DDB205; -fx-background-radius: 50;" text="Submit">
+      <Button layoutX="25.0" layoutY="555.0" mnemonicParsing="false" onAction="#nextFunc" prefHeight="41.0" prefWidth="135.0" style="-fx-background-color: #DDB205; -fx-background-radius: 50;" text="next">
          <font>
             <Font size="23.0" />
          </font>

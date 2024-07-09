@@ -4,6 +4,8 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Slider;
@@ -13,9 +15,11 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.File;
+import java.io.IOException;
 
 public class addVideoController {
 
@@ -35,8 +39,9 @@ public class addVideoController {
     private CheckBox blockCheck;
     @FXML
     private ImageView videoPic;
+    Stage stage = new Stage();
 
-    public boolean isDarkModeOn;
+    public boolean isDarkModeOn = HelloController.isDarkModeOn;
     public String darkTheme = HelloApplication.class.getResource("DarkStyles.css").toExternalForm();
     public String lightTheme = HelloApplication.class.getResource("stylecss.css").toExternalForm();
 
@@ -167,5 +172,22 @@ public class addVideoController {
         catch (Exception e) {
             System.out.println(e);
         }
+    }
+
+    @FXML
+    public void nextFunc() throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("addinformationvideo.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 805, 530);
+        if (isDarkModeOn) {
+            scene.getStylesheets().add(getClass().getResource("DarkStyles.css").toExternalForm());
+        }
+        else {
+            scene.getStylesheets().add(getClass().getResource("stylecss.css").toExternalForm());
+        }
+        Stage stage1 = (Stage) platImg.getScene().getWindow();
+        stage1.close();
+        stage.setTitle("---AddVideo---");
+        stage.setScene(scene);
+        stage.show();
     }
 }
