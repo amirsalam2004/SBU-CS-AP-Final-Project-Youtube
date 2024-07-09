@@ -247,9 +247,21 @@ public class Client {
             return null;
         }
     }
+    public ArrayList<PlayList> getSavedPlaylistsRequest(String userID) throws IOException {
+        try {
+            String request = "1#111#"+userID;
+            out.writeUTF(request);
+            String response = in.readUTF();
+            Type listType = new TypeToken<ArrayList<PlayList>>() {}.getType();
+            return gson.fromJson(response, listType);
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
     public ArrayList<Video> getVideoHistoryRequest(String userID) throws IOException {
         try {
-            String request = "1#110#"+userID;
+            String request = "1#113#"+userID;
             out.writeUTF(request);
             String response = in.readUTF();
             Type listType = new TypeToken<ArrayList<Video>>() {}.getType();
@@ -261,7 +273,7 @@ public class Client {
     }
     public ArrayList<Video> getVideoByRandomCategoryRequest(int numVideos,String userID) throws IOException {
         try {
-            String request = "1#110#"+numVideos+"#"+userID;
+            String request = "1#112#"+numVideos+"#"+userID;
             out.writeUTF(request);
             String response = in.readUTF();
             Type listType = new TypeToken<ArrayList<Video>>() {}.getType();
@@ -271,7 +283,42 @@ public class Client {
             return null;
         }
     }
-
+    public ArrayList<Video> getSearchedVideosRequest(String word,String way) throws IOException {
+        try {
+            String request = "1#114#"+word+"#"+way;
+            out.writeUTF(request);
+            String response = in.readUTF();
+            Type listType = new TypeToken<ArrayList<Video>>() {}.getType();
+            return gson.fromJson(response, listType);
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
+    public ArrayList<PlayList> getSearchedPlaylistsRequest(String word,String way) throws IOException {
+        try {
+            String request = "1#116#"+word+"#"+way;
+            out.writeUTF(request);
+            String response = in.readUTF();
+            Type listType = new TypeToken<ArrayList<PlayList>>() {}.getType();
+            return gson.fromJson(response, listType);
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
+    public ArrayList<Channel> getSearchedChannelsRequest(String word,String way) throws IOException {
+        try {
+            String request = "1#115#"+word+"#"+way;
+            out.writeUTF(request);
+            String response = in.readUTF();
+            Type listType = new TypeToken<ArrayList<Channel>>() {}.getType();
+            return gson.fromJson(response, listType);
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
 
 
     //TODO get folowers
