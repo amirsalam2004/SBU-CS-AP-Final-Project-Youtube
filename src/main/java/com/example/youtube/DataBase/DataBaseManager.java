@@ -136,11 +136,11 @@ public class DataBaseManager {
                 String time_uplode = resultSet.getString("time_uplode");
                 int view = resultSet.getInt("view");
                 int PlayTime = resultSet.getInt("PlayTime");
-                int like = resultSet.getInt("like");
-                int Dis_like = resultSet.getInt("Dis_like");
+
                 String name = resultSet.getString("name");
                 String information = resultSet.getString("information");
-                videos.add(new Video( ID_video, Chanel_ID, name, information, time_uplode, PlayTime, like, Dis_like, view));
+                String Block = resultSet.getString("Block");
+                videos.add(new Video( ID_video, Chanel_ID, name, information, time_uplode, PlayTime, view,Block));
             }
             EncConnection();
         } catch (Exception e) {
@@ -267,7 +267,8 @@ public class DataBaseManager {
                 int Dis_like = resultSet.getInt("Dis_like");
                 String name = resultSet.getString("name");
                 String information = resultSet.getString("information");
-                videos.add(new Video( ID_video, Chanel_ID, name, information, time_uplode, PlayTime, like, Dis_like, view));
+                String Block  = resultSet.getString("Block");
+                videos.add(new Video( ID_video, Chanel_ID, name, information, time_uplode, PlayTime, view,Block));
             }
             EncConnection();
         } catch (Exception e) {
@@ -326,11 +327,11 @@ public class DataBaseManager {
                 String time_uplode = resultSet.getString("time_uplode");
                 int view = resultSet.getInt("view");
                 int PlayTime = resultSet.getInt("PlayTime");
-                int like = resultSet.getInt("like");
-                int Dis_like = resultSet.getInt("Dis_like");
+
                 String name = resultSet.getString("name");
                 String information = resultSet.getString("information");
-                videos.add(new Video( ID_video, Chanel_ID, name, information, time_uplode, PlayTime, like, Dis_like, view));
+                String Block = resultSet.getString("Block");
+                videos.add(new Video( ID_video, Chanel_ID, name, information, time_uplode, PlayTime, view,Block));
             }
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -354,11 +355,10 @@ public class DataBaseManager {
                 String time_uplode = resultSet.getString("time_uplode");
                 int view = resultSet.getInt("view");
                 int PlayTime = resultSet.getInt("PlayTime");
-                int like = resultSet.getInt("like");
-                int Dis_like = resultSet.getInt("Dis_like");
                 String name = resultSet.getString("name");
                 String information = resultSet.getString("information");
-                videos.add(new Video( ID_video, Chanel_ID, name, information, time_uplode, PlayTime, like, Dis_like, view));
+                String Block = resultSet.getString("Block");
+                videos.add(new Video( ID_video, Chanel_ID, name, information, time_uplode, PlayTime, view,Block));
             }
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -411,11 +411,11 @@ public class DataBaseManager {
                 String time_uplode = resultSet.getString("time_uplode");
                 int view = resultSet.getInt("view");
                 int PlayTime = resultSet.getInt("PlayTime");
-                int like = resultSet.getInt("like");
-                int Dis_like = resultSet.getInt("Dis_like");
                 String name = resultSet.getString("name");
                 String information = resultSet.getString("information");
-                videos.add(new Video( ID_video, Chanel_ID, name, information, time_uplode, PlayTime, like, Dis_like, view));
+                String Block = resultSet.getString("Block");
+
+                videos.add(new Video( ID_video, Chanel_ID, name, information, time_uplode, PlayTime, view,Block));
             }
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -451,11 +451,12 @@ public class DataBaseManager {
                     String time_uplode = videoResultSet.getString("time_uplode");
                     int view = videoResultSet.getInt("view");
                     int PlayTime = videoResultSet.getInt("PlayTime");
-                    int like = videoResultSet.getInt("like");
-                    int Dis_like = videoResultSet.getInt("Dis_like");
+
                     String name = videoResultSet.getString("name");
                     String information = videoResultSet.getString("information");
-                    videos.add(new Video(ID_video, Chanel_ID, name, information, time_uplode, PlayTime, like, Dis_like, view));
+                    String Block = videoResultSet.getString("Block");
+
+                    videos.add(new Video(ID_video, Chanel_ID, name, information, time_uplode, PlayTime, view,Block));
                 }
             }
 
@@ -618,8 +619,8 @@ public class DataBaseManager {
         StartConnection();
 
 
-        String query = "INSERT INTO video (ID_video, Chanel_ID, time_uplode, view, PlayTime, `like`, Dis_like, name, information) " +
-                "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String query = "INSERT INTO video (ID_video, Chanel_ID, time_uplode, view, PlayTime,  name, information,blockC) " +
+                "VALUES ( ?, ?, ?, ?, ?, ?, ?, )";
         try {
             PreparedStatement statement = connection.prepareStatement(query);
 
@@ -628,10 +629,10 @@ public class DataBaseManager {
             statement.setString(3, String.valueOf(video.getUploadTime()));
             statement.setInt(4, video.getView());
             statement.setInt(5, video.getDuration());
-            statement.setInt(6, video.getLike());
-            statement.setInt(7, (int) video.getDeslike());
-            statement.setString(8, video.getName());
-            statement.setString(9, video.getDescription());
+
+            statement.setString(6, video.getName());
+            statement.setString(7, video.getDescription());
+            statement.setString(8, video.getBlock());
             statement.execute();
         } catch (SQLIntegrityConstraintViolationException e) {
             return false;
@@ -1427,9 +1428,8 @@ public class DataBaseManager {
                         resultSet.getString("information"),
                         resultSet.getString("time_uplode"),
                         resultSet.getInt("PlayTime"),
-                        resultSet.getInt("like"),
-                        resultSet.getInt("Dis_like"),
-                        resultSet.getInt("view")
+                        resultSet.getInt("view"),
+                        resultSet.getString("Block")
                 )) ;
 
             }

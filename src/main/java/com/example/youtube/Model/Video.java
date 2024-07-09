@@ -1,18 +1,16 @@
 package com.example.youtube.Model;
 
-import org.w3c.dom.ls.LSException;
-
-import java.time.LocalDate;
-import java.util.ArrayList;
-
 public class Video extends Short{
     private String description;
     private String category;
+    private String Block;
     public Video(String ID,String idchal,String name,String description,String uplaodTime,
-                  Integer duration,Integer like,Integer deslike,Integer view) {
+                  Integer duration,Integer view,String Block ) {
         super(ID,idchal,name,uplaodTime,duration,view);
         this.description = description;
         this.category=category;
+        this.setBlock(Block);
+
     }
     public String getDescription() {
         return description;
@@ -29,5 +27,14 @@ public class Video extends Short{
 
     public void setCategory(String category) {
         this.category= category;
+    }
+
+
+    public String getBlock() {
+        return Block;
+    }
+
+    public void setBlock(String block) {
+        Block = block;
     }
 }
