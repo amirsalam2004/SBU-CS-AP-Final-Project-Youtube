@@ -1,11 +1,19 @@
 package com.example.youtube;
 
 
+import com.example.youtube.Controller.signUpController;
+import com.example.youtube.Model.Channel;
+import com.example.youtube.Model.User;
+import com.example.youtube.Server.Client;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -26,8 +34,11 @@ import javafx.util.Duration;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.PushbackInputStream;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-public class HelloController {
+public class HelloController implements Initializable {
     public TilePane container;
     public TilePane playListsContainer;
     public TilePane subscriptionContainer;
@@ -75,6 +86,9 @@ public class HelloController {
     private Label history;
     @FXML
     private Label playlist;
+    @FXML
+    private Button logOut;
+
     @FXML
     private Label watchLater;
     @FXML
@@ -143,6 +157,24 @@ public class HelloController {
     private ImageView disLikedImg;
     @FXML
     private ChoiceBox searchFilter;
+
+    @FXML
+    private HBox LogOutHbox=new HBox();
+
+    @FXML
+    private Button Out=new Button();
+
+
+
+
+    //-------------------------------------------
+    public Channel channel;
+
+
+
+    public Client client;
+    public boolean loginOn;
+    public User user;
 
     private boolean isDarkModeOn = true;
     private final String darkTheme = HelloApplication.class.getResource("DarkStyles.css").toExternalForm();
@@ -665,5 +697,76 @@ public class HelloController {
         stage.setTitle("---Profile---");
         stage.setScene(scene);
         stage.show();
+    }
+
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        LogOutHbox.setVisible(false);
+        try {
+            this.client=new Client("127.0.0.1");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+//        ArrayList<Video>video=new ArrayList<>();
+//        if (user!=null) {
+//            video = client.getVideoByRandomCategoryRequest(10, user.getID());
+//        }else
+////             video=client.getVideoByRandomCategoryRequest(10);
+//
+//        System.out.println(video.get(0).getBlock());
+//        System.out.println("[get video for show]" );
+
+
+
+//        createVideoBox(container,video.get(0));
+
+        System.out.println("Start");
+        logOut.setOnAction(e->{
+
+            if (loginOn){
+
+                FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("signUp-view.fxml"));
+                Scene scene = null;
+                try {
+                    scene = new Scene(fxmlLoader.load(), 500, 620);
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
+
+                // pass the client
+                signUpController signUpController=fxmlLoader.getController();
+                signUpController.client=this.client;
+                stage.setTitle("Youtube");
+                stage.setScene(scene);
+                stage.show();
+
+
+
+
+                logOut.getScene().getWindow().hide();
+
+            }
+            else {
+                LogOutHbox.setVisible(true);
+                Timeline timeline = new Timeline(
+                        new KeyFrame(Duration.ZERO, new KeyValue(LogOutHbox.opacityProperty(), 1.0)),
+                        new KeyFrame(Duration.seconds(1), new KeyValue(LogOutHbox.opacityProperty(), 1.0)),
+                        new KeyFrame(Duration.seconds(1), new KeyValue(LogOutHbox.opacityProperty(), 0.0))
+                );
+                timeline.play();
+                Out.setOnAction(event->{
+
+                    this.user=null;
+                    this.channel=null;
+                    loginOn=true;
+                    timeline.stop();
+                });
+            }
+            loginOn= !loginOn;
+        });
+
+
     }
 }

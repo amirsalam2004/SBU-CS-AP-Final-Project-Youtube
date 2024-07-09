@@ -8,9 +8,9 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.TilePane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.shape.Circle?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.shape.SVGPath?>
@@ -299,7 +299,6 @@
       </ScrollPane>
       <TextField id="searchBar" layoutX="442.0" layoutY="16.0" prefHeight="17.0" prefWidth="393.0" promptText="Search" />
       <Button layoutX="300.0" layoutY="12.0" mnemonicParsing="false" onAction="#toggleTheme" onMouseClicked="#toggleTheme" prefHeight="34.0" prefWidth="88.0" text="DarkModeCheck" />
-      <Circle fill="DODGERBLUE" layoutX="1073.0" layoutY="28.0" radius="19.0" stroke="BLACK" strokeType="INSIDE" />
       <ImageView fitHeight="41.0" fitWidth="81.0" layoutX="98.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@Images/unnamed.jpg" />
@@ -505,6 +504,21 @@
             <SVGPath content="M21 6H3V5h18v1zm0 5H3v1h18v-1zm0 6H3v1h18v-1z" />
          </graphic>
       </Button>
-      <Button layoutX="1105.0" layoutY="17.0" mnemonicParsing="false" onAction="#profileClick" text="Profile" />
+      <Button layoutX="1105.0" layoutY="14.0" mnemonicParsing="false" onAction="#profileClick" prefHeight="30.0" prefWidth="50.0" text="Profile" />
+      <Button fx:id="logOut" layoutX="1043.0" layoutY="14.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="57.0" text="Check" />
+      <HBox fx:id="LogOutHbox" layoutX="903.0" layoutY="50.0" prefHeight="26.0" prefWidth="280.0">
+         <children>
+            <Label prefHeight="18.0" prefWidth="270.0" text="Looking forward to meeting you">
+               <font>
+                  <Font name="Californian FB" size="15.0" />
+               </font>
+            </Label>
+            <Button fx:id="Out" mnemonicParsing="false" prefHeight="26.0" prefWidth="118.0" text="LogOut">
+               <font>
+                  <Font name="Californian FB" size="13.0" />
+               </font>
+            </Button>
+         </children>
+      </HBox>
    </children>
 </AnchorPane>

@@ -42,6 +42,9 @@ public class LoginController implements Initializable {
     //-----------------------------------------------------------------------------
    public Client client=null;
 
+   public User user;
+   public Channel channel;
+
     //------------------------------------------------------------------------------
     @FXML
     public void emailFieldClick() {
