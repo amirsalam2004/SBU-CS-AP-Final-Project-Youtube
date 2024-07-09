@@ -135,7 +135,8 @@ public class ClientHandler implements Runnable {
         }
     }
     public void getImageBytes(String imageID) throws IOException{
-        FileOutputStream fos = new FileOutputStream("C:\\Users\\Asus\\Desktop\\YouTube\\YOUTUBE\\src\\main\\resources\\com\\example\\youtube\\Images\\"+imageID + ".jpg");
+        System.out.println("Start getting Image");
+        FileOutputStream fos = new FileOutputStream("C:\\Users\\Asus\\Desktop\\YouTube\\YOUTUBE\\src\\main\\resources\\com\\example\\youtube\\ImageServer"+imageID + ".jpg");
         try {
             long fileSize = in.readLong();
             byte[] buffer = new byte[4*1024];

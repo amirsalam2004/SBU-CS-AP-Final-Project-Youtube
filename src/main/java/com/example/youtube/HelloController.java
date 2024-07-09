@@ -4,6 +4,7 @@ package com.example.youtube;
 import com.example.youtube.Controller.signUpController;
 import com.example.youtube.Model.Channel;
 import com.example.youtube.Model.User;
+import com.example.youtube.Model.Video;
 import com.example.youtube.Server.Client;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -33,6 +34,7 @@ import javafx.util.Duration;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class HelloController {
     public TilePane container;
@@ -156,6 +158,8 @@ public class HelloController {
     private Button LogOut=new Button();
     @FXML
     private HBox Massage=new HBox();
+    @FXML
+    private TextField Search;
 
 
     //--------------------------------------------------------------------------------------------------------------
@@ -164,6 +168,9 @@ public class HelloController {
     public User user;
     public Channel channel;
     public Boolean loginOn =false;
+    Client client=null;
+
+
 
 
 
@@ -199,7 +206,6 @@ public class HelloController {
             videos.setLayoutX(100);
         }
     }
-    Client client=null;
 
 
     private void handleRectangleHover(Rectangle rectangle, Paint hoverColor, Paint normalColor) {
@@ -267,7 +273,12 @@ public class HelloController {
         Massage.setVisible(false);
         this.client=new Client("127.0.0.1");
 
+        ArrayList<Video> video=client.getSearchedVideosRequest("rouz aaabehrouzaa","name");
+        System.out.println(video.get(0).getBlock());
+        System.out.println("[get video for show]" );
+//        createVideoBox(container,video.get(0));
 
+        System.out.println("Start");
         Continue.setOnAction(e->{
             if (loginOn){
 
@@ -486,13 +497,29 @@ public class HelloController {
 
     // pass video here
     // pass playList here
-    public void createVideoBox(TilePane tilePane) {
+    public void createVideoBox(TilePane tilePane, Video video) {
         VBox vbox = new VBox();
         vbox.prefWidth(309.0);
         vbox.prefHeight(680.0);
 
+
+
+        System.out.println("[Client.getImage ]");
+//        try {
+////        System.out.println(client.getImageBytes(video.getID()));
+////            client.getVideoBytes("src/main/resources/com/example/youtube/User"+video.getID()+".mp4");
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
+
+        System.out.println("Create a image ");
         ImageView imageView = new ImageView();
-//        imageView.setImage(new Image( ""));
+        if (video.getName().equals("Not Found")) {
+            imageView.setImage(new Image("file:\\Users\\Asus\\Desktop\\YouTube\\YOUTUBE\\src\\main\\resources\\com\\example\\youtube\\User\\download.png"));
+        }else {
+            imageView.setImage(new Image("file:\\Users\\Asus\\Desktop\\YouTube\\YOUTUBE\\src\\main\\resources\\com\\example\\youtube\\User\\"+video.getID()));
+
+        }
         imageView.setFitHeight(191.0);
         imageView.setFitWidth(261.0);
 
@@ -501,7 +528,9 @@ public class HelloController {
         title.setPrefHeight(45.0);
         title.setPrefWidth(264.0);
         title.setFont(Font.font(37.0));
-        // text from server
+        //set title of video
+        title.setText(video.getName());
+
 
         Label channelName = new Label();
         channelName.setAlignment(Pos.CENTER);
@@ -667,6 +696,31 @@ public class HelloController {
 
     @FXML
     public void searchFunc() {
-        // wright search function here
+        ClearForSearch(container);
+            String Serch=Search.getText();
+            String Item= String.valueOf(searchFilter.getValue());
+            System.out.println("[SEARCH VIDEO START ] BY -->"+Item);
+        ArrayList<Video> Searc;
+        try {
+        Searc= client.getSearchedVideosRequest(Serch,Item);
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        System.out.println("Find " +Searc.size());
+        if(Searc.size()==0){
+            createVideoBox(container,new Video("download.png","null","Not Found ","No Video Find ","null",12,12,"YES"));
+        }else {
+            for(Video v:Searc) {
+                createVideoBox(container, v);
+                System.out.println(v.getName());
+            }
+
+        }
+
+
+    }
+    private void ClearForSearch(TilePane tilePane){
+        tilePane.getChildren().clear();
     }
 }
