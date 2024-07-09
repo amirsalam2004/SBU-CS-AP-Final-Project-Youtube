@@ -127,8 +127,6 @@ public class HelloController {
     private ScrollPane explore;
     @FXML
     private ScrollPane subscriptionPane;
-    @FXML
-    private ScrollPane notificationPane;
 
     private boolean isSideBarOn = false;
     @FXML
@@ -180,7 +178,7 @@ public class HelloController {
     public boolean loginOn;
     public User user;
 
-    private boolean isDarkModeOn = true;
+//    private boolean isDarkModeOn = true;
     private final String darkTheme = HelloApplication.class.getResource("DarkStyles.css").toExternalForm();
     private final String lightTheme = HelloApplication.class.getResource("stylecss.css").toExternalForm();
 
@@ -304,20 +302,16 @@ public class HelloController {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        Video video=new Video("news","!23","!@3","!23","!23",12,12,"Yes");
-        try {
-            client.getImageBytes("news");
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        Video video=new Video("life","!23","!@3","!23","!23",12,12,"Yes");
+
 //        ArrayList<Video> video=new ArrayList<>();
-        if (user!=null) {
+//        if (user!=null) {
 //            try {
 ////                video = client.getVideoByRandomCategoryRequest(10, user.getID());
 //            } catch (IOException e) {
 //                throw new RuntimeException(e);
 //            }
-        }else
+//        }else
 
 //             video=client.getVideoByRandomCategoryRequest(10);
 //
@@ -415,7 +409,6 @@ public class HelloController {
     private void closeAllPanes() {
         playListsPane.setVisible(false);
         subscriptionPane.setVisible(false);
-        notificationPane.setVisible(false);
         HistoryPane.setVisible(false);
         watchLaterPane.setVisible(false);
         likedVideoPane.setVisible(false);
@@ -569,28 +562,31 @@ public class HelloController {
 
     // pass video here
     // pass playList here
-    public void createVideoBox(TilePane tilePane) {
+    public void createVideoBox(TilePane tilePane,Video video) {
         VBox vbox = new VBox();
         vbox.prefWidth(309.0);
         vbox.prefHeight(680.0);
 
 
-        //get image from server
-//        try {
-//            client.getImageBytes(video.getID());
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        }
+//        get image from server
+        try {
+            client.getImageBytes(video.getID());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
 
-        //
+
 
 
 
         ImageView imageView = new ImageView();
-//        imageView.setImage(new Image(// path));
+        System.out.println(video.getID());
+        imageView.setImage(new Image("C:\\Users\\Asus\\Desktop\\YouTube\\YOUTUBE\\src\\main\\resources\\com\\example\\youtube\\clientImages\\"+video.getID()+".jpg"));
         imageView.setFitHeight(191.0);
         imageView.setFitWidth(261.0);
+
+
 
         Label title = new Label();
         title.setAlignment(Pos.CENTER);
