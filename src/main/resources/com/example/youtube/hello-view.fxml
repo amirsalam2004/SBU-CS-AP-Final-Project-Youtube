@@ -8,9 +8,9 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.TilePane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.shape.SVGPath?>
@@ -27,7 +27,7 @@
             <SVGPath content="M16.296 16.996a8 8 0 11.707-.708l3.909 3.91-.707.707-3.909-3.909ZM18 11a7 7 0 11-14 0 7 7 0 0114 0Z" />
          </graphic>
       </Button>
-      <AnchorPane fx:id="sideBar" layoutX="36.0" layoutY="56.0" prefHeight="568.0" prefWidth="208.0" styleClass="backGrounds">
+      <AnchorPane fx:id="sideBar" layoutX="36.0" layoutY="56.0" prefHeight="568.0" prefWidth="208.0" styleClass="backGrounds" visible="false">
          <children>
             <Rectangle fx:id="productsBackGround" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="37.0" layoutX="5.0" layoutY="492.0" onMouseClicked="#podcastsClick" stroke="WHITE" strokeType="INSIDE" style="-fx-arc-width: 30; -fx-arc-height: 30;" styleClass="rectangles" width="197.0" />
             <Rectangle fx:id="sportsBackGround" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="37.0" layoutY="455.0" onMouseClicked="#sportsClick" stroke="WHITE" strokeType="INSIDE" style="-fx-arc-width: 30; -fx-arc-height: 30;" styleClass="rectangles" width="197.0" />
@@ -214,7 +214,7 @@
             <Label layoutX="13.0" layoutY="230.0" styleClass="labels" text="You" />
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="settingSideBar" layoutX="36.0" layoutY="65.0" prefHeight="533.0" prefWidth="208.0" style="-fx-border-color: #000;" styleClass="backGrounds" visible="false">
+      <AnchorPane fx:id="settingSideBar" layoutX="36.0" layoutY="65.0" prefHeight="533.0" prefWidth="208.0" styleClass="backGrounds">
          <children>
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="48.0" layoutX="5.0" layoutY="75.0" stroke="WHITE" strokeType="INSIDE" width="197.0" />
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="48.0" layoutX="5.0" layoutY="123.0" stroke="WHITE" strokeType="INSIDE" width="197.0" />
@@ -228,7 +228,7 @@
                   <Font size="42.0" />
                </font>
             </Label>
-            <Label layoutX="14.0" layoutY="80.0" prefHeight="37.0" prefWidth="181.0" styleClass="labels" text="Account">
+            <Label layoutX="14.0" layoutY="80.0" onMouseClicked="#accountClick" prefHeight="37.0" prefWidth="181.0" styleClass="labels" text="Account">
                <font>
                   <Font size="19.0" />
                </font>
@@ -238,27 +238,22 @@
                   <Font size="19.0" />
                </font>
             </Label>
-            <Label layoutX="12.0" layoutY="188.0" prefHeight="37.0" prefWidth="181.0" styleClass="labels" text="Channel">
-               <font>
-                  <Font size="25.0" />
-               </font>
-            </Label>
-            <Label layoutX="14.0" layoutY="236.0" prefHeight="37.0" prefWidth="181.0" styleClass="labels" text="Playlists">
+            <Label layoutX="13.0" layoutY="193.0" prefHeight="37.0" prefWidth="181.0" styleClass="labels" text="Playlists">
                <font>
                   <Font size="19.0" />
                </font>
             </Label>
-            <Label layoutX="14.0" layoutY="288.0" onMouseClicked="#addVideoClick" prefHeight="37.0" prefWidth="181.0" styleClass="labels" text="Add Video">
+            <Label layoutX="13.0" layoutY="248.0" onMouseClicked="#addVideoClick" prefHeight="37.0" prefWidth="181.0" styleClass="labels" text="Add Video">
                <font>
                   <Font size="19.0" />
                </font>
             </Label>
-            <Label layoutX="14.0" layoutY="341.0" prefHeight="37.0" prefWidth="181.0" styleClass="labels" text="Add Playlist">
+            <Label layoutX="13.0" layoutY="298.0" onMouseClicked="#addPlayList" prefHeight="37.0" prefWidth="181.0" styleClass="labels" text="Add Playlist">
                <font>
                   <Font size="19.0" />
                </font>
             </Label>
-            <Label layoutX="13.0" layoutY="396.0" prefHeight="37.0" prefWidth="181.0" styleClass="labels" text="Add Story">
+            <Label layoutX="13.0" layoutY="341.0" onMouseClicked="#addStoryClick" prefHeight="37.0" prefWidth="181.0" styleClass="labels" text="Add Story">
                <font>
                   <Font size="19.0" />
                </font>
@@ -299,6 +294,7 @@
       </ScrollPane>
       <TextField id="searchBar" layoutX="442.0" layoutY="16.0" prefHeight="17.0" prefWidth="393.0" promptText="Search" />
       <Button layoutX="300.0" layoutY="12.0" mnemonicParsing="false" onAction="#toggleTheme" onMouseClicked="#toggleTheme" prefHeight="34.0" prefWidth="88.0" text="DarkModeCheck" />
+      <Circle fill="DODGERBLUE" layoutX="1073.0" layoutY="28.0" radius="19.0" stroke="BLACK" strokeType="INSIDE" />
       <ImageView fitHeight="41.0" fitWidth="81.0" layoutX="98.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@Images/unnamed.jpg" />
@@ -504,21 +500,6 @@
             <SVGPath content="M21 6H3V5h18v1zm0 5H3v1h18v-1zm0 6H3v1h18v-1z" />
          </graphic>
       </Button>
-      <Button layoutX="1105.0" layoutY="14.0" mnemonicParsing="false" onAction="#profileClick" prefHeight="30.0" prefWidth="50.0" text="Profile" />
-      <Button fx:id="logOut" layoutX="1043.0" layoutY="14.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="57.0" text="Check" />
-      <HBox fx:id="LogOutHbox" layoutX="903.0" layoutY="50.0" prefHeight="26.0" prefWidth="280.0">
-         <children>
-            <Label prefHeight="18.0" prefWidth="270.0" text="Looking forward to meeting you">
-               <font>
-                  <Font name="Californian FB" size="15.0" />
-               </font>
-            </Label>
-            <Button fx:id="Out" mnemonicParsing="false" prefHeight="26.0" prefWidth="118.0" text="LogOut">
-               <font>
-                  <Font name="Californian FB" size="13.0" />
-               </font>
-            </Button>
-         </children>
-      </HBox>
+      <Button layoutX="1105.0" layoutY="17.0" mnemonicParsing="false" onAction="#profileClick" text="Profile" />
    </children>
 </AnchorPane>

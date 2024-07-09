@@ -2,10 +2,7 @@ package com.example.youtube;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Slider;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -17,31 +14,20 @@ import javafx.util.Duration;
 
 import java.io.File;
 
-public class addVideoController {
-
-    MediaPlayer mediaPlayer;
-
+public class addShortController {
+    public MediaPlayer mediaPlayer;
     @FXML
-    private MediaView mediaView;
+    public MediaView mediaView;
     @FXML
-    private Slider timeSlider;
+    public Slider timeSlider;
     @FXML
-    private ImageView pauseImg;
+    public ImageView pauseImg;
     @FXML
-    private ImageView platImg;
+    public ImageView platImg;
     @FXML
-    private ChoiceBox playLists;
+    public ImageView shortPic;
     @FXML
-    private CheckBox blockCheck;
-    @FXML
-    private ImageView videoPic;
-
-    public boolean isDarkModeOn;
-    public String darkTheme = HelloApplication.class.getResource("DarkStyles.css").toExternalForm();
-    public String lightTheme = HelloApplication.class.getResource("stylecss.css").toExternalForm();
-
-    @FXML
-    public void openSongMedia(ActionEvent event) {
+    public void addVideo() {
         System.out.println("Open Song");
 
         try {
@@ -84,7 +70,6 @@ public class addVideoController {
             System.out.println(e);
         }
     }
-
     @FXML
     public void play() {
         MediaPlayer.Status status = mediaPlayer.getStatus();
@@ -105,67 +90,22 @@ public class addVideoController {
             System.out.println(e);
         }
     }
-
     @FXML
-    public void nextBtnClick() {
-        double d = mediaPlayer.getCurrentTime().toSeconds();
-
-        d += 15;
-
-        mediaPlayer.seek(new Duration(d * 1000));
-    }
-
-    @FXML
-    public void preBtnClick() {
-        double d = mediaPlayer.getCurrentTime().toSeconds();
-
-        d -= 10;
-
-        mediaPlayer.seek(new Duration(d * 1000));
-    }
-
-    @FXML
-    public void mediaViewClickToHidePlayBtn() {
-        MediaPlayer.Status status = mediaPlayer.getStatus();
-
-        if (platImg.isVisible() || pauseImg.isVisible()) {
-            platImg.setVisible(false);
-            pauseImg.setVisible(false);
-        }
-        else {
-            if (status == MediaPlayer.Status.PLAYING) {
-                pauseImg.setVisible(true);
-            }
-            else {
-                platImg.setVisible(true);
-            }
-        }
-    }
-
-    @FXML
-    public void addToPlayList() {
-        String playListName = playLists.getValue().toString();
-//        mediaPlayer.getMedia()
-        // add video to playList
-    }
-
-    // pass List of Play Lists Here
-    public void initialize() {
-        playLists.getItems().add("Your Channel");
-        playLists.getSelectionModel().select("Your Channel");
-    }
-
-    @FXML
-    public void openImage() {
+    public void addImage() {
         try {
             FileChooser chooser = new FileChooser();
             File file = chooser.showOpenDialog(null);
 
             Image image = new Image(file.toURI().toString());
-            videoPic.setImage(image);
+            shortPic.setImage(image);
         }
         catch (Exception e) {
             System.out.println(e);
         }
+    }
+
+    @FXML
+    public void submitFunc() {
+        // TODO : add to his shorts
     }
 }
