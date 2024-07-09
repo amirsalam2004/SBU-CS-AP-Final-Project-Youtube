@@ -177,17 +177,7 @@ public class HelloController {
     //--------------------------------------------------------------------------------------------------------------
 
 
-    @FXML
-    protected void onHelloButtonClick() throws IOException {
 
-        Stage currentStage = (Stage) homeBackGround.getScene().getWindow();
-        currentStage.close();
-        root = FXMLLoader.load(getClass().getResource("darkHomePage.fxml"));
-        stage.setScene(new Scene(root));
-        stage.setTitle("Login Page");
-        stage.show();
-
-    }
     @FXML
     protected void sideBarBtnClick() {
         sideBar.setVisible(!isSideBarOn);
@@ -272,14 +262,14 @@ public class HelloController {
     public void initialize() throws IOException {
         Massage.setVisible(false);
         this.client=new Client("127.0.0.1");
-        ArrayList<Video>video=new ArrayList<>();
-        if (user!=null) {
-            video = client.getVideoByRandomCategoryRequest(10, user.getID());
-        }else
-//             video=client.getVideoByRandomCategoryRequest(10);
-
-        System.out.println(video.get(0).getBlock());
-        System.out.println("[get video for show]" );
+//        ArrayList<Video>video=new ArrayList<>();
+//        if (user!=null) {
+//            video = client.getVideoByRandomCategoryRequest(10, user.getID());
+//        }else
+////             video=client.getVideoByRandomCategoryRequest(10);
+//
+//        System.out.println(video.get(0).getBlock());
+//        System.out.println("[get video for show]" );
 
 
 
