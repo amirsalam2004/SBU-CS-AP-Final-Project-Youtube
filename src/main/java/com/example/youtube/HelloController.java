@@ -1,8 +1,13 @@
 package com.example.youtube;
 
 
+import com.example.youtube.Controller.signUpController;
 import com.example.youtube.Model.Channel;
 import com.example.youtube.Model.User;
+import com.example.youtube.Server.Client;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -148,13 +153,20 @@ public class HelloController {
     private ImageView disLikedImg;
     @FXML
     private ChoiceBox searchFilter;
+    @FXML
+    private Button Continue=new Button();
+    @FXML
+    private Button LogOut=new Button();
+    @FXML
+    private HBox Massage=new HBox();
+
 
     //--------------------------------------------------------------------------------------------------------------
 
 
     public User user;
     public Channel channel;
-    public Boolean loginOn;
+    public Boolean loginOn =false;
 
 
 
@@ -190,6 +202,8 @@ public class HelloController {
             videos.setLayoutX(100);
         }
     }
+    Client client=null;
+
 
     private void handleRectangleHover(Rectangle rectangle, Paint hoverColor, Paint normalColor) {
         rectangle.setOnMouseEntered(event -> rectangle.setFill(hoverColor));
@@ -252,7 +266,54 @@ public class HelloController {
     }
 
     @FXML
-    public void initialize() {
+    public void initialize() throws IOException {
+        Massage.setVisible(false);
+        this.client=new Client("127.0.0.1");
+
+
+        Continue.setOnAction(e->{
+            if (loginOn){
+
+                    FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("signUp-view.fxml"));
+                    Scene scene = null;
+                    try {
+                        scene = new Scene(fxmlLoader.load(), 1190, 627);
+                    } catch (IOException ex) {
+                        throw new RuntimeException(ex);
+                    }
+
+                    // pass the client
+                    signUpController signUpController=fxmlLoader.getController();
+                    signUpController.client=this.client;
+                    stage.setTitle("Youtube");
+                    stage.setScene(scene);
+                    stage.show();
+
+
+
+
+                Continue.getScene().getWindow().hide();
+//                loginOn=false;
+            }
+            else {
+                Massage.setVisible(true);
+                Timeline timeline = new Timeline(
+                        new KeyFrame(Duration.ZERO, new KeyValue(Massage.opacityProperty(), 1.0)),
+                        new KeyFrame(Duration.seconds(2.5), new KeyValue(Massage.opacityProperty(), 1.0)),
+                        new KeyFrame(Duration.seconds(3), new KeyValue(Massage.opacityProperty(), 0.0))
+                );
+                timeline.play();
+                LogOut.setOnAction(event->{
+                    this.user=null;
+                    this.channel=null;
+                    loginOn=true;
+                    timeline.stop();
+                });
+
+
+            }
+        });
+
         // SideBar Hovers
         Paint hoverColor, normalColor;
         if (mainField.getId().equals("1")) {
@@ -433,7 +494,7 @@ public class HelloController {
         vbox.prefHeight(680.0);
 
         ImageView imageView = new ImageView();
-//        imageView.setImage(new Image(// path));
+//        imageView.setImage(new Image( ""));
         imageView.setFitHeight(191.0);
         imageView.setFitWidth(261.0);
 
