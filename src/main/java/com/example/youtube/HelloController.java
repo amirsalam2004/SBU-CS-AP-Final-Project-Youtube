@@ -681,4 +681,19 @@ public class HelloController {
         stage.setScene(scene);
         stage.show();
     }
+
+    @FXML
+    public void addPlayList() throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("addPlayListView.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 788, 507);
+        if (isDarkModeOn) {
+            scene.getStylesheets().add(getClass().getResource("DarkStyles.css").toExternalForm());
+        }
+        else {
+            scene.getStylesheets().add(getClass().getResource("stylecss.css").toExternalForm());
+        }
+        stage.setTitle("---AddPlayList---");
+        stage.setScene(scene);
+        stage.show();
+    }
 }

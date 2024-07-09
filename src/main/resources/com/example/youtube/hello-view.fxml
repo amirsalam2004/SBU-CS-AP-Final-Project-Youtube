@@ -253,7 +253,7 @@
                   <Font size="19.0" />
                </font>
             </Label>
-            <Label layoutX="14.0" layoutY="341.0" prefHeight="37.0" prefWidth="181.0" styleClass="labels" text="Add Playlist">
+            <Label layoutX="14.0" layoutY="341.0" onMouseClicked="#addPlayList" prefHeight="37.0" prefWidth="181.0" styleClass="labels" text="Add Playlist">
                <font>
                   <Font size="19.0" />
                </font>
