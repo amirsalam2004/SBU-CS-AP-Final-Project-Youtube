@@ -144,18 +144,41 @@ public class HelloController {
     @FXML
     private ChoiceBox searchFilter;
 
+    private boolean isDarkModeOn = true;
+    private final String darkTheme = HelloApplication.class.getResource("DarkStyles.css").toExternalForm();
+    private final String lightTheme = HelloApplication.class.getResource("stylecss.css").toExternalForm();
 
     @FXML
-    protected void onHelloButtonClick() throws IOException {
-
-        Stage currentStage = (Stage) homeBackGround.getScene().getWindow();
-        currentStage.close();
-        root = FXMLLoader.load(getClass().getResource("darkHomePage.fxml"));
-        stage.setScene(new Scene(root));
-        stage.setTitle("Login Page");
-        stage.show();
-
+    public void toggleTheme(ActionEvent actionEvent) {
+        try {
+            if (firstSideBar.getScene().getStylesheets().contains(darkTheme)) {
+                isDarkModeOn = false;
+                firstSideBar.getScene().getStylesheets().remove(darkTheme);
+                firstSideBar.getScene().getStylesheets().add(lightTheme);
+            }
+            else {
+                isDarkModeOn = true;
+                firstSideBar.getScene().getStylesheets().remove(lightTheme);
+                firstSideBar.getScene().getStylesheets().add(darkTheme);
+            }
+        }
+        catch (Exception e) {
+            System.out.println(e);
+        }
     }
+
+
+//    @FXML
+//    protected void onHelloButtonClick() throws IOException {
+//
+//        Stage currentStage = (Stage) homeBackGround.getScene().getWindow();
+//        currentStage.close();
+//        root = FXMLLoader.load(getClass().getResource("darkHomePage.fxml"));
+//        stage.setScene(new Scene(root));
+//        stage.setTitle("Login Page");
+//        stage.show();
+//
+//    }
     @FXML
     protected void sideBarBtnClick() {
         sideBar.setVisible(!isSideBarOn);
@@ -239,15 +262,17 @@ public class HelloController {
     public void initialize() {
         // SideBar Hovers
         Paint hoverColor, normalColor;
-        // checkLight mode or dark mode
-//        if (this.) {
-//            hoverColor = Paint.valueOf("#CBC6C6");
-//            normalColor = Paint.valueOf("#fff");
-//        }
-//        else {
+//        // checkLight mode or dark mode
+        if (!isDarkModeOn) {
+            hoverColor = Paint.valueOf("#CBC6C6");
+            normalColor = Paint.valueOf("#fff");
+            System.out.println(isDarkModeOn);
+        }
+        else {
             hoverColor = Paint.valueOf("#7F7C7C");
-            normalColor = Paint.valueOf("#272424");
-//        }
+            normalColor = Paint.valueOf("#000");
+            System.out.println(isDarkModeOn);
+        }
         Rectangle[] rectangles = {
                 homeBackGround, shortBackGround, subscriptionBackGround, historyBackGround,
                 watchLaterBackGround, likedVideosBackGround, TrendingBackGround, musicBackGround,
@@ -262,9 +287,9 @@ public class HelloController {
 
             handleRectangleHover(rectangle, hoverColor, normalColor);
         }
-        for (Label label : labels) {
-            handleLabelHover(label, hoverColor, normalColor);
-        }
+//        for (Label label : labels) {
+//            handleLabelHover(label, hoverColor, normalColor);
+//        }
 
 
         // search filter
@@ -363,11 +388,16 @@ public class HelloController {
     }
 
     @FXML
-    protected void shortsClick() throws IOException {
+    public void shortsClick() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("shortView.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 600, 691);
+        if (isDarkModeOn) {
+            scene.getStylesheets().add(getClass().getResource("DarkStyles.css").toExternalForm());
+        }
+        else {
+            scene.getStylesheets().add(getClass().getResource("stylecss.css").toExternalForm());
+        }
         stage.setTitle("---Short---");
-//        stage.initStyle(StageStyle.UNDECORATED);
         stage.setScene(scene);
         stage.show();
     }
@@ -405,6 +435,12 @@ public class HelloController {
     protected void addVideoClick() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("addVideo.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 870, 520);
+        if (isDarkModeOn) {
+            scene.getStylesheets().add(getClass().getResource("DarkStyles.css").toExternalForm());
+        }
+        else {
+            scene.getStylesheets().add(getClass().getResource("stylecss.css").toExternalForm());
+        }
         stage.setTitle("addVideo");
         stage.setScene(scene);
         stage.show();
@@ -576,6 +612,16 @@ public class HelloController {
     public void openVideoPage() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("videoView.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 1029, 760);
+//        scene.getStylesheets().addAll(
+//                getClass().getResource("stylecss.css").toExternalForm(),
+//                getClass().getResource("DarkStyles.css").toExternalForm()
+//        );
+        if (isDarkModeOn) {
+            scene.getStylesheets().add(getClass().getResource("DarkStyles.css").toExternalForm());
+        }
+        else {
+            scene.getStylesheets().add(getClass().getResource("stylecss.css").toExternalForm());
+        }
         stage.setTitle("---Video---");
 //        stage.initStyle(StageStyle.UNDECORATED);
         stage.setScene(scene);
@@ -586,6 +632,16 @@ public class HelloController {
     public void clickOnAPlayList() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("playListView.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 1029, 760);
+//        scene.getStylesheets().addAll(
+//                getClass().getResource("stylecss.css").toExternalForm(),
+//                getClass().getResource("DarkStyles.css").toExternalForm()
+//        );
+        if (isDarkModeOn) {
+            scene.getStylesheets().add(getClass().getResource("DarkStyles.css").toExternalForm());
+        }
+        else {
+            scene.getStylesheets().add(getClass().getResource("stylecss.css").toExternalForm());
+        }
         stage.setTitle("---playList---");
         stage.setScene(scene);
         stage.show();
@@ -594,5 +650,20 @@ public class HelloController {
     @FXML
     public void searchFunc() {
         // wright search function here
+    }
+
+    @FXML
+    public void profileClick() throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("profileView.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 1029, 760);
+        if (isDarkModeOn) {
+            scene.getStylesheets().add(getClass().getResource("DarkStyles.css").toExternalForm());
+        }
+        else {
+            scene.getStylesheets().add(getClass().getResource("stylecss.css").toExternalForm());
+        }
+        stage.setTitle("---Profile---");
+        stage.setScene(scene);
+        stage.show();
     }
 }

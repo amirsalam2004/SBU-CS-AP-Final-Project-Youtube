@@ -12,11 +12,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<?import java.net.URL?>
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="691.0" prefWidth="599.0" styleClass="backGrounds" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.youtube.ShortViewController">
-   <stylesheets>
-      <URL value="@stylecss.css" />
-   </stylesheets>
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="229.0" layoutX="157.0" layoutY="236.0" stroke="BLACK" strokeType="INSIDE" style="-fx-arc-height: 100; -fx-arc-width: 100; -fx-fill: #CBC6C6;" width="65.0" />
       <MediaView fx:id="mediaView" fitHeight="550.0" fitWidth="300.0" layoutX="225.0" layoutY="44.0" onMouseClicked="#mediaViewClickToHidePlayBtn" />
@@ -64,5 +60,6 @@
          <font>
             <Font size="19.0" />
          </font></Button>
+      <Button layoutX="51.0" layoutY="528.0" mnemonicParsing="false" text="Button" />
    </children>
 </AnchorPane>

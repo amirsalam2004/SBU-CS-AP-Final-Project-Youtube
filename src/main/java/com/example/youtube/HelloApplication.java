@@ -13,6 +13,10 @@ public class HelloApplication extends Application {
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 1190, 627);
+        scene.getStylesheets().addAll(
+                getClass().getResource("stylecss.css").toExternalForm(),
+                getClass().getResource("DarkStyles.css").toExternalForm()
+        );
         stage.setTitle("Youtube");
 //        stage.getIcons().add(new Image("file:\"D:\\usb\\ap\\assignment\\YoutubeNotes\\FirstBranch(AmirAli\\YouTube\\src\\main\\resources\\com\\example\\youtube\\Images\\icon.jpeg\""));
         stage.setScene(scene);

@@ -8,9 +8,6 @@
 .backGrounds {
     -fx-background-color: PanesBgColor;
 }
-/*.ancroPanes {*/
-/*    -*/
-/*}*/
 #topBar {
     -fx-fill: #E5E3E3;
     -fx-stroke: #E5E3E3;
@@ -32,4 +29,8 @@
 .buttons > SVGPath {
     -fx-fill: SvgParebts;
     -fx-stroke: SvgColor;
+}
+.rectangles {
+    -fx-fill: #FFF;
+    -fx-stroke: #fff;
 }
