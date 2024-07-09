@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.TilePane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="718.0" prefWidth="1135.0" styleClass="backGrounds" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.youtube.ProfileViewController">
+   <children>
+      <ImageView fx:id="longPic" fitHeight="87.0" fitWidth="1078.0" layoutX="34.0" layoutY="21.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="profilePic" fitHeight="146.0" fitWidth="178.0" layoutX="34.0" layoutY="119.0" pickOnBounds="true" preserveRatio="true" />
+      <Label fx:id="pageName" alignment="CENTER" layoutX="227.0" layoutY="133.0" prefHeight="42.0" prefWidth="206.0" styleClass="labels" text="Page Name">
+         <font>
+            <Font size="35.0" />
+         </font>
+      </Label>
+      <Label fx:id="NumSubs" alignment="CENTER" layoutX="389.0" layoutY="195.0" prefHeight="37.0" prefWidth="136.0" styleClass="labels" text="NumOfSubscriptions">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Label>
+      <Label fx:id="NumVideos" alignment="CENTER" layoutX="227.0" layoutY="195.0" prefHeight="37.0" prefWidth="136.0" styleClass="labels" text="NumOfVideos">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="38.0" fitWidth="112.0" layoutX="782.0" layoutY="214.0" pickOnBounds="true" preserveRatio="true" />
+      <Line endX="177.0" layoutX="936.0" layoutY="332.0" startX="-915.7999877929688" />
+      <Label alignment="CENTER" layoutX="20.0" layoutY="302.0" prefHeight="29.0" prefWidth="86.0" styleClass="labels" text="Videos" />
+      <Label alignment="CENTER" layoutX="99.0" layoutY="302.0" prefHeight="29.0" prefWidth="86.0" styleClass="labels" text="PlayList" />
+      <ScrollPane layoutX="23.0" layoutY="345.0" prefHeight="360.0" prefWidth="1094.0">
+         <TilePane fx:id="content" prefHeight="358.0" prefWidth="1088.0" styleClass="backGrounds">
+            <VBox prefHeight="320.0" prefWidth="309.0" style="-fx-background-color: red">
+               <ImageView fitHeight="191.0" fitWidth="261.0" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                     <Image url="@Images/hhh.png" />
+                  </image>
+               </ImageView>
+               <Label alignment="CENTER" prefHeight="45.0" prefWidth="264.0" text="Title">
+                  <font>
+                     <Font size="37.0" />
+                  </font>
+               </Label>
+               <Label alignment="CENTER" prefHeight="45.0" prefWidth="266.0" text="ChanelName">
+                  <font>
+                     <Font size="37.0" />
+                  </font>
+               </Label>
+            </VBox>
+         </TilePane>
+      </ScrollPane>
+      <Button fx:id="moreBtn" layoutX="427.0" layoutY="246.0" mnemonicParsing="false" onAction="#moreBtnClick" prefHeight="38.0" prefWidth="78.0" text="More..">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Button>
+      <AnchorPane fx:id="moreInfo" layoutX="617.0" layoutY="12.0" prefHeight="314.0" prefWidth="399.0" styleClass="backGrounds" visible="false">
+         <children>
+            <Label layoutX="14.0" layoutY="8.0" prefHeight="64.0" prefWidth="127.0" styleClass="labels" text="About">
+               <font>
+                  <Font size="34.0" />
+               </font>
+            </Label>
+            <Label fx:id="describe" layoutX="14.0" layoutY="72.0" prefHeight="128.0" prefWidth="352.0" styleClass="labels" text="Label">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <Button fx:id="subKey" layoutX="227.0" layoutY="246.0" mnemonicParsing="false" onAction="#subFunc" prefHeight="38.0" prefWidth="158.0" style="-fx-background-color: #F02016; -fx-background-radius: 45;" text="Subscribe" textFill="WHITE">
+         <font>
+            <Font size="23.0" />
+         </font>
+      </Button>
+      <Button fx:id="unSubKey" layoutX="227.0" layoutY="246.0" mnemonicParsing="false" onAction="#unSubFunc" prefHeight="38.0" prefWidth="158.0" style="-fx-background-color: #FFF; -fx-background-radius: 45;" text="UnSubscribe">
+         <font>
+            <Font size="23.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>

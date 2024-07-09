@@ -30,6 +30,10 @@ public class addVideoController {
     @FXML
     private ChoiceBox playLists;
 
+    public boolean isDarkModeOn;
+    public String darkTheme = HelloApplication.class.getResource("DarkStyles.css").toExternalForm();
+    public String lightTheme = HelloApplication.class.getResource("stylecss.css").toExternalForm();
+
     @FXML
     public void openSongMedia(ActionEvent event) {
         System.out.println("Open Song");
@@ -144,5 +148,16 @@ public class addVideoController {
         playLists.getItems().add("Your Channel");
         playLists.getSelectionModel().select("Your Channel");
         // for play list in passed list : playLists.getItems().add("{playlist name}");
+
+//        if (!isDarkModeOn) {
+//            isDarkModeOn = false;
+//            mediaView.getScene().getStylesheets().remove(darkTheme);
+//            mediaView.getScene().getStylesheets().add(lightTheme);
+//        }
+//        else {
+//            isDarkModeOn = true;
+//            mediaView.getScene().getStylesheets().remove(lightTheme);
+//            mediaView.getScene().getStylesheets().add(darkTheme);
+//        }
     }
 }

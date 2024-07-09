@@ -13,9 +13,6 @@
 
 <?import java.net.URL?>
 <AnchorPane fx:id="mainField" prefHeight="518.0" prefWidth="863.0" styleClass="backGrounds" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.youtube.addVideoController">
-   <stylesheets>
-      <URL value="@stylecss.css" />
-   </stylesheets>
    <children>
       <MediaView fx:id="mediaView" fitHeight="400.0" fitWidth="600.0" layoutX="215.0" layoutY="34.0" onMouseClicked="#mediaViewClickToHidePlayBtn" />
       <Slider fx:id="timeSlider" layoutX="215.0" layoutY="434.0" prefHeight="18.0" prefWidth="600.0" showTickMarks="true" />

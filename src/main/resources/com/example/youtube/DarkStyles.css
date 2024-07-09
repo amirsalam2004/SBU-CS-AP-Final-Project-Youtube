@@ -30,3 +30,7 @@
     -fx-fill: SvgParebts;
     -fx-stroke: SvgColor;
 }
+.rectangles {
+    -fx-fill: #000;
+    -fx-stroke: #000;
+}
