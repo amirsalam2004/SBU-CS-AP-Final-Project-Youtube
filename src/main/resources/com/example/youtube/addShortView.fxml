@@ -37,7 +37,7 @@
             <Image url="@Images/icons8-pause-50.png" />
          </image>
       </ImageView>
-      <Button layoutX="82.0" layoutY="598.0" mnemonicParsing="false" onAction="#addImage" prefHeight="34.0" prefWidth="106.0" style="-fx-background-color: #0A8C50; -fx-background-radius: 15;" text="Submit" textFill="WHITE">
+      <Button layoutX="82.0" layoutY="598.0" mnemonicParsing="false" onAction="#submitFunc" prefHeight="34.0" prefWidth="106.0" style="-fx-background-color: #0A8C50; -fx-background-radius: 15;" text="Submit" textFill="WHITE">
          <font>
             <Font size="14.0" />
          </font>
