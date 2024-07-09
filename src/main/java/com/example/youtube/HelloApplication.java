@@ -14,6 +14,10 @@ public class HelloApplication extends Application {
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("signUp-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 1190, 627);
+        scene.getStylesheets().addAll(
+                getClass().getResource("stylecss.css").toExternalForm(),
+                getClass().getResource("DarkStyles.css").toExternalForm()
+        );
         stage.setTitle("Youtube");
         stage.setScene(scene);
 //        Add icon
