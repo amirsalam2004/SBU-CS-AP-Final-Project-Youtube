@@ -14,6 +14,7 @@ public class TestDataBase {
 //Cr_Video(video);
 //        Karma(1,"12","12");
 
+//        System.out.println(countLike("12", "-1"));
 //        Cr_Chanel(new Channel("123","@3","!23","!@3","!23"));
 //        Comment commnet=new Comment("this is test for Server ","ruzbeh","rouzbeh","rouhzhbhe","123",1,1,"!2312");
 //        Cr_comment(commnet);
@@ -71,7 +72,9 @@ public class TestDataBase {
 //            System.out.println("Not");
 //        }
 //        System.out.println(getList_video("12").size());
-       System.out .println(CheckUserPass_Email("r.84.askar12i@gmail.com","12"));
+//       System.out .println(CheckUserPass_Email("r.84.askar12i@gmail.com","12"));
+
+
 
     }
 

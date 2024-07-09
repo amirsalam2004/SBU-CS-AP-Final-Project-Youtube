@@ -1,23 +1,26 @@
 package com.example.youtube;
 
 
+import com.example.youtube.Controller.signUpController;
 import com.example.youtube.Model.Channel;
 import com.example.youtube.Model.User;
+import com.example.youtube.Server.Client;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.TilePane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
@@ -31,8 +34,11 @@ import javafx.util.Duration;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.PushbackInputStream;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-public class HelloController {
+public class HelloController implements Initializable {
     public TilePane container;
     public TilePane playListsContainer;
     public TilePane subscriptionContainer;
@@ -80,6 +86,9 @@ public class HelloController {
     private Label history;
     @FXML
     private Label playlist;
+    @FXML
+    private Button logOut;
+
     @FXML
     private Label watchLater;
     @FXML
@@ -149,29 +158,59 @@ public class HelloController {
     @FXML
     private ChoiceBox searchFilter;
 
-    //--------------------------------------------------------------------------------------------------------------
-
-
-    public User user;
-    public Channel channel;
-    public Boolean loginOn;
-
-
-
-    //--------------------------------------------------------------------------------------------------------------
-
+    @FXML
+    private HBox LogOutHbox=new HBox();
 
     @FXML
-    protected void onHelloButtonClick() throws IOException {
+    private Button Out=new Button();
 
-        Stage currentStage = (Stage) homeBackGround.getScene().getWindow();
-        currentStage.close();
-        root = FXMLLoader.load(getClass().getResource("darkHomePage.fxml"));
-        stage.setScene(new Scene(root));
-        stage.setTitle("Login Page");
-        stage.show();
 
+
+
+    //-------------------------------------------
+    public Channel channel;
+
+
+
+    public Client client;
+    public boolean loginOn;
+    public User user;
+
+    private boolean isDarkModeOn = true;
+    private final String darkTheme = HelloApplication.class.getResource("DarkStyles.css").toExternalForm();
+    private final String lightTheme = HelloApplication.class.getResource("stylecss.css").toExternalForm();
+
+    @FXML
+    public void toggleTheme(ActionEvent actionEvent) {
+        try {
+            if (firstSideBar.getScene().getStylesheets().contains(darkTheme)) {
+                isDarkModeOn = false;
+                firstSideBar.getScene().getStylesheets().remove(darkTheme);
+                firstSideBar.getScene().getStylesheets().add(lightTheme);
+            }
+            else {
+                isDarkModeOn = true;
+                firstSideBar.getScene().getStylesheets().remove(lightTheme);
+                firstSideBar.getScene().getStylesheets().add(darkTheme);
+            }
+        }
+        catch (Exception e) {
+            System.out.println(e);
+        }
     }
+
+
+//    @FXML
+//    protected void onHelloButtonClick() throws IOException {
+//
+//        Stage currentStage = (Stage) homeBackGround.getScene().getWindow();
+//        currentStage.close();
+//        root = FXMLLoader.load(getClass().getResource("darkHomePage.fxml"));
+//        stage.setScene(new Scene(root));
+//        stage.setTitle("Login Page");
+//        stage.show();
+//
+//    }
     @FXML
     protected void sideBarBtnClick() {
         sideBar.setVisible(!isSideBarOn);
@@ -255,13 +294,16 @@ public class HelloController {
     public void initialize() {
         // SideBar Hovers
         Paint hoverColor, normalColor;
-        if (mainField.getId().equals("1")) {
+//        // checkLight mode or dark mode
+        if (!isDarkModeOn) {
             hoverColor = Paint.valueOf("#CBC6C6");
             normalColor = Paint.valueOf("#fff");
+            System.out.println(isDarkModeOn);
         }
         else {
             hoverColor = Paint.valueOf("#7F7C7C");
-            normalColor = Paint.valueOf("#272424");
+            normalColor = Paint.valueOf("#000");
+            System.out.println(isDarkModeOn);
         }
         Rectangle[] rectangles = {
                 homeBackGround, shortBackGround, subscriptionBackGround, historyBackGround,
@@ -277,9 +319,9 @@ public class HelloController {
 
             handleRectangleHover(rectangle, hoverColor, normalColor);
         }
-        for (Label label : labels) {
-            handleLabelHover(label, hoverColor, normalColor);
-        }
+//        for (Label label : labels) {
+//            handleLabelHover(label, hoverColor, normalColor);
+//        }
 
 
         // search filter
@@ -378,11 +420,16 @@ public class HelloController {
     }
 
     @FXML
-    protected void shortsClick() throws IOException {
+    public void shortsClick() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("shortView.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 600, 691);
+        if (isDarkModeOn) {
+            scene.getStylesheets().add(getClass().getResource("DarkStyles.css").toExternalForm());
+        }
+        else {
+            scene.getStylesheets().add(getClass().getResource("stylecss.css").toExternalForm());
+        }
         stage.setTitle("---Short---");
-//        stage.initStyle(StageStyle.UNDECORATED);
         stage.setScene(scene);
         stage.show();
     }
@@ -420,6 +467,12 @@ public class HelloController {
     protected void addVideoClick() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("addVideo.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 870, 520);
+        if (isDarkModeOn) {
+            scene.getStylesheets().add(getClass().getResource("DarkStyles.css").toExternalForm());
+        }
+        else {
+            scene.getStylesheets().add(getClass().getResource("stylecss.css").toExternalForm());
+        }
         stage.setTitle("addVideo");
         stage.setScene(scene);
         stage.show();
@@ -591,8 +644,18 @@ public class HelloController {
     public void openVideoPage() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("videoView.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 1029, 760);
+//        scene.getStylesheets().addAll(
+//                getClass().getResource("stylecss.css").toExternalForm(),
+//                getClass().getResource("DarkStyles.css").toExternalForm()
+//        );
+        if (isDarkModeOn) {
+            scene.getStylesheets().add(getClass().getResource("DarkStyles.css").toExternalForm());
+        }
+        else {
+            scene.getStylesheets().add(getClass().getResource("stylecss.css").toExternalForm());
+        }
         stage.setTitle("---Video---");
-        stage.initStyle(StageStyle.UNDECORATED);
+//        stage.initStyle(StageStyle.UNDECORATED);
         stage.setScene(scene);
         stage.show();
     }
@@ -601,8 +664,109 @@ public class HelloController {
     public void clickOnAPlayList() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("playListView.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 1029, 760);
+//        scene.getStylesheets().addAll(
+//                getClass().getResource("stylecss.css").toExternalForm(),
+//                getClass().getResource("DarkStyles.css").toExternalForm()
+//        );
+        if (isDarkModeOn) {
+            scene.getStylesheets().add(getClass().getResource("DarkStyles.css").toExternalForm());
+        }
+        else {
+            scene.getStylesheets().add(getClass().getResource("stylecss.css").toExternalForm());
+        }
         stage.setTitle("---playList---");
         stage.setScene(scene);
         stage.show();
+    }
+
+    @FXML
+    public void searchFunc() {
+        // wright search function here
+    }
+
+    @FXML
+    public void profileClick() throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("profileView.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 1029, 760);
+        if (isDarkModeOn) {
+            scene.getStylesheets().add(getClass().getResource("DarkStyles.css").toExternalForm());
+        }
+        else {
+            scene.getStylesheets().add(getClass().getResource("stylecss.css").toExternalForm());
+        }
+        stage.setTitle("---Profile---");
+        stage.setScene(scene);
+        stage.show();
+    }
+
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        LogOutHbox.setVisible(false);
+        try {
+            this.client=new Client("127.0.0.1");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+//        ArrayList<Video>video=new ArrayList<>();
+//        if (user!=null) {
+//            video = client.getVideoByRandomCategoryRequest(10, user.getID());
+//        }else
+////             video=client.getVideoByRandomCategoryRequest(10);
+//
+//        System.out.println(video.get(0).getBlock());
+//        System.out.println("[get video for show]" );
+
+
+
+//        createVideoBox(container,video.get(0));
+
+        System.out.println("Start");
+        logOut.setOnAction(e->{
+
+            if (loginOn){
+
+                FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("signUp-view.fxml"));
+                Scene scene = null;
+                try {
+                    scene = new Scene(fxmlLoader.load(), 500, 620);
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
+
+                // pass the client
+                signUpController signUpController=fxmlLoader.getController();
+                signUpController.client=this.client;
+                stage.setTitle("Youtube");
+                stage.setScene(scene);
+                stage.show();
+
+
+
+
+                logOut.getScene().getWindow().hide();
+
+            }
+            else {
+                LogOutHbox.setVisible(true);
+                Timeline timeline = new Timeline(
+                        new KeyFrame(Duration.ZERO, new KeyValue(LogOutHbox.opacityProperty(), 1.0)),
+                        new KeyFrame(Duration.seconds(1), new KeyValue(LogOutHbox.opacityProperty(), 1.0)),
+                        new KeyFrame(Duration.seconds(1), new KeyValue(LogOutHbox.opacityProperty(), 0.0))
+                );
+                timeline.play();
+                Out.setOnAction(event->{
+
+                    this.user=null;
+                    this.channel=null;
+                    loginOn=true;
+                    timeline.stop();
+                });
+            }
+            loginOn= !loginOn;
+        });
+
+
     }
 }
