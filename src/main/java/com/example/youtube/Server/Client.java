@@ -35,7 +35,7 @@ public class Client {
     }
 
     public void createImagesDirectory(){ //create folder for saving images
-        String folderPath = "C:\\Users\\ASUS\\IdeaProjects\\YouTube\\src\\main\\resources\\com\\example\\youtube\\clientImages";
+        String folderPath = "C:\\Users\\Asus\\Desktop\\YouTube\\YOUTUBE\\src\\main\\resources\\com\\example\\youtube\\clientImages";
         Path path = Paths.get(folderPath);
         try {
             Files.createDirectories(path);
@@ -44,7 +44,7 @@ public class Client {
         }
     }
     public void createVideosDirectory(){ //create folder for saving images
-        String folderPath = "C:\\Users\\ASUS\\IdeaProjects\\YouTube\\src\\main\\resources\\com\\example\\youtube\\clientVideos";
+        String folderPath = "C:\\Users\\Asus\\Desktop\\YouTube\\YOUTUBE\\src\\main\\resources\\com\\example\\youtube\\clientVideos";
         Path path = Paths.get(folderPath);
         try {
             Files.createDirectories(path);
@@ -54,7 +54,7 @@ public class Client {
     }
     private static void deleteFoldersOnExit() {
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
-            String folderPath = "C:\\Users\\ASUS\\IdeaProjects\\YouTube\\src\\main\\resources\\com\\example\\youtube\\clientImages";
+            String folderPath = "C:\\Users\\Asus\\Desktop\\YouTube\\YOUTUBE\\src\\main\\resources\\com\\example\\youtube\\clientImages";
             Path imagePath=Paths.get(folderPath);
             try {
                 Files.walk(imagePath)
@@ -70,7 +70,7 @@ public class Client {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            folderPath = "C:\\Users\\ASUS\\IdeaProjects\\YouTube\\src\\main\\resources\\com\\example\\youtube\\clientVideos";
+            folderPath = "C:\\Users\\Asus\\Desktop\\YouTube\\YOUTUBE\\src\\main\\resources\\com\\example\\youtube\\clientVideos";
             Path videoPath=Paths.get(folderPath);
             try {
                 Files.walk(videoPath)
@@ -102,11 +102,11 @@ public class Client {
     public boolean sendVideoBytes(String videoID) throws IOException {
         // endpoint = 7
         out.writeUTF("7#"+videoID);
-        File videoFile=new File("C:\\Users\\ASUS\\IdeaProjects\\YouTube\\src\\main\\resources\\com\\example\\youtube\\clientVideos\\"+videoID+".mp4");
+        File videoFile=new File("C:\\Users\\Asus\\Desktop\\YouTube\\YOUTUBE\\src\\main\\resources\\com\\example\\youtube\\clientVideos\\"+videoID+".mp4");
         if (!videoFile.exists()) {
             return false;
         }
-        try(FileInputStream fileInputStream = new FileInputStream(videoFile);) {
+        try(FileInputStream fileInputStream = new FileInputStream(videoFile)) {
             byte[] buffer = new byte[4 * 1024];
             int bytes;
             out.writeLong(videoFile.length());
@@ -127,7 +127,7 @@ public class Client {
     public boolean sendImageBytes(String imageID) throws IOException {
         // endpoint = 6
         out.writeUTF("6#"+imageID);
-        File imageFile=new File("C:\\Users\\ASUS\\IdeaProjects\\YouTube\\src\\main\\resources\\com\\example\\youtube\\clientImages\\"+imageID+".jpg");
+        File imageFile=new File("C:\\Users\\Asus\\Desktop\\YouTube\\YOUTUBE\\src\\main\\resources\\com\\example\\youtube\\clientImages\\"+imageID+".jpg");
         if (!imageFile.exists()) {
             return false;
         }
@@ -151,7 +151,7 @@ public class Client {
     public boolean getVideoBytes(String videoID) throws IOException{
         //endpoint = 9
         out.writeUTF("9#"+videoID);
-        FileOutputStream fos = new FileOutputStream("C:\\Users\\ASUS\\IdeaProjects\\YouTube\\src\\main\\resources\\com\\example\\youtube\\clientVideos\\"+videoID + ".mp4");
+        FileOutputStream fos = new FileOutputStream("C:\\Users\\Asus\\Desktop\\YouTube\\YOUTUBE\\src\\main\\resources\\com\\example\\youtube\\clientVideos\\"+videoID +".mp4");
         try {
             long fileSize = in.readLong();
             byte[] buffer = new byte[4*1024];
@@ -173,7 +173,7 @@ public class Client {
     public boolean getImageBytes(String imageID) throws IOException{
         //endpoint = 8
         out.writeUTF("8#"+imageID);
-        FileOutputStream fos = new FileOutputStream("C:\\Users\\ASUS\\IdeaProjects\\YouTube\\src\\main\\resources\\com\\example\\youtube\\clientImages\\"+imageID+ ".jpg");
+        FileOutputStream fos = new FileOutputStream("C:\\Users\\Asus\\Desktop\\YouTube\\YOUTUBE\\src\\main\\resources\\com\\example\\youtube\\clientImages\\"+imageID+ ".jpg");
         try {
             long fileSize = in.readLong();
             byte[] buffer = new byte[4*1024];

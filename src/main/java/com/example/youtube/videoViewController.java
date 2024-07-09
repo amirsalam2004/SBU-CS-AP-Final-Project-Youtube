@@ -1,11 +1,7 @@
 package com.example.youtube;
 
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextArea;
@@ -15,14 +11,14 @@ import javafx.scene.layout.TilePane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
-import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.File;
-import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-public class videoViewController {
+public class videoViewController implements Initializable {
     MediaPlayer mediaPlayer;
 
     @FXML
@@ -45,48 +41,38 @@ public class videoViewController {
     private TextArea description;
     @FXML
     private TilePane content;
+    private String path;
     private Stage stage = new Stage();
     @FXML
-    public void openSongMedia(ActionEvent event) {
-        System.out.println("Open Song");
-
+    public void openSongMedia() {
         try {
-            FileChooser chooser = new FileChooser();
-            File file = chooser.showOpenDialog(null);
+            File chooser = new File(getPath());
+            System.out.println(getPath());
 
-            Media media = new Media(file.toURI().toURL().toString());
+            Media media = new Media(chooser.toURI().toURL().toString());
             mediaPlayer = new MediaPlayer(media);
 
             mediaView.setMediaPlayer(mediaPlayer);
 
             // slider
-
-            mediaPlayer.setOnReady(()->{
+            mediaPlayer.setOnReady(() -> {
                 timeSlider.setMin(0);
                 timeSlider.setMax(mediaPlayer.getMedia().getDuration().toSeconds());
-                System.out.println(mediaPlayer.getMedia().getDuration().toSeconds());
                 timeSlider.setValue(0);
             });
 
-            mediaPlayer.currentTimeProperty().addListener(new ChangeListener<Duration>() {
-                @Override
-                public void changed(ObservableValue<? extends Duration> observableValue, Duration duration, Duration t1) {
-                    Duration d = mediaPlayer.getCurrentTime();
-                    timeSlider.setValue(d.toSeconds());
-                }
+            mediaPlayer.currentTimeProperty().addListener((observableValue, duration, t1) -> {
+                Duration d = mediaPlayer.getCurrentTime();
+                timeSlider.setValue(d.toSeconds());
             });
 
-            timeSlider.valueProperty().addListener(new ChangeListener<Number>() {
-                @Override
-                public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
-                    if (timeSlider.isPressed()) {
-                        double value = timeSlider.getValue();
-                        mediaPlayer.seek(new Duration(value * 1000));
-                    }
+            timeSlider.valueProperty().addListener((observableValue, number, t1) -> {
+                if (timeSlider.isPressed()) {
+                    double value = timeSlider.getValue();
+                    mediaPlayer.seek(new Duration(value * 1000));
                 }
             });
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.out.println(e);
         }
     }
@@ -132,18 +118,18 @@ public class videoViewController {
 
     @FXML
     public void mediaViewClickToHidePlayBtn() {
-        MediaPlayer.Status status = mediaPlayer.getStatus();
+        if (mediaPlayer != null) {
+            MediaPlayer.Status status = mediaPlayer.getStatus();
 
-        if (platImg.isVisible() || pauseImg.isVisible()) {
-            platImg.setVisible(false);
-            pauseImg.setVisible(false);
-        }
-        else {
-            if (status == MediaPlayer.Status.PLAYING) {
-                pauseImg.setVisible(true);
-            }
-            else {
-                platImg.setVisible(true);
+            if (platImg.isVisible() || pauseImg.isVisible()) {
+                platImg.setVisible(false);
+                pauseImg.setVisible(false);
+            } else {
+                if (status == MediaPlayer.Status.PLAYING) {
+                    pauseImg.setVisible(true);
+                } else {
+                    platImg.setVisible(true);
+                }
             }
         }
     }
@@ -206,6 +192,20 @@ public class videoViewController {
         }
         Stage stage = (Stage) timeSlider.getScene().getWindow();
         stage.close();
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        if (mediaView != null) {
+            openSongMedia();
+        }
+    }
+
+    public String getPath() {
+        return path;
+    }
+    public void  setPath(String path) {
+        this. path =path;
     }
 
 }
