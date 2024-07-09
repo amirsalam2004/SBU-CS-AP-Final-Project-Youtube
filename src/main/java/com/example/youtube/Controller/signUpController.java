@@ -160,7 +160,7 @@ public class signUpController implements Initializable {
                                 emailField.setText(" ");
                                 //this method hash the password TODO change the algorithm of hashing
                                 password = hashPasswordSHA256(passwordField.getText());
-                                passwordField.setText(" ");
+                                passwordField.setText("");
                                 error.setText("");
                                 error.setVisible(false);
                                 errorEmail.setText("");

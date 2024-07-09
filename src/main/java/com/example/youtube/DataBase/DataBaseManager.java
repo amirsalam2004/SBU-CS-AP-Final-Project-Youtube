@@ -1,9 +1,11 @@
 package com.example.youtube.DataBase;
 
 import com.example.youtube.Model.*;
+import com.example.youtube.Model.Math;
 
 import javax.security.auth.login.CredentialException;
 import java.io.IOException;
+import java.nio.file.WatchEvent;
 import java.sql.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -421,6 +423,7 @@ public class DataBaseManager {
     public static synchronized ArrayList<Video> getListVideoByCategoryRandom(int numVideos, String ID) {//TODO cehck
         //TODO change channel ID TO user iD
         ArrayList<Integer> valus = new ArrayList<>();
+
         ArrayList<Video> videos = new ArrayList<>();
         ArrayList<String> category = new ArrayList<>(Arrays.asList("Sport", "news", "LifeStyle", "Comedy"
                 , "Education", "Autosandveh", "TravelandEvents"
@@ -432,7 +435,7 @@ public class DataBaseManager {
             while (i < numVideos) {
                 i++;
 
-                String videoQuery = "SELECT * FROM video JOIN category_video ON video.ID_video = category_video.ID_video WHERE category_video.category = ? ORDER BY RAND() LIMIT ?";
+                String videoQuery = "SELECT * FROM video  WHERE video.category = ? ORDER BY RAND() LIMIT ?";
                 PreparedStatement videoPs = connection.prepareStatement(videoQuery);
                 videoPs.setString(1, category.get(i));
                 videoPs.setInt(2, valus.get(i));
@@ -462,6 +465,102 @@ public class DataBaseManager {
         }
 
         return videos;
+    }
+    public static synchronized ArrayList<Video> getListVideoByCategoryRandom(int numVideos) {//TODO cehck
+        //TODO change channel ID TO user iD
+
+        ArrayList<Integer> valus = new ArrayList<>(getinformation());
+
+        ArrayList<Video> videos = new ArrayList<>();
+        ArrayList<String> category = new ArrayList<>(Arrays.asList("Sport", "news", "LifeStyle", "Comedy"
+                , "Education", "Autosandveh", "TravelandEvents"
+                , "Gaming", "Science_Technology", "Other"));
+        StartConnection();
+
+        try {
+            int i = 0;
+            while (i < numVideos) {
+                i++;
+
+                String videoQuery = "SELECT * FROM video  WHERE video.category = ? ORDER BY RAND() LIMIT ?";
+                PreparedStatement videoPs = connection.prepareStatement(videoQuery);
+                videoPs.setString(1, category.get(i));
+                videoPs.setInt(2, valus.get(i));
+                ResultSet videoResultSet = videoPs.executeQuery();
+
+                // Add the videos to the list
+                while (videoResultSet.next()) {
+                    String ID_video = videoResultSet.getString("ID_video");
+                    String Chanel_ID = videoResultSet.getString("Chanel_ID");
+                    String time_uplode = videoResultSet.getString("time_uplode");
+                    int view = videoResultSet.getInt("view");
+                    int PlayTime = videoResultSet.getInt("PlayTime");
+
+                    String name = videoResultSet.getString("name");
+                    String information = videoResultSet.getString("information");
+                    String Block = videoResultSet.getString("Block");
+
+                    videos.add(new Video(ID_video, Chanel_ID, name, information, time_uplode, PlayTime, view, Block));
+                }
+            }
+
+            EncConnection();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        } finally {
+            EncConnection();
+        }
+
+        return videos;
+    }
+
+
+    //this is for user
+    public static ArrayList<Integer> getinformation(String ID) {
+        StartConnection();
+        ArrayList<Integer> values = new ArrayList<>();
+        String query = "SELECT * FROM category_user WHERE IDChanel = '" + ID + "'";
+
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                for (int i = 1; i <= 10; i++) {
+                    values.add(resultSet.getInt(i));
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            EncConnection();
+        }
+
+        return values;
+    }
+    //this is for all user when not connection
+
+    public static ArrayList<Integer> getinformation() {
+        StartConnection();
+        ArrayList<Integer> values = new ArrayList<>();
+        String query = "SELECT * FROM category_user " ;
+
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                for (int i = 1; i <= 10; i++) {
+                    values.set(i,resultSet.getInt(i));
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            EncConnection();
+        }
+
+        return values;
     }
 
     //who you follow
@@ -750,7 +849,7 @@ public class DataBaseManager {
 
     }
 
-    public static boolean Check_Follower_Following(String IDU, String IDC, int Identifier) {
+    public static boolean Check_Follower_Following(String IDU, String IDC, int Identifier) {//TODO check
         String query;
 
         if (Identifier == 1) {
@@ -774,13 +873,14 @@ public class DataBaseManager {
     }
 
     public synchronized static boolean Karam(int Karma, String UserId, String Video) {
-        StartConnection();
         String query;
         if (!CheckKarma(UserId, Video)) {
             query = "INSERT INTO Karma (karma, IDChanel, IDVideo) VALUES (?, ?, ?)";
         } else {
             query = "UPDATE Karma SET karma = ? WHERE IDUser = ? AND IDVideo = ?";
         }
+
+        StartConnection();
 
         try {
             PreparedStatement statement = connection.prepareStatement(query);
@@ -797,7 +897,8 @@ public class DataBaseManager {
         return true;
     }
 
-    private static boolean CheckKarma(String UserId, String Video) {
+    public static boolean CheckKarma(String UserId, String Video) {
+        StartConnection();
         String query;
         boolean exists;
 
@@ -815,9 +916,66 @@ public class DataBaseManager {
             e.printStackTrace();
             return true;
         }
+        finally {
+            EncConnection();
+        }
 
         return exists;
     }
+
+
+    //this is for short video karam
+    public synchronized static boolean KaramShort(int Karma, String UserId, String IDShort) {
+        String query;
+        if (!CheckKarma(UserId, IDShort)) {
+            query = "INSERT INTO Karma (karma, IDChanel, IDShort) VALUES (?, ?, ?)";
+        } else {
+            query = "UPDATE Karma SET karma = ? WHERE IDUser = ? AND IDShort = ?";
+        }
+
+        StartConnection();
+
+        try {
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setInt(1, Karma);
+            statement.setString(2, UserId);
+            statement.setString(3, IDShort);
+            statement.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            EncConnection();
+        }
+        return true;
+    }
+
+    public static boolean CheckKarmaShort(String UserId, String Video) {
+        StartConnection();
+        String query;
+        boolean exists;
+
+        query = "SELECT COUNT(*) FROM Karma WHERE IDVChanel" +
+                " = ? AND IDVideo = ?";
+
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setString(1, UserId);
+            statement.setString(2, Video);
+            ResultSet resultSet = statement.executeQuery();
+            resultSet.next();
+            int count = resultSet.getInt(1);
+            exists = count > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return true;
+        }
+        finally {
+            EncConnection();
+        }
+
+        return exists;
+    }
+
 
     /**
      * delete
@@ -857,6 +1015,7 @@ public class DataBaseManager {
     }
 
     private static void delete_Video_history(String idV) {
+        StartConnection();
         String query = "DELETE FROM viode_history  WHERE IDVideo ='%s'  ";
         query = String.format(query, idV);
         try {
@@ -903,8 +1062,9 @@ public class DataBaseManager {
             statement.execute(query1);
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        }finally {
+            EncConnection();
         }
-        EncConnection();
     }
 
 
@@ -918,8 +1078,9 @@ public class DataBaseManager {
             statement.execute(query);
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        }finally {
+            EncConnection();
         }
-        EncConnection();
     }
 
 
@@ -932,8 +1093,9 @@ public class DataBaseManager {
             statement.execute(query);
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        }finally {
+            EncConnection();
         }
-        EncConnection();
     }
 
     //Only the person who posted the video can delete comment
@@ -945,8 +1107,9 @@ public class DataBaseManager {
             statement.execute(query);
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        }finally {
+            EncConnection();
         }
-        EncConnection();
 
     }
 
@@ -995,7 +1158,6 @@ public class DataBaseManager {
                 throw new RuntimeException(e);
             }
         }
-
         EncConnection();
         return true;
     }
@@ -1015,8 +1177,10 @@ public class DataBaseManager {
             e.printStackTrace();
             return false;
 
+        }finally {
+            EncConnection();
         }
-        EncConnection();
+
         return true;
 
 
@@ -1135,6 +1299,8 @@ public class DataBaseManager {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        }finally {
+            EncConnection();
         }
         return false;
     }
@@ -1152,6 +1318,8 @@ public class DataBaseManager {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        }finally {
+            EncConnection();
         }
         return false;
     }
@@ -1171,6 +1339,8 @@ public class DataBaseManager {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        }finally {
+            EncConnection();
         }
         return false;
     }
@@ -1189,6 +1359,8 @@ public class DataBaseManager {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        }finally {
+            EncConnection();
         }
         return false;
     }
@@ -1207,6 +1379,8 @@ public class DataBaseManager {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        }finally {
+            EncConnection();
         }
         return false;
     }
@@ -1565,18 +1739,16 @@ public class DataBaseManager {
         StartConnection();
         String query = "INSERT INTO savePlaylist (IDUser,IDPalyList) VALUSE ('%s','%s')";
         query = String.format(query, IDU, IDP);
-
-        try {
+        try{
             statement.execute(query);
-        } catch (SQLException e) {
+        }catch(SQLException e) {
             e.printStackTrace();
             return false;
-        } finally {
+        }finally{
             EncConnection();
         }
         return true;
     }
-
     public static synchronized boolean SA_Video(String IDV, String IDU) {//TODO check it
         StartConnection();
         String query = "INSERT INTO saveVidoe (IDVideo,IDUser) VALUSE ('%s','%s')";
@@ -1630,88 +1802,45 @@ public class DataBaseManager {
 
         return true;
     }
-
-    public static synchronized ArrayList<Integer> GE_intreest(String ID) {
+    public static synchronized int countVideoLike(String IDV,String K) {
+        int number = 0;
         StartConnection();
-        ArrayList<Integer> interst = new ArrayList<>();
-        String query = "SELECT * From category_user where IDCahenl='%s'";
-        query = String.format(query, ID);
-        ResultSet resultSet;
-        try {
-            resultSet = statement.executeQuery(query);
-            while (resultSet.next()) {
-                interst.add(resultSet.getInt("Sport"));
-                interst.add(resultSet.getInt("news"));
-                interst.add(resultSet.getInt("LifeStyle"));
-                interst.add(resultSet.getInt("Comedy"));
-                interst.add(resultSet.getInt("Education"));
-                interst.add(resultSet.getInt("Autosandveh"));
-                interst.add(resultSet.getInt("TravelandEvents"));
-                interst.add(resultSet.getInt("Gaming"));
-                interst.add(resultSet.getInt("Science_Technology"));
-                interst.add(resultSet.getInt("Other"));
-            }
 
+        String query = "SELECT COUNT(*) FROM karma WHERE IDVideo=? AND Karma=?";
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setString(1, IDV);
+            statement.setString(2, K);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    number = resultSet.getInt(1);
+                }
+            }
         } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
+            throw new RuntimeException(e);
+        }
+
+        EncConnection();
+        return number;
+    }
+    public static synchronized int countShortLike(String IDV,String K) {
+        int number = 0;
+            StartConnection();
+
+        String query = "SELECT COUNT(*) FROM karmashort WHERE IDShort=? AND Karma=?";
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setString(1, IDV);
+            statement.setString(2, K);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    number = resultSet.getInt(1);
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }finally {
             EncConnection();
         }
 
-        return interst;
-    }
-
-    public static synchronized int countLike(String IDV,String K) {
-        int number = 0;
-        StartConnection();
-
-        String query = "SELECT COUNT(*) FROM karma WHERE IDVideo=? AND Karma=?";
-        try (PreparedStatement statement = connection.prepareStatement(query)) {
-            statement.setString(1, IDV);
-            statement.setString(2, K);
-            try (ResultSet resultSet = statement.executeQuery()) {
-                if (resultSet.next()) {
-                    number = resultSet.getInt(1);
-                }
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-
-        EncConnection();
         return number;
     }
-    public static synchronized int count(String IDV,String K) {
-        int number = 0;
-        StartConnection();
-
-        String query = "SELECT COUNT(*) FROM karma WHERE IDVideo=? AND Karma=?";
-        try (PreparedStatement statement = connection.prepareStatement(query)) {
-            statement.setString(1, IDV);
-            statement.setString(2, K);
-            try (ResultSet resultSet = statement.executeQuery()) {
-                if (resultSet.next()) {
-                    number = resultSet.getInt(1);
-                }
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-
-        EncConnection();
-        return number;
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-    }
+}

@@ -180,6 +180,15 @@ public class getApiService {
         }catch (Exception e){
             return ("0");
         }
+    }private static String getVideoByRandomAll(String categoryInfo) {
+        try {
+            String[] info=categoryInfo.split("#",2);
+            ArrayList<Video> videos=DataBaseManager.getListVideoByCategoryRandom(Integer.parseInt(info[0]),info[1]);
+            String response=gson.toJson(videos);
+            return response;
+        }catch (Exception e){
+            return ("0");
+        }
     }
     private static String getSearchedVideos(String searchInfo) {
         try {

@@ -272,10 +272,17 @@ public class HelloController {
     public void initialize() throws IOException {
         Massage.setVisible(false);
         this.client=new Client("127.0.0.1");
+        ArrayList<Video>video=new ArrayList<>();
+        if (user!=null) {
+            video = client.getVideoByRandomCategoryRequest(10, user.getID());
+        }else
+//             video=client.getVideoByRandomCategoryRequest(10);
 
-        ArrayList<Video> video=client.getSearchedVideosRequest("rouz aaabehrouzaa","name");
         System.out.println(video.get(0).getBlock());
         System.out.println("[get video for show]" );
+
+
+
 //        createVideoBox(container,video.get(0));
 
         System.out.println("Start");
