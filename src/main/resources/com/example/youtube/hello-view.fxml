@@ -27,7 +27,7 @@
             <SVGPath content="M16.296 16.996a8 8 0 11.707-.708l3.909 3.91-.707.707-3.909-3.909ZM18 11a7 7 0 11-14 0 7 7 0 0114 0Z" />
          </graphic>
       </Button>
-      <AnchorPane fx:id="sideBar" layoutX="36.0" layoutY="56.0" prefHeight="568.0" prefWidth="208.0" styleClass="backGrounds">
+      <AnchorPane fx:id="sideBar" layoutX="36.0" layoutY="56.0" prefHeight="568.0" prefWidth="208.0" styleClass="backGrounds" visible="false">
          <children>
             <Rectangle fx:id="productsBackGround" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="37.0" layoutX="5.0" layoutY="492.0" onMouseClicked="#podcastsClick" stroke="WHITE" strokeType="INSIDE" style="-fx-arc-width: 30; -fx-arc-height: 30;" styleClass="rectangles" width="197.0" />
             <Rectangle fx:id="sportsBackGround" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="37.0" layoutY="455.0" onMouseClicked="#sportsClick" stroke="WHITE" strokeType="INSIDE" style="-fx-arc-width: 30; -fx-arc-height: 30;" styleClass="rectangles" width="197.0" />
@@ -214,7 +214,7 @@
             <Label layoutX="13.0" layoutY="230.0" styleClass="labels" text="You" />
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="settingSideBar" layoutX="36.0" layoutY="65.0" prefHeight="533.0" prefWidth="208.0" style="-fx-border-color: #000;" styleClass="backGrounds" visible="false">
+      <AnchorPane fx:id="settingSideBar" layoutX="36.0" layoutY="65.0" prefHeight="533.0" prefWidth="208.0" style="-fx-border-color: #000;" styleClass="backGrounds">
          <children>
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="48.0" layoutX="5.0" layoutY="75.0" stroke="WHITE" strokeType="INSIDE" width="197.0" />
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="48.0" layoutX="5.0" layoutY="123.0" stroke="WHITE" strokeType="INSIDE" width="197.0" />
@@ -228,7 +228,7 @@
                   <Font size="42.0" />
                </font>
             </Label>
-            <Label layoutX="14.0" layoutY="80.0" prefHeight="37.0" prefWidth="181.0" styleClass="labels" text="Account">
+            <Label layoutX="14.0" layoutY="80.0" onMouseClicked="#accountClick" prefHeight="37.0" prefWidth="181.0" styleClass="labels" text="Account">
                <font>
                   <Font size="19.0" />
                </font>

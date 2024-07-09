@@ -628,10 +628,9 @@ public class DataBaseManager {
             statement.setString(3, String.valueOf(video.getUploadTime()));
             statement.setInt(4, video.getView());
             statement.setInt(5, video.getDuration());
-            statement.setInt(6, video.getLike());
-            statement.setInt(7, (int) video.getDeslike());
-            statement.setString(8, video.getName());
-            statement.setString(9, video.getDescription());
+
+            statement.setString(6, video.getName());
+            statement.setString(7, video.getDescription());
             statement.execute();
         } catch (SQLIntegrityConstraintViolationException e) {
             return false;

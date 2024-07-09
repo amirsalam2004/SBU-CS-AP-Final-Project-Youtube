@@ -223,9 +223,9 @@ public class signUpController implements Initializable {
                                 }
                                 HelloController helloController = fxmlLoader.getController();
                                 //insert user and channel and true
-                                helloController.user = user;
-                                helloController.channel = channel;
-                                helloController.loginOn = true;
+//                                helloController.user = user;
+//                                helloController.channel = channel;
+//                                helloController.loginOn = true;
                                 stage.setTitle("Youtube");
                                 stage.setScene(scene);
                                 stage.show();
