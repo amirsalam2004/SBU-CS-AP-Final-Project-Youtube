@@ -43,7 +43,14 @@ public class getApiService {
                 return getVideoByRandomCategory(body);
             case "113":
                 return getVideoHistory(body);
+            case "114":
+                return getSearchedVideos(body);
+            case "115":
+                return getSearchedChannels(body);
+            case "116":
+                return getSearchedPlaylists(body);
             default:
+                System.out.println("unknown endpoint");
                 return "0";
         }
     }
@@ -174,8 +181,36 @@ public class getApiService {
             return ("0");
         }
     }
-
-
+    private static String getSearchedVideos(String searchInfo) {
+        try {
+            String[] info=searchInfo.split("#",2);
+            ArrayList<Video> videos=DataBaseManager.SE_video(info[0],info[1]);
+            String response=gson.toJson(videos);
+            return response;
+        }catch (Exception e){
+            return ("0");
+        }
+    }
+    private static String getSearchedChannels(String searchInfo) {
+        try {
+            String[] info=searchInfo.split("#",2);
+            ArrayList<Channel> channels=DataBaseManager.SE_Chanel(info[0],info[1]);
+            String response=gson.toJson(channels);
+            return response;
+        }catch (Exception e){
+            return ("0");
+        }
+    }
+    private static String getSearchedPlaylists(String searchInfo) {
+        try {
+            String[] info=searchInfo.split("#",2);
+            ArrayList<PlayList> playLists=DataBaseManager.SE_playLists(info[0],info[1]);
+            String response=gson.toJson(playLists);
+            return response;
+        }catch (Exception e){
+            return ("0");
+        }
+    }
 
 
 
