@@ -4,8 +4,10 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Slider;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -29,6 +31,10 @@ public class addVideoController {
     private ImageView platImg;
     @FXML
     private ChoiceBox playLists;
+    @FXML
+    private CheckBox blockCheck;
+    @FXML
+    private ImageView videoPic;
 
     public boolean isDarkModeOn;
     public String darkTheme = HelloApplication.class.getResource("DarkStyles.css").toExternalForm();
@@ -147,17 +153,19 @@ public class addVideoController {
     public void initialize() {
         playLists.getItems().add("Your Channel");
         playLists.getSelectionModel().select("Your Channel");
-        // for play list in passed list : playLists.getItems().add("{playlist name}");
+    }
 
-//        if (!isDarkModeOn) {
-//            isDarkModeOn = false;
-//            mediaView.getScene().getStylesheets().remove(darkTheme);
-//            mediaView.getScene().getStylesheets().add(lightTheme);
-//        }
-//        else {
-//            isDarkModeOn = true;
-//            mediaView.getScene().getStylesheets().remove(lightTheme);
-//            mediaView.getScene().getStylesheets().add(darkTheme);
-//        }
+    @FXML
+    public void openImage() {
+        try {
+            FileChooser chooser = new FileChooser();
+            File file = chooser.showOpenDialog(null);
+
+            Image image = new Image(file.toURI().toString());
+            videoPic.setImage(image);
+        }
+        catch (Exception e) {
+            System.out.println(e);
+        }
     }
 }

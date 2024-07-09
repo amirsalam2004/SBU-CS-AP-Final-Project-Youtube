@@ -214,7 +214,7 @@
             <Label layoutX="13.0" layoutY="230.0" styleClass="labels" text="You" />
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="settingSideBar" layoutX="36.0" layoutY="65.0" prefHeight="533.0" prefWidth="208.0" style="-fx-border-color: #000;" styleClass="backGrounds">
+      <AnchorPane fx:id="settingSideBar" layoutX="36.0" layoutY="65.0" prefHeight="533.0" prefWidth="208.0" styleClass="backGrounds">
          <children>
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="48.0" layoutX="5.0" layoutY="75.0" stroke="WHITE" strokeType="INSIDE" width="197.0" />
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="48.0" layoutX="5.0" layoutY="123.0" stroke="WHITE" strokeType="INSIDE" width="197.0" />
@@ -238,27 +238,22 @@
                   <Font size="19.0" />
                </font>
             </Label>
-            <Label layoutX="12.0" layoutY="188.0" prefHeight="37.0" prefWidth="181.0" styleClass="labels" text="Channel">
-               <font>
-                  <Font size="25.0" />
-               </font>
-            </Label>
-            <Label layoutX="14.0" layoutY="236.0" prefHeight="37.0" prefWidth="181.0" styleClass="labels" text="Playlists">
+            <Label layoutX="13.0" layoutY="193.0" prefHeight="37.0" prefWidth="181.0" styleClass="labels" text="Playlists">
                <font>
                   <Font size="19.0" />
                </font>
             </Label>
-            <Label layoutX="14.0" layoutY="288.0" onMouseClicked="#addVideoClick" prefHeight="37.0" prefWidth="181.0" styleClass="labels" text="Add Video">
+            <Label layoutX="13.0" layoutY="248.0" onMouseClicked="#addVideoClick" prefHeight="37.0" prefWidth="181.0" styleClass="labels" text="Add Video">
                <font>
                   <Font size="19.0" />
                </font>
             </Label>
-            <Label layoutX="14.0" layoutY="341.0" onMouseClicked="#addPlayList" prefHeight="37.0" prefWidth="181.0" styleClass="labels" text="Add Playlist">
+            <Label layoutX="13.0" layoutY="298.0" onMouseClicked="#addPlayList" prefHeight="37.0" prefWidth="181.0" styleClass="labels" text="Add Playlist">
                <font>
                   <Font size="19.0" />
                </font>
             </Label>
-            <Label layoutX="13.0" layoutY="396.0" onMouseClicked="#addStoryClick" prefHeight="37.0" prefWidth="181.0" styleClass="labels" text="Add Story">
+            <Label layoutX="13.0" layoutY="341.0" onMouseClicked="#addStoryClick" prefHeight="37.0" prefWidth="181.0" styleClass="labels" text="Add Story">
                <font>
                   <Font size="19.0" />
                </font>

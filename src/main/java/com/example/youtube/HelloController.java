@@ -434,7 +434,7 @@ public class HelloController {
     @FXML
     protected void addVideoClick() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("addVideo.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 870, 520);
+        Scene scene = new Scene(fxmlLoader.load(), 863, 610);
         if (isDarkModeOn) {
             scene.getStylesheets().add(getClass().getResource("DarkStyles.css").toExternalForm());
         }
