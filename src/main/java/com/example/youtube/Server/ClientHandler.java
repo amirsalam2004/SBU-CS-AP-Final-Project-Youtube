@@ -73,7 +73,7 @@ public class ClientHandler implements Runnable {
         }
 
     public void sendVideoBytes(String videoID) throws IOException {
-        File videoFile=new File("C:\\Users\\Asus\\Downloads\\"+videoID+".mp4");
+        File videoFile=new File("C:\\Users\\ASUS\\Desktop\\videos\\"+videoID+".mp4");
         if (!videoFile.exists()) {
             out.writeInt(0);
             out.flush();
@@ -97,7 +97,7 @@ public class ClientHandler implements Runnable {
 
     }
     public void sendImageBytes(String imageID) throws IOException {
-        File imageFile=new File("C:\\Users\\Asus\\Desktop\\YouTube\\YOUTUBE\\src\\main\\resources\\com\\example\\youtube\\Images\\"+imageID+".jpg"); //TODO
+        File imageFile=new File("C:\\Users\\ASUS\\Desktop\\images\\"+imageID+".jpg"); //TODO
         if (!imageFile.exists()){
             // if file doesn't exist
             out.writeInt(0);
@@ -122,7 +122,7 @@ public class ClientHandler implements Runnable {
     }
     //The video is received from the client in byte arrays of length 4*1024
     public void getVideoBytes(String videoID) throws IOException{
-        FileOutputStream fos = new FileOutputStream(videoID + ".mp4");
+        FileOutputStream fos = new FileOutputStream("C:\\Users\\ASUS\\Desktop\\videos\\"+videoID + ".mp4");
         try {
             long fileSize = in.readLong();
             byte[] buffer = new byte[4*1024];
@@ -141,7 +141,7 @@ public class ClientHandler implements Runnable {
     }
     //The image is received from the client in byte arrays of length 4*1024
     public void getImageBytes(String imageID) throws IOException{
-        FileOutputStream fos = new FileOutputStream("C:\\Users\\Asus\\Desktop\\YouTube\\YOUTUBE\\src\\main\\resources\\com\\example\\youtube\\Images\\"+imageID + ".jpg");
+        FileOutputStream fos = new FileOutputStream("C:\\Users\\ASUS\\Desktop\\images\\"+imageID + ".jpg");
         try {
             long fileSize = in.readLong();
             byte[] buffer = new byte[4*1024];

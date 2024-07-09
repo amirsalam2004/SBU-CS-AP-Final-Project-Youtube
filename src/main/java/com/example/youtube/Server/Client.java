@@ -21,6 +21,8 @@ public class Client {
     private DataInputStream in;
     public Client(String IP) throws IOException{
         SERVER_IP=IP;
+        createImagesDirectory();
+        createVideosDirectory();
         try {
             this.socket = new Socket(SERVER_IP, SERVER_PORT);
             // Create DataOutputStream for sending requests to the server
@@ -31,10 +33,64 @@ public class Client {
             System.out.println(e.getMessage());
         }
     }
+
+    public void createImagesDirectory(){ //create folder for saving images
+        String folderPath = "C:\\Users\\ASUS\\IdeaProjects\\YouTube\\src\\main\\resources\\com\\example\\youtube\\clientImages";
+        Path path = Paths.get(folderPath);
+        try {
+            Files.createDirectories(path);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    public void createVideosDirectory(){ //create folder for saving images
+        String folderPath = "C:\\Users\\ASUS\\IdeaProjects\\YouTube\\src\\main\\resources\\com\\example\\youtube\\clientVideos";
+        Path path = Paths.get(folderPath);
+        try {
+            Files.createDirectories(path);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    private static void deleteFoldersOnExit() {
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+            String folderPath = "C:\\Users\\ASUS\\IdeaProjects\\YouTube\\src\\main\\resources\\com\\example\\youtube\\clientImages";
+            Path imagePath=Paths.get(folderPath);
+            try {
+                Files.walk(imagePath)
+                        .sorted((path1, path2) -> path2.compareTo(path1))
+                        .forEach(path -> {
+                            try {
+                                Files.delete(path);
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        });
+                System.out.println("Folder and files deleted: " + imagePath.toAbsolutePath());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            folderPath = "C:\\Users\\ASUS\\IdeaProjects\\YouTube\\src\\main\\resources\\com\\example\\youtube\\clientVideos";
+            Path videoPath=Paths.get(folderPath);
+            try {
+                Files.walk(videoPath)
+                        .sorted((path1, path2) -> path2.compareTo(path1))
+                        .forEach(path -> {
+                            try {
+                                Files.delete(path);
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        });
+                System.out.println("Folder and files deleted: " + videoPath.toAbsolutePath());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }));
+    }
     public void closeConnection(){
         try {
             // Close input and output streams and the client socket when done
-            System.out.println("in this is close connection in line 48 client ");
             in.close();
             out.close();
             socket.close();
@@ -42,8 +98,11 @@ public class Client {
             e.printStackTrace();
         }
     }
+    //Divide the video into 1024*4 byte arrays and send them to server.
     public boolean sendVideoBytes(String videoID) throws IOException {
-        File videoFile=new File(videoID+".mp4");
+        // endpoint = 7
+        out.writeUTF("7#"+videoID);
+        File videoFile=new File("C:\\Users\\ASUS\\IdeaProjects\\YouTube\\src\\main\\resources\\com\\example\\youtube\\clientVideos\\"+videoID+".mp4");
         if (!videoFile.exists()) {
             return false;
         }
@@ -64,8 +123,11 @@ public class Client {
             return false;
         }
     }
+    //Divide the image into 1024*4 byte arrays and send them to server.
     public boolean sendImageBytes(String imageID) throws IOException {
-        File imageFile=new File(imageID+".jpg");
+        // endpoint = 6
+        out.writeUTF("6#"+imageID);
+        File imageFile=new File("C:\\Users\\ASUS\\IdeaProjects\\YouTube\\src\\main\\resources\\com\\example\\youtube\\clientImages\\"+imageID+".jpg");
         if (!imageFile.exists()) {
             return false;
         }
@@ -87,7 +149,9 @@ public class Client {
         }
     }
     public boolean getVideoBytes(String videoID) throws IOException{
-        FileOutputStream fos = new FileOutputStream(videoID + ".mp4");
+        //endpoint = 9
+        out.writeUTF("9#"+videoID);
+        FileOutputStream fos = new FileOutputStream("C:\\Users\\ASUS\\IdeaProjects\\YouTube\\src\\main\\resources\\com\\example\\youtube\\clientVideos\\"+videoID + ".mp4");
         try {
             long fileSize = in.readLong();
             byte[] buffer = new byte[4*1024];
@@ -107,7 +171,9 @@ public class Client {
         }
     }
     public boolean getImageBytes(String imageID) throws IOException{
-        FileOutputStream fos = new FileOutputStream(imageID+ ".jpg");
+        //endpoint = 8
+        out.writeUTF("8#"+imageID);
+        FileOutputStream fos = new FileOutputStream("C:\\Users\\ASUS\\IdeaProjects\\YouTube\\src\\main\\resources\\com\\example\\youtube\\clientImages\\"+imageID+ ".jpg");
         try {
             long fileSize = in.readLong();
             byte[] buffer = new byte[4*1024];
