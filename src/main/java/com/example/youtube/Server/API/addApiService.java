@@ -1,4 +1,4 @@
-package com.example.youtube.Server;
+package com.example.youtube.Server.API;
 
 import com.example.youtube.Model.*;
 import com.example.youtube.DataBase.*;

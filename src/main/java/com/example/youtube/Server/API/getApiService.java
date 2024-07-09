@@ -1,4 +1,4 @@
-package com.example.youtube.Server;
+package com.example.youtube.Server.API;
 
 import com.example.youtube.Model.*;
 import com.example.youtube.DataBase.*;
@@ -44,7 +44,7 @@ public class getApiService {
             case "113":
                 return getVideoHistory(body);
             default:
-                return gson.toJson(new ErrorResponse("Unknown endpoint"));
+                return "0";
         }
     }
 
@@ -194,16 +194,4 @@ public class getApiService {
 
 
 
-
-    private static class ErrorResponse {
-        private String message;
-
-        public ErrorResponse(String message) {
-            this.message = message;
-        }
-
-        public String getMessage() {
-            return message;
-        }
-    }
 }

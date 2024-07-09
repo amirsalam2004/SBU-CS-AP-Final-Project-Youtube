@@ -1,5 +1,4 @@
-package com.example.youtube.Server;
-import com.example.youtube.Model.*;
+package com.example.youtube.Server.API;
 import com.example.youtube.DataBase.*;
 
 import com.google.gson.Gson;
