@@ -15,7 +15,7 @@
    <children>
       <MediaView fx:id="mediaView" fitHeight="400.0" fitWidth="600.0" layoutX="215.0" layoutY="34.0" onMouseClicked="#mediaViewClickToHidePlayBtn" />
       <Slider fx:id="timeSlider" layoutX="215.0" layoutY="434.0" prefHeight="18.0" prefWidth="600.0" showTickMarks="true" />
-      <Button layoutX="14.0" layoutY="34.0" mnemonicParsing="false" onAction="#openSongMedia" prefHeight="41.0" prefWidth="135.0" text="openVideo">
+      <Button layoutX="14.0" layoutY="34.0" mnemonicParsing="false" onAction="#openSongMedia" prefHeight="41.0" prefWidth="135.0" style="-fx-background-color: #25D306; -fx-background-radius: 25;" text="openVideo">
          <font>
             <Font size="17.0" />
          </font></Button>
@@ -31,17 +31,20 @@
       </ImageView>
       <Label layoutX="311.0" layoutY="458.0" onMouseClicked="#nextBtnClick" prefHeight="33.0" prefWidth="116.0" text="15 second &gt;" />
       <Label layoutX="215.0" layoutY="458.0" onMouseClicked="#preBtnClick" prefHeight="33.0" prefWidth="116.0" text="10 second &lt;" />
-      <CheckBox alignment="CENTER" layoutX="13.0" layoutY="192.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="145.0" text="Block Comments" />
-      <Button layoutX="14.0" layoutY="437.0" mnemonicParsing="false" onAction="#openSongMedia" prefHeight="41.0" prefWidth="135.0" text="Submit">
+      <CheckBox alignment="CENTER" layoutX="13.0" layoutY="192.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="145.0" text="Block Comments">
+         <font>
+            <Font size="15.0" />
+         </font></CheckBox>
+      <Button layoutX="14.0" layoutY="437.0" mnemonicParsing="false" onAction="#openSongMedia" prefHeight="41.0" prefWidth="135.0" style="-fx-background-color: #DDB205; -fx-background-radius: 50;" text="Submit">
          <font>
             <Font size="23.0" />
          </font>
       </Button>
-      <Button layoutX="18.0" layoutY="254.0" mnemonicParsing="false" onAction="#addToPlayList" prefHeight="50.0" prefWidth="135.0" text="Add to Play List">
+      <Button layoutX="18.0" layoutY="254.0" mnemonicParsing="false" onAction="#addToPlayList" prefHeight="50.0" prefWidth="135.0" style="-fx-background-color: #0DC2B1; -fx-background-radius: 15;" text="Add to Play List">
          <font>
             <Font size="16.0" />
          </font>
       </Button>
-      <ChoiceBox fx:id="playLists" layoutX="11.0" layoutY="328.0" prefWidth="150.0" />
+      <ChoiceBox fx:id="playLists" layoutX="11.0" layoutY="328.0" prefWidth="150.0" style="-fx-background-color: #CDAEF7;" />
    </children>
 </AnchorPane>

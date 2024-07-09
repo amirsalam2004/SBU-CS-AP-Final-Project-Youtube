@@ -579,7 +579,7 @@ public class HelloController {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("videoView.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 1029, 760);
         stage.setTitle("---Video---");
-        stage.initStyle(StageStyle.UNDECORATED);
+//        stage.initStyle(StageStyle.UNDECORATED);
         stage.setScene(scene);
         stage.show();
     }
@@ -591,5 +591,10 @@ public class HelloController {
         stage.setTitle("---playList---");
         stage.setScene(scene);
         stage.show();
+    }
+
+    @FXML
+    public void searchFunc() {
+        // wright search function here
     }
 }

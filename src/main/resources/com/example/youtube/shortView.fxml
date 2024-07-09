@@ -9,9 +9,12 @@
 <?import javafx.scene.media.MediaView?>
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.shape.Line?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="691.0" prefWidth="599.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.youtube.ShortViewController">
    <children>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="229.0" layoutX="157.0" layoutY="236.0" stroke="BLACK" strokeType="INSIDE" style="-fx-arc-height: 100; -fx-arc-width: 100; -fx-fill: #CBC6C6;" width="65.0" />
       <MediaView fx:id="mediaView" fitHeight="550.0" fitWidth="300.0" layoutX="225.0" layoutY="44.0" onMouseClicked="#mediaViewClickToHidePlayBtn" />
       <Slider fx:id="timeSlider" layoutX="228.0" layoutY="582.0" prefHeight="24.0" prefWidth="300.0" showTickMarks="true" />
       <ImageView fx:id="platImg" fitHeight="41.0" fitWidth="52.0" layoutX="355.0" layoutY="278.0" onMouseClicked="#play" pickOnBounds="true" preserveRatio="true">
@@ -28,8 +31,8 @@
       <Label layoutX="228.0" layoutY="606.0" onMouseClicked="#preBtnClick" prefHeight="33.0" prefWidth="116.0" text="3 second &lt;" />
       <Circle fill="#eaece9" layoutX="35.0" layoutY="328.0" onMouseClicked="#nextShortClick" radius="29.0" stroke="BLACK" strokeType="INSIDE" />
       <Line endX="-89.00001525878906" endY="-148.0" layoutX="124.0" layoutY="447.0" onMouseClicked="#nextShortClick" startX="-89.00001525878906" startY="-104.60000610351562" />
-      <Line endX="-98.79292297363281" endY="-122.39291381835938" layoutX="134.0" layoutY="466.0" onMouseClicked="#nextShortClick" startX="-86.80000305175781" startY="-136.20001220703125" />
-      <Line endX="-107.80000305175781" endY="-146.60000610351562" layoutX="131.0" layoutY="473.0" onMouseClicked="#nextShortClick" startX="-96.50001525878906" startY="-130.10000610351562" />
+      <Line endX="-98.79292297363281" endY="-122.39291381835938" layoutX="134.0" layoutY="466.0" onMouseClicked="#nextShortClick" startX="-89.20002746582031" startY="-132.4000244140625" />
+      <Line endX="-105.40000915527344" endY="-141.0" layoutX="131.0" layoutY="473.0" onMouseClicked="#nextShortClick" startX="-96.50001525878906" startY="-130.10000610351562" />
       <ImageView fx:id="notLikedImg" fitHeight="29.0" fitWidth="33.0" layoutX="175.0" layoutY="252.0" onMouseClicked="#likeUnlikeClick" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@Images/kindpng_114955.png" />
@@ -53,6 +56,9 @@
       <Label alignment="CENTER" layoutX="166.0" layoutY="300.0" prefHeight="34.0" prefWidth="51.0" text="Label" />
       <Label alignment="CENTER" layoutX="166.0" layoutY="408.0" prefHeight="34.0" prefWidth="51.0" text="Label" />
       <Button layoutX="17.0" layoutY="28.0" mnemonicParsing="false" onAction="#openSongMedia" prefHeight="41.0" prefWidth="47.0" text="openVideo" />
-      <Button layoutX="15.0" layoutY="89.0" mnemonicParsing="false" onAction="#exitBtnClick" prefHeight="49.0" prefWidth="52.0" text="Exit" />
+      <Button layoutX="5.0" layoutY="88.0" mnemonicParsing="false" onAction="#exitBtnClick" prefHeight="41.0" prefWidth="72.0" style="-fx-background-color: #DE0A06;" text="Exit" textFill="WHITE">
+         <font>
+            <Font size="19.0" />
+         </font></Button>
    </children>
 </AnchorPane>
