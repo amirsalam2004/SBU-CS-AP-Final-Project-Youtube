@@ -17,18 +17,18 @@
 <?import javafx.scene.shape.SVGPath?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="1" fx:id="mainField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="627.0" prefWidth="1190.0" style="-fx-background-color: #fff;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.youtube.HelloController">
+<AnchorPane id="1" fx:id="mainField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="627.0" prefWidth="1190.0" styleClass="backGrounds" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.youtube.HelloController">
    <stylesheets>
-      <URL value="@stylecss.css" />
+      <URL value="@DarkStyles.css" />
    </stylesheets>
    <children>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e8f0f7" height="41.0" layoutX="37.0" layoutY="9.0" stroke="#e8f0f7" strokeType="INSIDE" style="-fx-arc-width: 15; -fx-arc-height: 20;" width="1134.0" />
+      <Rectangle id="topBar" arcHeight="5.0" arcWidth="5.0" fill="#e8f0f7" height="41.0" layoutX="37.0" layoutY="9.0" stroke="#e8f0f7" strokeType="INSIDE" style="-fx-arc-width: 15; -fx-arc-height: 20;" width="1134.0" />
       <Button layoutX="407.0" layoutY="16.0" onMouseClicked="#searchFunc" styleClass="buttons">
          <graphic>
             <SVGPath content="M16.296 16.996a8 8 0 11.707-.708l3.909 3.91-.707.707-3.909-3.909ZM18 11a7 7 0 11-14 0 7 7 0 0114 0Z" />
          </graphic>
       </Button>
-      <AnchorPane fx:id="sideBar" layoutX="36.0" layoutY="56.0" prefHeight="568.0" prefWidth="208.0" visible="false">
+      <AnchorPane fx:id="sideBar" layoutX="36.0" layoutY="56.0" prefHeight="568.0" prefWidth="208.0" styleClass="backGrounds" visible="false">
          <children>
             <Rectangle fx:id="productsBackGround" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="37.0" layoutX="5.0" layoutY="492.0" onMouseClicked="#podcastsClick" stroke="WHITE" strokeType="INSIDE" style="-fx-arc-width: 30; -fx-arc-height: 30;" width="197.0" />
             <Rectangle fx:id="sportsBackGround" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="37.0" layoutY="455.0" onMouseClicked="#sportsClick" stroke="WHITE" strokeType="INSIDE" style="-fx-arc-width: 30; -fx-arc-height: 30;" width="197.0" />
@@ -80,7 +80,7 @@
                </graphic>
             </Button>
             <Line endX="86.99998474121094" layoutX="105.0" layoutY="122.0" startX="-100.0" stroke="#9e9e9e" />
-            <Label fx:id="subscription" layoutX="66.0" layoutY="83.0" onMouseClicked="#subscriptionClick" prefHeight="26.0" prefWidth="65.0" text="Subscription">
+            <Label fx:id="subscription" layoutX="66.0" layoutY="83.0" onMouseClicked="#subscriptionClick" prefHeight="26.0" prefWidth="65.0" styleClass="labels" text="Subscription">
                <font>
                   <Font size="11.0" />
                </font>
@@ -95,27 +95,27 @@
                   <SVGPath content="M18 5V2H6v3H3v6l3.23 1.61c.7 2.5 2.97 4.34 5.69 4.38L8 19v3h8v-3l-3.92-2.01c2.72-.04 4.99-1.88 5.69-4.38L21 11V5h-3zM6 11.38l-2-1V6h2v5.38zM15 21H9v-1.39l3-1.54 3 1.54V21zm2-10c0 2.76-2.24 5-5 5s-5-2.24-5-5V3h10v8zm3-.62-2 1V6h2v4.38z" />
                </graphic>
             </Button>
-            <Label fx:id="home" layoutX="66.0" layoutY="14.0" onMouseClicked="#homeClick" prefHeight="26.0" prefWidth="65.0" text="Home" />
-            <Label fx:id="music" layoutX="66.0" layoutY="351.0" onMouseClicked="#musicClick" prefHeight="26.0" prefWidth="65.0" text="Music" />
-            <Label fx:id="shortL" layoutX="66.0" layoutY="50.0" onMouseClicked="#shortsClick" prefHeight="26.0" prefWidth="65.0" text="Shorts" />
-            <Label fx:id="history" layoutX="66.0" layoutY="135.0" prefHeight="26.0" prefWidth="65.0" text="History" />
-            <Label fx:id="podcast" layoutX="66.0" layoutY="498.0" onMouseClicked="#podcastsClick" prefHeight="26.0" prefWidth="65.0" text="Podcasts" />
-            <Label fx:id="likedVideos" layoutX="66.0" layoutY="245.0" prefHeight="26.0" prefWidth="65.0" text="Liked videos" />
-            <Label fx:id="watchLater" layoutX="66.0" layoutY="206.0" onMouseClicked="#watchLaterClick" prefHeight="26.0" prefWidth="65.0" text="Watch later" />
-            <Label fx:id="gaming" layoutX="66.0" layoutY="382.0" onMouseClicked="#gamingClick" prefHeight="26.0" prefWidth="65.0" text="Gaming" />
-            <Label fx:id="playlist" layoutX="66.0" layoutY="170.0" prefHeight="26.0" prefWidth="65.0" text="Playlists" />
-            <Label fx:id="news" layoutX="65.0" layoutY="422.0" onMouseClicked="#newsClick" prefHeight="26.0" prefWidth="65.0" text="News" />
-            <Label fx:id="sports" layoutX="66.0" layoutY="460.0" onMouseClicked="#sportsClick" prefHeight="26.0" prefWidth="65.0" text="Sports" />
-            <Label layoutX="15.0" layoutY="281.0" prefHeight="26.0" prefWidth="102.0" text="Explore">
+            <Label fx:id="home" layoutX="66.0" layoutY="14.0" onMouseClicked="#homeClick" prefHeight="26.0" prefWidth="65.0" styleClass="labels" text="Home" />
+            <Label fx:id="music" layoutX="66.0" layoutY="351.0" onMouseClicked="#musicClick" prefHeight="26.0" prefWidth="65.0" styleClass="labels" text="Music" />
+            <Label fx:id="shortL" layoutX="66.0" layoutY="50.0" onMouseClicked="#shortsClick" prefHeight="26.0" prefWidth="65.0" styleClass="labels" text="Shorts" />
+            <Label fx:id="history" layoutX="66.0" layoutY="135.0" prefHeight="26.0" prefWidth="65.0" styleClass="labels" text="History" />
+            <Label fx:id="podcast" layoutX="66.0" layoutY="498.0" onMouseClicked="#podcastsClick" prefHeight="26.0" prefWidth="65.0" styleClass="labels" text="Podcasts" />
+            <Label fx:id="likedVideos" layoutX="66.0" layoutY="245.0" prefHeight="26.0" prefWidth="65.0" styleClass="labels" text="Liked videos" />
+            <Label fx:id="watchLater" layoutX="66.0" layoutY="206.0" onMouseClicked="#watchLaterClick" prefHeight="26.0" prefWidth="65.0" styleClass="labels" text="Watch later" />
+            <Label fx:id="gaming" layoutX="66.0" layoutY="382.0" onMouseClicked="#gamingClick" prefHeight="26.0" prefWidth="65.0" styleClass="labels" text="Gaming" />
+            <Label fx:id="playlist" layoutX="66.0" layoutY="170.0" prefHeight="26.0" prefWidth="65.0" styleClass="labels" text="Playlists" />
+            <Label fx:id="news" layoutX="65.0" layoutY="422.0" onMouseClicked="#newsClick" prefHeight="26.0" prefWidth="65.0" styleClass="labels" text="News" />
+            <Label fx:id="sports" layoutX="66.0" layoutY="460.0" onMouseClicked="#sportsClick" prefHeight="26.0" prefWidth="65.0" styleClass="labels" text="Sports" />
+            <Label layoutX="15.0" layoutY="281.0" prefHeight="26.0" prefWidth="102.0" styleClass="labels" text="Explore">
                <font>
                   <Font size="19.0" />
                </font>
             </Label>
             <Line endX="86.99998474121094" layoutX="105.0" layoutY="280.0" startX="-100.0" stroke="#9e9e9e" />
-            <Label fx:id="trending" layoutX="66.0" layoutY="318.0" onMouseClicked="#trendingClick" prefHeight="26.0" prefWidth="65.0" text="Trending" />
+            <Label fx:id="trending" layoutX="66.0" layoutY="318.0" onMouseClicked="#trendingClick" prefHeight="26.0" prefWidth="65.0" styleClass="labels" text="Trending" />
             <Line endX="86.99998474121094" layoutX="108.0" layoutY="530.0" startX="-100.0" stroke="#9e9e9e" />
             <Rectangle fx:id="settingBackGround" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="37.0" layoutX="6.0" layoutY="531.0" onMouseClicked="#settingClick" stroke="WHITE" strokeType="INSIDE" style="-fx-arc-width: 30; -fx-arc-height: 30;" width="197.0" />
-            <Label fx:id="setting" layoutX="65.0" layoutY="536.0" prefHeight="26.0" prefWidth="65.0" text="setting" />
+            <Label fx:id="setting" layoutX="65.0" layoutY="536.0" prefHeight="26.0" prefWidth="65.0" styleClass="labels" text="setting" />
             <SVGPath content="M4 21V10.08l8-6.96 8 6.96V21h-6v-6h-4v6H4z" layoutX="14.0" layoutY="15.0" />
             <Button layoutX="10.0" layoutY="49.0" styleClass="buttons">
                <graphic>
@@ -140,7 +140,7 @@
             </Button>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="firstSideBar" layoutX="41.0" layoutY="50.0" prefHeight="292.0" prefWidth="46.0">
+      <AnchorPane fx:id="firstSideBar" layoutX="41.0" layoutY="50.0" prefHeight="292.0" prefWidth="46.0" styleClass="backGrounds">
          <children>
 <!--            <ImageView fitHeight="35.0" fitWidth="34.0" layoutX="6.0" layoutY="14.0" onMouseClicked="#homeClick" pickOnBounds="true" preserveRatio="true">-->
 <!--               <image>-->
@@ -209,13 +209,13 @@
 <!--                  <Image url="@Images/svgexport-22%20(1).png" />-->
 <!--               </image>-->
 <!--            </ImageView>-->
-            <Label layoutX="7.0" layoutY="48.0" text="Home" />
-            <Label layoutX="7.0" layoutY="110.0" onMouseClicked="#shortsClick" text="Shorts" />
-            <Label layoutX="-10.0" layoutY="170.0" onMouseClicked="#subscriptionClick" text="Subscription" />
-            <Label layoutX="13.0" layoutY="230.0" text="You" />
+            <Label layoutX="7.0" layoutY="48.0" styleClass="labels" text="Home" />
+            <Label layoutX="7.0" layoutY="110.0" onMouseClicked="#shortsClick" styleClass="labels" text="Shorts" />
+            <Label layoutX="-10.0" layoutY="170.0" onMouseClicked="#subscriptionClick" styleClass="labels" text="Subscription" />
+            <Label layoutX="13.0" layoutY="230.0" styleClass="labels" text="You" />
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="settingSideBar" layoutX="36.0" layoutY="65.0" prefHeight="533.0" prefWidth="208.0" style="-fx-border-color: #000;" visible="false">
+      <AnchorPane fx:id="settingSideBar" layoutX="36.0" layoutY="65.0" prefHeight="533.0" prefWidth="208.0" style="-fx-border-color: #000;" styleClass="backGrounds" visible="false">
          <children>
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="48.0" layoutX="5.0" layoutY="75.0" stroke="WHITE" strokeType="INSIDE" width="197.0" />
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="48.0" layoutX="5.0" layoutY="123.0" stroke="WHITE" strokeType="INSIDE" width="197.0" />
@@ -224,42 +224,42 @@
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="48.0" layoutX="5.0" layoutY="283.0" stroke="WHITE" strokeType="INSIDE" width="197.0" />
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="48.0" layoutX="5.0" layoutY="336.0" stroke="WHITE" strokeType="INSIDE" width="197.0" />
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="48.0" layoutX="5.0" layoutY="391.0" stroke="WHITE" strokeType="INSIDE" width="197.0" />
-            <Label layoutX="10.0" layoutY="8.0" prefHeight="63.0" prefWidth="188.0" text="Setting">
+            <Label layoutX="10.0" layoutY="8.0" prefHeight="63.0" prefWidth="188.0" styleClass="labels" text="Setting">
                <font>
                   <Font size="42.0" />
                </font>
             </Label>
-            <Label layoutX="14.0" layoutY="80.0" prefHeight="37.0" prefWidth="181.0" text="Account">
+            <Label layoutX="14.0" layoutY="80.0" prefHeight="37.0" prefWidth="181.0" styleClass="labels" text="Account">
                <font>
                   <Font size="19.0" />
                </font>
             </Label>
-            <Label layoutX="13.0" layoutY="128.0" onMouseClicked="#notificationsClick" prefHeight="37.0" prefWidth="181.0" text="Notifications">
+            <Label layoutX="13.0" layoutY="128.0" onMouseClicked="#notificationsClick" prefHeight="37.0" prefWidth="181.0" styleClass="labels" text="Notifications">
                <font>
                   <Font size="19.0" />
                </font>
             </Label>
-            <Label layoutX="12.0" layoutY="188.0" prefHeight="37.0" prefWidth="181.0" text="Channel">
+            <Label layoutX="12.0" layoutY="188.0" prefHeight="37.0" prefWidth="181.0" styleClass="labels" text="Channel">
                <font>
                   <Font size="25.0" />
                </font>
             </Label>
-            <Label layoutX="14.0" layoutY="236.0" prefHeight="37.0" prefWidth="181.0" text="Playlists">
+            <Label layoutX="14.0" layoutY="236.0" prefHeight="37.0" prefWidth="181.0" styleClass="labels" text="Playlists">
                <font>
                   <Font size="19.0" />
                </font>
             </Label>
-            <Label layoutX="14.0" layoutY="288.0" onMouseClicked="#addVideoClick" prefHeight="37.0" prefWidth="181.0" text="Add Video">
+            <Label layoutX="14.0" layoutY="288.0" onMouseClicked="#addVideoClick" prefHeight="37.0" prefWidth="181.0" styleClass="labels" text="Add Video">
                <font>
                   <Font size="19.0" />
                </font>
             </Label>
-            <Label layoutX="14.0" layoutY="341.0" prefHeight="37.0" prefWidth="181.0" text="Add Playlist">
+            <Label layoutX="14.0" layoutY="341.0" prefHeight="37.0" prefWidth="181.0" styleClass="labels" text="Add Playlist">
                <font>
                   <Font size="19.0" />
                </font>
             </Label>
-            <Label layoutX="13.0" layoutY="396.0" prefHeight="37.0" prefWidth="181.0" text="Add Story">
+            <Label layoutX="13.0" layoutY="396.0" prefHeight="37.0" prefWidth="181.0" styleClass="labels" text="Add Story">
                <font>
                   <Font size="19.0" />
                </font>
@@ -267,19 +267,19 @@
          </children>
       </AnchorPane>
       <ScrollPane fx:id="videos" fitToWidth="true" layoutX="111.0" layoutY="56.0" prefHeight="562.0" prefWidth="1056.0" style="-fx-background-color: #000;" visible="false">
-         <TilePane fx:id="container" hgap="15" vgap="20">
+         <TilePane fx:id="container" hgap="15" styleClass="backGrounds" vgap="20">
             <VBox fx:id="mainV1" prefHeight="320.0" prefWidth="309.0" style="-fx-background-color: red">
                <ImageView fitHeight="191.0" fitWidth="261.0" pickOnBounds="true" preserveRatio="true">
                   <image>
                      <Image url="@Images/hhh.png" />
                   </image>
                </ImageView>
-               <Label alignment="CENTER" prefHeight="45.0" prefWidth="264.0" text="Title">
+               <Label alignment="CENTER" prefHeight="45.0" prefWidth="264.0" styleClass="labels" text="Title">
                   <font>
                      <Font size="37.0" />
                   </font>
                </Label>
-               <Label alignment="CENTER" prefHeight="45.0" prefWidth="266.0" text="ChanelName">
+               <Label alignment="CENTER" prefHeight="45.0" prefWidth="266.0" styleClass="labels" text="ChanelName">
                   <font>
                      <Font size="37.0" />
                   </font>
@@ -298,7 +298,7 @@
 <!--            <VBox fx:id="mainV12" prefHeight="320.0" prefWidth="309.0" style="-fx-background-color: black" />-->
          </TilePane>
       </ScrollPane>
-      <TextField layoutX="442.0" layoutY="16.0" prefHeight="17.0" prefWidth="393.0" promptText="Search" />
+      <TextField id="searchBar" layoutX="442.0" layoutY="16.0" prefHeight="17.0" prefWidth="393.0" promptText="Search" />
       <Button layoutX="300.0" layoutY="12.0" mnemonicParsing="false" onAction="#onHelloButtonClick" prefHeight="34.0" prefWidth="88.0" text="DarkModeCheck" />
       <Circle fill="DODGERBLUE" layoutX="1073.0" layoutY="28.0" radius="19.0" stroke="BLACK" strokeType="INSIDE" />
       <ImageView fitHeight="41.0" fitWidth="81.0" layoutX="98.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
@@ -307,8 +307,8 @@
          </image>
       </ImageView>
       <ScrollPane fx:id="explore" layoutX="262.0" layoutY="65.0" prefHeight="543.0" prefWidth="906.0" visible="false">
-            <TilePane prefHeight="541.0" prefWidth="903.0">
-                  <Label fx:id="exploreLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="77.0" prefWidth="261.0" text="Explore">
+            <TilePane prefHeight="541.0" prefWidth="903.0" styleClass="backGrounds">
+                  <Label fx:id="exploreLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="77.0" prefWidth="261.0" styleClass="labels" text="Explore">
                      <font>
                         <Font size="36.0" />
                      </font>
@@ -333,9 +333,9 @@
             </TilePane>
       </ScrollPane>
       <ScrollPane fx:id="notificationPane" layoutX="551.0" layoutY="56.0" prefHeight="466.0" prefWidth="394.0" visible="false">
-         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="450.0" prefWidth="394.0">
+         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="450.0" prefWidth="394.0" styleClass="backGrounds">
             <children>
-               <Label prefHeight="56.0" prefWidth="242.0" text="Notifications">
+               <Label prefHeight="56.0" prefWidth="242.0" styleClass="labels" text="Notifications">
                   <font>
                      <Font size="38.0" />
                   </font>
@@ -349,8 +349,8 @@
          </AnchorPane>
       </ScrollPane>
       <ScrollPane fx:id="playListsPane" layoutX="316.0" layoutY="65.0" prefHeight="534.0" prefWidth="854.0" visible="false">
-         <TilePane fx:id="playListsContainer" hgap="15" prefHeight="531.0" prefWidth="851.0" vgap="20">
-            <Label alignment="CENTER" prefHeight="74.0" prefWidth="232.0" text="PlayLists">
+         <TilePane fx:id="playListsContainer" hgap="15" prefHeight="531.0" prefWidth="851.0" styleClass="backGrounds" vgap="20">
+            <Label alignment="CENTER" prefHeight="74.0" prefWidth="232.0" styleClass="labels" text="PlayLists">
                <font>
                   <Font size="45.0" />
                </font>
@@ -375,8 +375,8 @@
          </TilePane>
       </ScrollPane>
       <ScrollPane fx:id="subscriptionPane" layoutX="288.0" layoutY="65.0" prefHeight="524.0" prefWidth="878.0" visible="false">
-         <TilePane fx:id="subscriptionContainer" hgap="15" prefHeight="531.0" prefWidth="851.0" vgap="20">
-            <Label alignment="CENTER" prefHeight="74.0" prefWidth="232.0" text="Newest">
+         <TilePane fx:id="subscriptionContainer" hgap="15" prefHeight="531.0" prefWidth="851.0" styleClass="backGrounds" vgap="20">
+            <Label alignment="CENTER" prefHeight="74.0" prefWidth="232.0" styleClass="labels" text="Newest">
                <font>
                   <Font size="45.0" />
                </font>
@@ -402,8 +402,8 @@
       </ScrollPane>
       <ChoiceBox fx:id="searchFilter" layoutX="848.0" layoutY="16.0" prefHeight="24.0" prefWidth="88.0" />
       <ScrollPane fx:id="HistoryPane" layoutX="254.0" layoutY="56.0" prefHeight="562.0" prefWidth="918.0" visible="false">
-         <TilePane fx:id="historyContainer" hgap="15" prefHeight="531.0" prefWidth="851.0" vgap="20">
-            <Label alignment="CENTER" prefHeight="74.0" prefWidth="232.0" text="History">
+         <TilePane fx:id="historyContainer" hgap="15" prefHeight="531.0" prefWidth="851.0" styleClass="backGrounds" vgap="20">
+            <Label alignment="CENTER" prefHeight="74.0" prefWidth="232.0" styleClass="labels" text="History">
                <font>
                   <Font size="45.0" />
                </font>
@@ -429,9 +429,9 @@
       </ScrollPane>
       <ScrollPane fx:id="watchLaterPane" layoutX="264.0" layoutY="66.0" prefHeight="562.0" prefWidth="918.0" visible="false">
          <content>
-            <TilePane fx:id="watchLaterContainer" hgap="15" prefHeight="531.0" prefWidth="851.0" vgap="20">
+            <TilePane fx:id="watchLaterContainer" hgap="15" prefHeight="531.0" prefWidth="851.0" styleClass="backGrounds" vgap="20">
                <children>
-                  <Label alignment="CENTER" prefHeight="74.0" prefWidth="232.0" text="WatchLater">
+                  <Label alignment="CENTER" prefHeight="74.0" prefWidth="232.0" styleClass="labels" text="WatchLater">
                      <font>
                         <Font size="45.0" />
                      </font>
@@ -461,9 +461,9 @@
       </ScrollPane>
       <ScrollPane fx:id="likedVideoPane" layoutX="274.0" layoutY="76.0" prefHeight="562.0" prefWidth="918.0" visible="false">
          <content>
-            <TilePane fx:id="likedVideoContainer" hgap="15" prefHeight="531.0" prefWidth="851.0" vgap="20">
+            <TilePane fx:id="likedVideoContainer" hgap="15" prefHeight="531.0" prefWidth="851.0" styleClass="backGrounds" vgap="20">
                <children>
-                  <Label alignment="CENTER" prefHeight="74.0" prefWidth="232.0" text="LikedVideo">
+                  <Label alignment="CENTER" prefHeight="74.0" prefWidth="232.0" styleClass="labels" text="LikedVideo">
                      <font>
                         <Font size="45.0" />
                      </font>

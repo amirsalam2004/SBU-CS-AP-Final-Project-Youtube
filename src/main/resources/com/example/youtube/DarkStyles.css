@@ -8,26 +8,23 @@
 .backGrounds {
     -fx-background-color: PanesBgColor;
 }
-/*.ancroPanes {*/
-/*    -*/
-/*}*/
 #topBar {
-    -fx-fill: #E5E3E3;
-    -fx-stroke: #E5E3E3;
+    -fx-fill: #2E2C2C;
+    -fx-stroke: #2E2C2C;
 }
 #searchBar {
-    -fx-text-inner-color: #000;
-    -fx-background-color: #E5E3E3;
-    -fx-border-color: #000;
+    -fx-text-inner-color: #FFF;
+    -fx-background-color: #2E2C2C;
+    -fx-border-color: #FFF;
     -fx-border-radius: 15;
 }
 .root {
-    buttonsBgColor: #FFF;
-    labelsBgColor: #FFF;
-    PanesBgColor: #FFF;
-    textsColor: #000;
-    SvgColor: #000;
-    SvgParebts: #000;
+    buttonsBgColor: #000;
+    labelsBgColor: #000;
+    PanesBgColor: #000;
+    textsColor: #FFF;
+    SvgColor: #FFF;
+    SvgParebts: #FFF;
 }
 .buttons > SVGPath {
     -fx-fill: SvgParebts;

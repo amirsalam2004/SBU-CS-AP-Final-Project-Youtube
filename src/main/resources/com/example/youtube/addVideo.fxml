@@ -11,7 +11,11 @@
 <?import javafx.scene.media.MediaView?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="mainField" prefHeight="518.0" prefWidth="863.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.youtube.addVideoController">
+<?import java.net.URL?>
+<AnchorPane fx:id="mainField" prefHeight="518.0" prefWidth="863.0" styleClass="backGrounds" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.youtube.addVideoController">
+   <stylesheets>
+      <URL value="@stylecss.css" />
+   </stylesheets>
    <children>
       <MediaView fx:id="mediaView" fitHeight="400.0" fitWidth="600.0" layoutX="215.0" layoutY="34.0" onMouseClicked="#mediaViewClickToHidePlayBtn" />
       <Slider fx:id="timeSlider" layoutX="215.0" layoutY="434.0" prefHeight="18.0" prefWidth="600.0" showTickMarks="true" />
@@ -29,9 +33,9 @@
             <Image url="@Images/icons8-pause-50.png" />
          </image>
       </ImageView>
-      <Label layoutX="311.0" layoutY="458.0" onMouseClicked="#nextBtnClick" prefHeight="33.0" prefWidth="116.0" text="15 second &gt;" />
-      <Label layoutX="215.0" layoutY="458.0" onMouseClicked="#preBtnClick" prefHeight="33.0" prefWidth="116.0" text="10 second &lt;" />
-      <CheckBox alignment="CENTER" layoutX="13.0" layoutY="192.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="145.0" text="Block Comments">
+      <Label layoutX="311.0" layoutY="458.0" onMouseClicked="#nextBtnClick" prefHeight="33.0" prefWidth="116.0" styleClass="labels" text="15 second &gt;" />
+      <Label layoutX="215.0" layoutY="458.0" onMouseClicked="#preBtnClick" prefHeight="33.0" prefWidth="116.0" styleClass="labels" text="10 second &lt;" />
+      <CheckBox alignment="CENTER" layoutX="13.0" layoutY="192.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="145.0" styleClass="labels" text="Block Comments">
          <font>
             <Font size="15.0" />
          </font></CheckBox>

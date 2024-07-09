@@ -12,10 +12,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.TilePane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
@@ -242,14 +239,15 @@ public class HelloController {
     public void initialize() {
         // SideBar Hovers
         Paint hoverColor, normalColor;
-        if (mainField.getId().equals("1")) {
-            hoverColor = Paint.valueOf("#CBC6C6");
-            normalColor = Paint.valueOf("#fff");
-        }
-        else {
+        // checkLight mode or dark mode
+//        if (this.) {
+//            hoverColor = Paint.valueOf("#CBC6C6");
+//            normalColor = Paint.valueOf("#fff");
+//        }
+//        else {
             hoverColor = Paint.valueOf("#7F7C7C");
             normalColor = Paint.valueOf("#272424");
-        }
+//        }
         Rectangle[] rectangles = {
                 homeBackGround, shortBackGround, subscriptionBackGround, historyBackGround,
                 watchLaterBackGround, likedVideosBackGround, TrendingBackGround, musicBackGround,

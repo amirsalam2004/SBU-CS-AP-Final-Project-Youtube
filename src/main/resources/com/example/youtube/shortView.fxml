@@ -12,7 +12,11 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="691.0" prefWidth="599.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.youtube.ShortViewController">
+<?import java.net.URL?>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="691.0" prefWidth="599.0" styleClass="backGrounds" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.youtube.ShortViewController">
+   <stylesheets>
+      <URL value="@stylecss.css" />
+   </stylesheets>
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="229.0" layoutX="157.0" layoutY="236.0" stroke="BLACK" strokeType="INSIDE" style="-fx-arc-height: 100; -fx-arc-width: 100; -fx-fill: #CBC6C6;" width="65.0" />
       <MediaView fx:id="mediaView" fitHeight="550.0" fitWidth="300.0" layoutX="225.0" layoutY="44.0" onMouseClicked="#mediaViewClickToHidePlayBtn" />
@@ -27,8 +31,8 @@
             <Image url="@Images/icons8-pause-50.png" />
          </image>
       </ImageView>
-      <Label layoutX="437.0" layoutY="606.0" onMouseClicked="#nextBtnClick" prefHeight="33.0" prefWidth="116.0" text="5 second &gt;" />
-      <Label layoutX="228.0" layoutY="606.0" onMouseClicked="#preBtnClick" prefHeight="33.0" prefWidth="116.0" text="3 second &lt;" />
+      <Label layoutX="437.0" layoutY="606.0" onMouseClicked="#nextBtnClick" prefHeight="33.0" prefWidth="116.0" styleClass="labels" text="5 second &gt;" />
+      <Label layoutX="228.0" layoutY="606.0" onMouseClicked="#preBtnClick" prefHeight="33.0" prefWidth="116.0" styleClass="labels" text="3 second &lt;" />
       <Circle fill="#eaece9" layoutX="35.0" layoutY="328.0" onMouseClicked="#nextShortClick" radius="29.0" stroke="BLACK" strokeType="INSIDE" />
       <Line endX="-89.00001525878906" endY="-148.0" layoutX="124.0" layoutY="447.0" onMouseClicked="#nextShortClick" startX="-89.00001525878906" startY="-104.60000610351562" />
       <Line endX="-98.79292297363281" endY="-122.39291381835938" layoutX="134.0" layoutY="466.0" onMouseClicked="#nextShortClick" startX="-89.20002746582031" startY="-132.4000244140625" />
