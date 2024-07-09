@@ -110,8 +110,6 @@ public class HelloController {
     private ScrollPane explore;
     @FXML
     private ScrollPane subscriptionPane;
-    @FXML
-    private ScrollPane notificationPane;
 
     private boolean isSideBarOn = false;
     @FXML
@@ -144,7 +142,7 @@ public class HelloController {
     @FXML
     private ChoiceBox searchFilter;
 
-    private boolean isDarkModeOn = true;
+    public static boolean isDarkModeOn = true;
     private final String darkTheme = HelloApplication.class.getResource("DarkStyles.css").toExternalForm();
     private final String lightTheme = HelloApplication.class.getResource("stylecss.css").toExternalForm();
 
@@ -302,7 +300,6 @@ public class HelloController {
     private void closeAllPanes() {
         playListsPane.setVisible(false);
         subscriptionPane.setVisible(false);
-        notificationPane.setVisible(false);
         HistoryPane.setVisible(false);
         watchLaterPane.setVisible(false);
         likedVideoPane.setVisible(false);
@@ -403,11 +400,19 @@ public class HelloController {
     }
 
     @FXML
-    public void notificationsClick() {
-        sideBar.setVisible(false);
-        explore.setVisible(false);
-        closeAllPanes();
-        notificationPane.setVisible(true);
+    public void notificationsClick() throws IOException {
+        // TODO : add Notification scene
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("NotificationView.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 715, 460);
+        if (isDarkModeOn) {
+            scene.getStylesheets().add(getClass().getResource("DarkStyles.css").toExternalForm());
+        }
+        else {
+            scene.getStylesheets().add(getClass().getResource("stylecss.css").toExternalForm());
+        }
+        stage.setTitle("---Notifications---");
+        stage.setScene(scene);
+        stage.show();
     }
 
     @FXML

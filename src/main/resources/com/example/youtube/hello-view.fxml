@@ -214,15 +214,8 @@
             <Label layoutX="13.0" layoutY="230.0" styleClass="labels" text="You" />
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="settingSideBar" layoutX="36.0" layoutY="65.0" prefHeight="533.0" prefWidth="208.0" styleClass="backGrounds">
+      <AnchorPane fx:id="settingSideBar" layoutX="36.0" layoutY="65.0" prefHeight="533.0" prefWidth="208.0" styleClass="backGrounds" visible="false">
          <children>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="48.0" layoutX="5.0" layoutY="75.0" stroke="WHITE" strokeType="INSIDE" width="197.0" />
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="48.0" layoutX="5.0" layoutY="123.0" stroke="WHITE" strokeType="INSIDE" width="197.0" />
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="48.0" layoutX="5.0" layoutY="183.0" stroke="WHITE" strokeType="INSIDE" width="197.0" />
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="48.0" layoutX="5.0" layoutY="231.0" stroke="WHITE" strokeType="INSIDE" width="197.0" />
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="48.0" layoutX="5.0" layoutY="283.0" stroke="WHITE" strokeType="INSIDE" width="197.0" />
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="48.0" layoutX="5.0" layoutY="336.0" stroke="WHITE" strokeType="INSIDE" width="197.0" />
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="48.0" layoutX="5.0" layoutY="391.0" stroke="WHITE" strokeType="INSIDE" width="197.0" />
             <Label layoutX="10.0" layoutY="8.0" prefHeight="63.0" prefWidth="188.0" styleClass="labels" text="Setting">
                <font>
                   <Font size="42.0" />
@@ -238,22 +231,17 @@
                   <Font size="19.0" />
                </font>
             </Label>
-            <Label layoutX="13.0" layoutY="193.0" prefHeight="37.0" prefWidth="181.0" styleClass="labels" text="Playlists">
+            <Label layoutX="13.0" layoutY="183.0" onMouseClicked="#addVideoClick" prefHeight="37.0" prefWidth="181.0" styleClass="labels" text="Add Video">
                <font>
                   <Font size="19.0" />
                </font>
             </Label>
-            <Label layoutX="13.0" layoutY="248.0" onMouseClicked="#addVideoClick" prefHeight="37.0" prefWidth="181.0" styleClass="labels" text="Add Video">
+            <Label layoutX="13.0" layoutY="233.0" onMouseClicked="#addPlayList" prefHeight="37.0" prefWidth="181.0" styleClass="labels" text="Add Playlist">
                <font>
                   <Font size="19.0" />
                </font>
             </Label>
-            <Label layoutX="13.0" layoutY="298.0" onMouseClicked="#addPlayList" prefHeight="37.0" prefWidth="181.0" styleClass="labels" text="Add Playlist">
-               <font>
-                  <Font size="19.0" />
-               </font>
-            </Label>
-            <Label layoutX="13.0" layoutY="341.0" onMouseClicked="#addStoryClick" prefHeight="37.0" prefWidth="181.0" styleClass="labels" text="Add Story">
+            <Label layoutX="13.0" layoutY="276.0" onMouseClicked="#addStoryClick" prefHeight="37.0" prefWidth="181.0" styleClass="labels" text="Add Story">
                <font>
                   <Font size="19.0" />
                </font>
@@ -325,22 +313,6 @@
                   </Label>
                </VBox>
             </TilePane>
-      </ScrollPane>
-      <ScrollPane fx:id="notificationPane" layoutX="551.0" layoutY="56.0" prefHeight="466.0" prefWidth="394.0" visible="false">
-         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="450.0" prefWidth="394.0" styleClass="backGrounds">
-            <children>
-               <Label prefHeight="56.0" prefWidth="242.0" styleClass="labels" text="Notifications">
-                  <font>
-                     <Font size="38.0" />
-                  </font>
-               </Label>
-               <Button layoutX="264.0" layoutY="2.0" mnemonicParsing="false" onAction="#settingClick" prefHeight="48.0" prefWidth="116.0" text="Setting">
-                  <font>
-                     <Font size="25.0" />
-                  </font>
-               </Button>
-            </children>
-         </AnchorPane>
       </ScrollPane>
       <ScrollPane fx:id="playListsPane" layoutX="316.0" layoutY="65.0" prefHeight="534.0" prefWidth="854.0" visible="false">
          <TilePane fx:id="playListsContainer" hgap="15" prefHeight="531.0" prefWidth="851.0" styleClass="backGrounds" vgap="20">
