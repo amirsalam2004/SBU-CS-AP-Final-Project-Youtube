@@ -114,6 +114,6 @@ public class ProfileViewController implements Initializable {
         }
 
         pageName.setText(channel.getName());
-        //and
+        //and get mor information form database
     }
 }
