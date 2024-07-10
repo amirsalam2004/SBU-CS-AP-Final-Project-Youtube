@@ -5,7 +5,7 @@ public class Video extends Short{
     private String category;
     private String Block;
     public Video(String ID,String idchal,String name,String description,String uplaodTime,
-                  Integer duration,Integer view,String Block ) {
+                  Integer duration,Integer view,String Block,String category ) {
         super(ID,idchal,name,uplaodTime,duration,view);
         this.description = description;
         this.category=category;

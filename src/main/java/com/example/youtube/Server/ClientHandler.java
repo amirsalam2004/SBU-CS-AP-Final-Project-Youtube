@@ -45,10 +45,12 @@ public class ClientHandler implements Runnable {
                             getImageBytes(request[1]);
                             break;
                         case "7":
-                            sendVideoBytes(request[1]);
+                            getVideoBytes(request[1]);
                             break;
                         case "8":
                             sendImageBytes(request[1]);
+                        case "9":
+                            sendVideoBytes(request[1]);
                         default:
                             response = "0";
                             break;
@@ -71,13 +73,14 @@ public class ClientHandler implements Runnable {
         }
 
     public void sendVideoBytes(String videoID) throws IOException {
-        File videoFile=new File("C:\\Users\\Asus\\Downloads\\"+videoID+".mp4");
+        File videoFile=new File("C:\\Users\\Asus\\Desktop\\videos\\"+videoID+".mp4");
         if (!videoFile.exists()) {
             out.writeInt(0);
             out.flush();
             return;
         }
         try(FileInputStream fileInputStream = new FileInputStream(videoFile)) {
+            //Divide the video into 1024*4 byte arrays and send them to client.
             byte[] buffer = new byte[4 * 1024];
             int bytes;
             out.writeLong(videoFile.length());
@@ -94,7 +97,7 @@ public class ClientHandler implements Runnable {
 
     }
     public void sendImageBytes(String imageID) throws IOException {
-        File imageFile=new File("C:\\Users\\Asus\\Desktop\\YouTube\\YOUTUBE\\src\\main\\resources\\com\\example\\youtube\\Images\\"+imageID+".jpg"); //TODO
+        File imageFile=new File("C:\\Users\\ASUS\\Desktop\\images\\"+imageID+".jpg"); //TODO
         if (!imageFile.exists()){
             // if file doesn't exist
             out.writeInt(0);
@@ -102,6 +105,7 @@ public class ClientHandler implements Runnable {
             return;
         }
         try(FileInputStream fileInputStream = new FileInputStream(imageFile)) {
+            //Divide the image into 1024*4 byte arrays and send them to client.
             byte[] buffer = new byte[4 * 1024];
             int bytes;
             out.writeLong(imageFile.length());
@@ -116,8 +120,9 @@ public class ClientHandler implements Runnable {
             System.out.println(e.getMessage());
         }
     }
+    //The video is received from the client in byte arrays of length 4*1024
     public void getVideoBytes(String videoID) throws IOException{
-        FileOutputStream fos = new FileOutputStream(videoID + ".mp4");
+        FileOutputStream fos = new FileOutputStream("C:\\Users\\ASUS\\Desktop\\videos\\"+videoID + ".mp4");
         try {
             long fileSize = in.readLong();
             byte[] buffer = new byte[4*1024];
@@ -134,9 +139,9 @@ public class ClientHandler implements Runnable {
             fos.close();
         }
     }
+    //The image is received from the client in byte arrays of length 4*1024
     public void getImageBytes(String imageID) throws IOException{
-        System.out.println("Start getting Image");
-        FileOutputStream fos = new FileOutputStream("C:\\Users\\Asus\\Desktop\\YouTube\\YOUTUBE\\src\\main\\resources\\com\\example\\youtube\\ImageServer"+imageID + ".jpg");
+        FileOutputStream fos = new FileOutputStream("C:\\Users\\ASUS\\Desktop\\images\\"+imageID + ".jpg");
         try {
             long fileSize = in.readLong();
             byte[] buffer = new byte[4*1024];

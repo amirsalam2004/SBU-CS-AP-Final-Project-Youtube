@@ -4,6 +4,7 @@ package com.example.youtube;
 import com.example.youtube.Controller.signUpController;
 import com.example.youtube.Model.Channel;
 import com.example.youtube.Model.User;
+import com.example.youtube.Model.Video;
 import com.example.youtube.Server.Client;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -36,9 +37,12 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PushbackInputStream;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.ResourceBundle;
+import java.util.Scanner;
 
-public class HelloController implements Initializable {
+public class HelloController {
     public TilePane container;
     public TilePane playListsContainer;
     public TilePane subscriptionContainer;
@@ -87,7 +91,7 @@ public class HelloController implements Initializable {
     @FXML
     private Label playlist;
     @FXML
-    private Button logOut;
+    private Button logOut=new Button();
 
     @FXML
     private Label watchLater;
@@ -124,8 +128,6 @@ public class HelloController implements Initializable {
     private ScrollPane explore;
     @FXML
     private ScrollPane subscriptionPane;
-    @FXML
-    private ScrollPane notificationPane;
 
     private boolean isSideBarOn = false;
     @FXML
@@ -134,6 +136,9 @@ public class HelloController implements Initializable {
     private Parent root;
     private Stage stage = new Stage();
 
+
+    @FXML
+    Button Search=new Button();
 
     MediaPlayer mediaPlayer;
 
@@ -158,12 +163,18 @@ public class HelloController implements Initializable {
     @FXML
     private ChoiceBox searchFilter;
 
+    public static boolean isDarkModeOn = true;
     @FXML
     private HBox LogOutHbox=new HBox();
 
     @FXML
     private Button Out=new Button();
+    @FXML
+    private Button Exit=new Button();
 
+
+    @FXML
+    TextField SearchBox=new TextField();
 
 
 
@@ -176,7 +187,7 @@ public class HelloController implements Initializable {
     public boolean loginOn;
     public User user;
 
-    private boolean isDarkModeOn = true;
+//    private boolean isDarkModeOn = true;
     private final String darkTheme = HelloApplication.class.getResource("DarkStyles.css").toExternalForm();
     private final String lightTheme = HelloApplication.class.getResource("stylecss.css").toExternalForm();
 
@@ -200,17 +211,7 @@ public class HelloController implements Initializable {
     }
 
 
-//    @FXML
-//    protected void onHelloButtonClick() throws IOException {
-//
-//        Stage currentStage = (Stage) homeBackGround.getScene().getWindow();
-//        currentStage.close();
-//        root = FXMLLoader.load(getClass().getResource("darkHomePage.fxml"));
-//        stage.setScene(new Scene(root));
-//        stage.setTitle("Login Page");
-//        stage.show();
-//
-//    }
+
     @FXML
     protected void sideBarBtnClick() {
         sideBar.setVisible(!isSideBarOn);
@@ -292,9 +293,87 @@ public class HelloController implements Initializable {
 
     @FXML
     public void initialize() {
+        LogOutHbox.setVisible(false);
+
+
+        try {
+            this.client=new Client("127.0.0.1");
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+
+
+//        Search.setOnAction(e->{
+//           String Search= SearchBox.getText();
+//           String Way=searchFilter.getValue().toString();
+//               try {
+//                   videos .addAll( client.getSearchedVideosRequest(Search, Way));
+//               } catch (IOException ex) {
+//                   throw new RuntimeException(ex);
+//               }
+//
+//
+//        });
+
+//        System.out.println(videos.size());
+//        for (int i=0;i<4;i++) {
+//            try {
+//                client.getImageBytes(videos.get(i).getID());
+//                createVideoBox(container,videos.get(i));
+//
+//            } catch (IOException e) {
+//                throw new RuntimeException(e);
+//            }
+//
+//        }
+
+        System.out.println("Start");
+        logOut.setOnAction(e->{
+
+            if (user!=null){
+
+                FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("signUp-view.fxml"));
+                Scene scene = null;
+                try {
+                    scene = new Scene(fxmlLoader.load(), 500, 620);
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
+
+                // pass the client
+                signUpController signUpController=fxmlLoader.getController();
+                signUpController.client=this.client;
+                stage.setTitle("Youtube");
+                stage.setScene(scene);
+                stage.show();
+
+
+                logOut.getScene().getWindow().hide();
+
+            }
+            else {
+                LogOutHbox.setVisible(true);
+                Timeline timeline = new Timeline(
+                        new KeyFrame(Duration.ZERO, new KeyValue(LogOutHbox.opacityProperty(), 1.0)),
+                        new KeyFrame(Duration.seconds(1), new KeyValue(LogOutHbox.opacityProperty(), 1.0)),
+                        new KeyFrame(Duration.seconds(1), new KeyValue(LogOutHbox.opacityProperty(), 0.0))
+                );
+                Exit.setOnAction(event->{
+                    Exit.getScene().getWindow().hide();
+                });
+                timeline.play();
+                Out.setOnAction(event->{
+                    this.user=null;
+                    this.channel=null;
+                    timeline.stop();
+                });
+            }
+        });
         // SideBar Hovers
         Paint hoverColor, normalColor;
-//        // checkLight mode or dark mode
+        // checkLight mode or dark mode
         if (!isDarkModeOn) {
             hoverColor = Paint.valueOf("#CBC6C6");
             normalColor = Paint.valueOf("#fff");
@@ -334,7 +413,6 @@ public class HelloController implements Initializable {
     private void closeAllPanes() {
         playListsPane.setVisible(false);
         subscriptionPane.setVisible(false);
-        notificationPane.setVisible(false);
         HistoryPane.setVisible(false);
         watchLaterPane.setVisible(false);
         likedVideoPane.setVisible(false);
@@ -435,11 +513,19 @@ public class HelloController implements Initializable {
     }
 
     @FXML
-    public void notificationsClick() {
-        sideBar.setVisible(false);
-        explore.setVisible(false);
-        closeAllPanes();
-        notificationPane.setVisible(true);
+    public void notificationsClick() throws IOException {
+        // TODO : add Notification scene
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("NotificationView.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 715, 460);
+        if (isDarkModeOn) {
+            scene.getStylesheets().add(getClass().getResource("DarkStyles.css").toExternalForm());
+        }
+        else {
+            scene.getStylesheets().add(getClass().getResource("stylecss.css").toExternalForm());
+        }
+        stage.setTitle("---Notifications---");
+        stage.setScene(scene);
+        stage.show();
     }
 
     @FXML
@@ -466,7 +552,7 @@ public class HelloController implements Initializable {
     @FXML
     protected void addVideoClick() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("addVideo.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 870, 520);
+        Scene scene = new Scene(fxmlLoader.load(), 863, 610);
         if (isDarkModeOn) {
             scene.getStylesheets().add(getClass().getResource("DarkStyles.css").toExternalForm());
         }
@@ -480,21 +566,29 @@ public class HelloController implements Initializable {
 
     // pass video here
     // pass playList here
-    public void createVideoBox(TilePane tilePane) {
+    public void createVideoBox(TilePane tilePane,Video video) {
+
         VBox vbox = new VBox();
         vbox.prefWidth(309.0);
         vbox.prefHeight(680.0);
 
+
+//        get image from server
+
+
         ImageView imageView = new ImageView();
-//        imageView.setImage(new Image(// path));
+        imageView.setImage(new Image("file:C:\\Users\\Asus\\Desktop\\YouTube\\YOUTUBE\\src\\main\\resources\\com\\example\\youtube\\clientImages\\"+video.getID()+".jpg"));
         imageView.setFitHeight(191.0);
         imageView.setFitWidth(261.0);
+
+
 
         Label title = new Label();
         title.setAlignment(Pos.CENTER);
         title.setPrefHeight(45.0);
         title.setPrefWidth(264.0);
         title.setFont(Font.font(37.0));
+        title.setText(video.getName());
         // text from server
 
         Label channelName = new Label();
@@ -502,7 +596,12 @@ public class HelloController implements Initializable {
         channelName.setPrefHeight(45.0);
         channelName.setPrefWidth(266.0);
         channelName.setFont(Font.font(37.0));
+        channelName.setText(video.getCategory());
         // text from server
+
+        if (isDarkModeOn) {
+
+        }
 
         vbox.getChildren().addAll(imageView, title, channelName);
 
@@ -641,13 +740,15 @@ public class HelloController implements Initializable {
     }
 
     @FXML
-    public void openVideoPage() throws IOException {
+    public void openVideoPage(Video video) throws IOException {
+        client.getVideoBytes(video.getID());
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("videoView.fxml"));
+        videoViewController videoViewController=fxmlLoader.getController();
+
+        videoViewController.setPath("file:C:\\Users\\Asus\\Desktop\\YouTube\\YOUTUBE\\src\\main\\resources\\com\\example\\youtube\\clientVideos\\"+video.getID()+".mp4");
+
         Scene scene = new Scene(fxmlLoader.load(), 1029, 760);
-//        scene.getStylesheets().addAll(
-//                getClass().getResource("stylecss.css").toExternalForm(),
-//                getClass().getResource("DarkStyles.css").toExternalForm()
-//        );
+
         if (isDarkModeOn) {
             scene.getStylesheets().add(getClass().getResource("DarkStyles.css").toExternalForm());
         }
@@ -681,12 +782,19 @@ public class HelloController implements Initializable {
 
     @FXML
     public void searchFunc() {
-        // wright search function here
-    }
+        clear();
+   }
 
+   public void clear (){
+       container.getChildren().clear();
+   }
     @FXML
     public void profileClick() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("profileView.fxml"));
+
+        ProfileViewController profileViewController=fxmlLoader.getController();
+        profileViewController.client=this.client;
+
         Scene scene = new Scene(fxmlLoader.load(), 1029, 760);
         if (isDarkModeOn) {
             scene.getStylesheets().add(getClass().getResource("DarkStyles.css").toExternalForm());
@@ -699,74 +807,50 @@ public class HelloController implements Initializable {
         stage.show();
     }
 
-
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-
-        LogOutHbox.setVisible(false);
-        try {
-            this.client=new Client("127.0.0.1");
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+    @FXML
+    public void accountClick() throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("accountEdit.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 788, 507);
+        if (isDarkModeOn) {
+            scene.getStylesheets().add(getClass().getResource("DarkStyles.css").toExternalForm());
         }
-//        ArrayList<Video>video=new ArrayList<>();
-//        if (user!=null) {
-//            video = client.getVideoByRandomCategoryRequest(10, user.getID());
-//        }else
-////             video=client.getVideoByRandomCategoryRequest(10);
-//
-//        System.out.println(video.get(0).getBlock());
-//        System.out.println("[get video for show]" );
-
-
-
-//        createVideoBox(container,video.get(0));
-
-        System.out.println("Start");
-        logOut.setOnAction(e->{
-
-            if (loginOn){
-
-                FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("signUp-view.fxml"));
-                Scene scene = null;
-                try {
-                    scene = new Scene(fxmlLoader.load(), 500, 620);
-                } catch (IOException ex) {
-                    throw new RuntimeException(ex);
-                }
-
-                // pass the client
-                signUpController signUpController=fxmlLoader.getController();
-                signUpController.client=this.client;
-                stage.setTitle("Youtube");
-                stage.setScene(scene);
-                stage.show();
-
-
-
-
-                logOut.getScene().getWindow().hide();
-
-            }
-            else {
-                LogOutHbox.setVisible(true);
-                Timeline timeline = new Timeline(
-                        new KeyFrame(Duration.ZERO, new KeyValue(LogOutHbox.opacityProperty(), 1.0)),
-                        new KeyFrame(Duration.seconds(1), new KeyValue(LogOutHbox.opacityProperty(), 1.0)),
-                        new KeyFrame(Duration.seconds(1), new KeyValue(LogOutHbox.opacityProperty(), 0.0))
-                );
-                timeline.play();
-                Out.setOnAction(event->{
-
-                    this.user=null;
-                    this.channel=null;
-                    loginOn=true;
-                    timeline.stop();
-                });
-            }
-            loginOn= !loginOn;
-        });
-
-
+        else {
+            scene.getStylesheets().add(getClass().getResource("stylecss.css").toExternalForm());
+        }
+        stage.setTitle("---EditAccount---");
+        stage.setScene(scene);
+        stage.show();
     }
+
+    @FXML
+    public void addPlayList() throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("addPlayListView.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 788, 507);
+        if (isDarkModeOn) {
+            scene.getStylesheets().add(getClass().getResource("DarkStyles.css").toExternalForm());
+        }
+        else {
+            scene.getStylesheets().add(getClass().getResource("stylecss.css").toExternalForm());
+        }
+        stage.setTitle("---AddPlayList---");
+        stage.setScene(scene);
+        stage.show();
+    }
+    @FXML
+    public void addStoryClick() throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("addShortView.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 533, 647);
+        if (isDarkModeOn) {
+            scene.getStylesheets().add(getClass().getResource("DarkStyles.css").toExternalForm());
+        }
+        else {
+            scene.getStylesheets().add(getClass().getResource("stylecss.css").toExternalForm());
+        }
+        stage.setTitle("---AddShort---");
+        stage.setScene(scene);
+        stage.show();
+    }
+
+
+
 }

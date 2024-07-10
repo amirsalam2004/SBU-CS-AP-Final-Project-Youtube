@@ -10,7 +10,6 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.TilePane?>
-<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.shape.SVGPath?>
@@ -22,12 +21,12 @@
 <!--   </stylesheets>-->
    <children>
       <Rectangle id="topBar" arcHeight="5.0" arcWidth="5.0" fill="#e8f0f7" height="41.0" layoutX="37.0" layoutY="9.0" stroke="#e8f0f7" strokeType="INSIDE" style="-fx-arc-width: 15; -fx-arc-height: 20;" width="1134.0" />
-      <Button layoutX="407.0" layoutY="16.0" onMouseClicked="#searchFunc" styleClass="buttons">
+      <Button fx:id="Search" layoutX="405.0" layoutY="16.0" onMouseClicked="#searchFunc" styleClass="buttons">
          <graphic>
             <SVGPath content="M16.296 16.996a8 8 0 11.707-.708l3.909 3.91-.707.707-3.909-3.909ZM18 11a7 7 0 11-14 0 7 7 0 0114 0Z" />
          </graphic>
       </Button>
-      <AnchorPane fx:id="sideBar" layoutX="36.0" layoutY="56.0" prefHeight="568.0" prefWidth="208.0" styleClass="backGrounds">
+      <AnchorPane fx:id="sideBar" layoutX="36.0" layoutY="56.0" prefHeight="568.0" prefWidth="208.0" styleClass="backGrounds" visible="false">
          <children>
             <Rectangle fx:id="productsBackGround" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="37.0" layoutX="5.0" layoutY="492.0" onMouseClicked="#podcastsClick" stroke="WHITE" strokeType="INSIDE" style="-fx-arc-width: 30; -fx-arc-height: 30;" styleClass="rectangles" width="197.0" />
             <Rectangle fx:id="sportsBackGround" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="37.0" layoutY="455.0" onMouseClicked="#sportsClick" stroke="WHITE" strokeType="INSIDE" style="-fx-arc-width: 30; -fx-arc-height: 30;" styleClass="rectangles" width="197.0" />
@@ -214,21 +213,14 @@
             <Label layoutX="13.0" layoutY="230.0" styleClass="labels" text="You" />
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="settingSideBar" layoutX="36.0" layoutY="65.0" prefHeight="533.0" prefWidth="208.0" style="-fx-border-color: #000;" styleClass="backGrounds" visible="false">
+      <AnchorPane fx:id="settingSideBar" layoutX="36.0" layoutY="65.0" prefHeight="533.0" prefWidth="208.0" styleClass="backGrounds" visible="false">
          <children>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="48.0" layoutX="5.0" layoutY="75.0" stroke="WHITE" strokeType="INSIDE" width="197.0" />
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="48.0" layoutX="5.0" layoutY="123.0" stroke="WHITE" strokeType="INSIDE" width="197.0" />
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="48.0" layoutX="5.0" layoutY="183.0" stroke="WHITE" strokeType="INSIDE" width="197.0" />
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="48.0" layoutX="5.0" layoutY="231.0" stroke="WHITE" strokeType="INSIDE" width="197.0" />
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="48.0" layoutX="5.0" layoutY="283.0" stroke="WHITE" strokeType="INSIDE" width="197.0" />
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="48.0" layoutX="5.0" layoutY="336.0" stroke="WHITE" strokeType="INSIDE" width="197.0" />
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="48.0" layoutX="5.0" layoutY="391.0" stroke="WHITE" strokeType="INSIDE" width="197.0" />
             <Label layoutX="10.0" layoutY="8.0" prefHeight="63.0" prefWidth="188.0" styleClass="labels" text="Setting">
                <font>
                   <Font size="42.0" />
                </font>
             </Label>
-            <Label layoutX="14.0" layoutY="80.0" prefHeight="37.0" prefWidth="181.0" styleClass="labels" text="Account">
+            <Label layoutX="14.0" layoutY="80.0" onMouseClicked="#accountClick" prefHeight="37.0" prefWidth="181.0" styleClass="labels" text="Account">
                <font>
                   <Font size="19.0" />
                </font>
@@ -238,27 +230,17 @@
                   <Font size="19.0" />
                </font>
             </Label>
-            <Label layoutX="12.0" layoutY="188.0" prefHeight="37.0" prefWidth="181.0" styleClass="labels" text="Channel">
-               <font>
-                  <Font size="25.0" />
-               </font>
-            </Label>
-            <Label layoutX="14.0" layoutY="236.0" prefHeight="37.0" prefWidth="181.0" styleClass="labels" text="Playlists">
+            <Label layoutX="13.0" layoutY="183.0" onMouseClicked="#addVideoClick" prefHeight="37.0" prefWidth="181.0" styleClass="labels" text="Add Video">
                <font>
                   <Font size="19.0" />
                </font>
             </Label>
-            <Label layoutX="14.0" layoutY="288.0" onMouseClicked="#addVideoClick" prefHeight="37.0" prefWidth="181.0" styleClass="labels" text="Add Video">
+            <Label layoutX="13.0" layoutY="233.0" onMouseClicked="#addPlayList" prefHeight="37.0" prefWidth="181.0" styleClass="labels" text="Add Playlist">
                <font>
                   <Font size="19.0" />
                </font>
             </Label>
-            <Label layoutX="14.0" layoutY="341.0" prefHeight="37.0" prefWidth="181.0" styleClass="labels" text="Add Playlist">
-               <font>
-                  <Font size="19.0" />
-               </font>
-            </Label>
-            <Label layoutX="13.0" layoutY="396.0" prefHeight="37.0" prefWidth="181.0" styleClass="labels" text="Add Story">
+            <Label layoutX="13.0" layoutY="276.0" onMouseClicked="#addStoryClick" prefHeight="37.0" prefWidth="181.0" styleClass="labels" text="Add Story">
                <font>
                   <Font size="19.0" />
                </font>
@@ -266,38 +248,9 @@
          </children>
       </AnchorPane>
       <ScrollPane fx:id="videos" fitToWidth="true" layoutX="111.0" layoutY="56.0" prefHeight="562.0" prefWidth="1056.0" visible="false">
-         <TilePane fx:id="container" hgap="15" styleClass="backGrounds" vgap="20">
-            <VBox fx:id="mainV1" prefHeight="320.0" prefWidth="309.0" style="-fx-background-color: red">
-               <ImageView fitHeight="191.0" fitWidth="261.0" pickOnBounds="true" preserveRatio="true">
-                  <image>
-                     <Image url="@Images/hhh.png" />
-                  </image>
-               </ImageView>
-               <Label alignment="CENTER" prefHeight="45.0" prefWidth="264.0" styleClass="labels" text="Title">
-                  <font>
-                     <Font size="37.0" />
-                  </font>
-               </Label>
-               <Label alignment="CENTER" prefHeight="45.0" prefWidth="266.0" styleClass="labels" text="ChanelName">
-                  <font>
-                     <Font size="37.0" />
-                  </font>
-               </Label>
-            </VBox>
-<!--            <VBox fx:id="mainV2" prefHeight="320.0" prefWidth="309.0" style="-fx-background-color: blue" />-->
-<!--            <VBox fx:id="mainV3" prefHeight="320.0" prefWidth="309.0" style="-fx-background-color: green" />-->
-<!--            <VBox fx:id="mainV4" prefHeight="320.0" prefWidth="309.0" style="-fx-background-color: pink" />-->
-<!--            <VBox fx:id="mainV5" prefHeight="320.0" prefWidth="309.0" style="-fx-background-color: Black" />-->
-<!--            <VBox fx:id="mainV6" prefHeight="320.0" prefWidth="309.0" style="-fx-background-color: red" />-->
-<!--            <VBox fx:id="mainV7" prefHeight="320.0" prefWidth="309.0" style="-fx-background-color: pink" />-->
-<!--            <VBox fx:id="mainV8" prefHeight="320.0" prefWidth="309.0" style="-fx-background-color: blue" />-->
-<!--            <VBox fx:id="mainV9" prefHeight="320.0" prefWidth="309.0" style="-fx-background-color: blue" />-->
-<!--            <VBox fx:id="mainV10" prefHeight="320.0" prefWidth="309.0" style="-fx-background-color: green" />-->
-<!--            <VBox fx:id="mainV11" prefHeight="320.0" prefWidth="309.0" style="-fx-background-color: red" />-->
-<!--            <VBox fx:id="mainV12" prefHeight="320.0" prefWidth="309.0" style="-fx-background-color: black" />-->
-         </TilePane>
+         <TilePane fx:id="container" hgap="15" styleClass="backGrounds" vgap="20" />
       </ScrollPane>
-      <TextField id="searchBar" layoutX="442.0" layoutY="16.0" prefHeight="17.0" prefWidth="393.0" promptText="Search" />
+      <TextField id="searchBar" fx:id="SearchBox" layoutX="442.0" layoutY="16.0" prefHeight="17.0" prefWidth="393.0" promptText="Search" />
       <Button layoutX="300.0" layoutY="12.0" mnemonicParsing="false" onAction="#toggleTheme" onMouseClicked="#toggleTheme" prefHeight="34.0" prefWidth="88.0" text="DarkModeCheck" />
       <ImageView fitHeight="41.0" fitWidth="81.0" layoutX="98.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -311,40 +264,7 @@
                         <Font size="36.0" />
                      </font>
                   </Label>
-               <VBox fx:id="mainV2" prefHeight="320.0" prefWidth="309.0" style="-fx-background-color: red">
-                  <ImageView fitHeight="191.0" fitWidth="261.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@Images/hhh.png" />
-                     </image>
-                  </ImageView>
-                  <Label alignment="CENTER" prefHeight="45.0" prefWidth="264.0" text="Title">
-                     <font>
-                        <Font size="37.0" />
-                     </font>
-                  </Label>
-                  <Label alignment="CENTER" prefHeight="45.0" prefWidth="266.0" text="ChanelName">
-                     <font>
-                        <Font size="37.0" />
-                     </font>
-                  </Label>
-               </VBox>
             </TilePane>
-      </ScrollPane>
-      <ScrollPane fx:id="notificationPane" layoutX="551.0" layoutY="56.0" prefHeight="466.0" prefWidth="394.0" visible="false">
-         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="450.0" prefWidth="394.0" styleClass="backGrounds">
-            <children>
-               <Label prefHeight="56.0" prefWidth="242.0" styleClass="labels" text="Notifications">
-                  <font>
-                     <Font size="38.0" />
-                  </font>
-               </Label>
-               <Button layoutX="264.0" layoutY="2.0" mnemonicParsing="false" onAction="#settingClick" prefHeight="48.0" prefWidth="116.0" text="Setting">
-                  <font>
-                     <Font size="25.0" />
-                  </font>
-               </Button>
-            </children>
-         </AnchorPane>
       </ScrollPane>
       <ScrollPane fx:id="playListsPane" layoutX="316.0" layoutY="65.0" prefHeight="534.0" prefWidth="854.0" visible="false">
          <TilePane fx:id="playListsContainer" hgap="15" prefHeight="531.0" prefWidth="851.0" styleClass="backGrounds" vgap="20">
@@ -353,23 +273,6 @@
                   <Font size="45.0" />
                </font>
             </Label>
-            <VBox prefHeight="320.0" prefWidth="309.0" style="-fx-background-color: red">
-               <ImageView fitHeight="191.0" fitWidth="261.0" pickOnBounds="true" preserveRatio="true">
-                  <image>
-                     <Image url="@Images/hhh.png" />
-                  </image>
-               </ImageView>
-               <Label alignment="CENTER" prefHeight="45.0" prefWidth="264.0" text="Title">
-                  <font>
-                     <Font size="37.0" />
-                  </font>
-               </Label>
-               <Label alignment="CENTER" prefHeight="45.0" prefWidth="266.0" text="ChanelName">
-                  <font>
-                     <Font size="37.0" />
-                  </font>
-               </Label>
-            </VBox>
          </TilePane>
       </ScrollPane>
       <ScrollPane fx:id="subscriptionPane" layoutX="288.0" layoutY="65.0" prefHeight="524.0" prefWidth="878.0" visible="false">
@@ -379,23 +282,6 @@
                   <Font size="45.0" />
                </font>
             </Label>
-            <VBox prefHeight="320.0" prefWidth="309.0" style="-fx-background-color: red">
-               <ImageView fitHeight="191.0" fitWidth="261.0" pickOnBounds="true" preserveRatio="true">
-                  <image>
-                     <Image url="@Images/hhh.png" />
-                  </image>
-               </ImageView>
-               <Label alignment="CENTER" prefHeight="45.0" prefWidth="264.0" text="Title">
-                  <font>
-                     <Font size="37.0" />
-                  </font>
-               </Label>
-               <Label alignment="CENTER" prefHeight="45.0" prefWidth="266.0" text="ChanelName">
-                  <font>
-                     <Font size="37.0" />
-                  </font>
-               </Label>
-            </VBox>
          </TilePane>
       </ScrollPane>
       <ChoiceBox fx:id="searchFilter" layoutX="848.0" layoutY="16.0" prefHeight="24.0" prefWidth="88.0" />
@@ -406,23 +292,6 @@
                   <Font size="45.0" />
                </font>
             </Label>
-            <VBox prefHeight="320.0" prefWidth="309.0" style="-fx-background-color: red">
-               <ImageView fitHeight="191.0" fitWidth="261.0" pickOnBounds="true" preserveRatio="true">
-                  <image>
-                     <Image url="@Images/hhh.png" />
-                  </image>
-               </ImageView>
-               <Label alignment="CENTER" prefHeight="45.0" prefWidth="264.0" text="Title">
-                  <font>
-                     <Font size="37.0" />
-                  </font>
-               </Label>
-               <Label alignment="CENTER" prefHeight="45.0" prefWidth="266.0" text="ChanelName">
-                  <font>
-                     <Font size="37.0" />
-                  </font>
-               </Label>
-            </VBox>
          </TilePane>
       </ScrollPane>
       <ScrollPane fx:id="watchLaterPane" layoutX="264.0" layoutY="66.0" prefHeight="562.0" prefWidth="918.0" visible="false">
@@ -434,25 +303,6 @@
                         <Font size="45.0" />
                      </font>
                   </Label>
-                  <VBox prefHeight="320.0" prefWidth="309.0" style="-fx-background-color: red">
-                     <children>
-                        <ImageView fitHeight="191.0" fitWidth="261.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@Images/hhh.png" />
-                           </image>
-                        </ImageView>
-                        <Label alignment="CENTER" prefHeight="45.0" prefWidth="264.0" text="Title">
-                           <font>
-                              <Font size="37.0" />
-                           </font>
-                        </Label>
-                        <Label alignment="CENTER" prefHeight="45.0" prefWidth="266.0" text="ChanelName">
-                           <font>
-                              <Font size="37.0" />
-                           </font>
-                        </Label>
-                     </children>
-                  </VBox>
                </children>
             </TilePane>
          </content>
@@ -466,30 +316,11 @@
                         <Font size="45.0" />
                      </font>
                   </Label>
-                  <VBox prefHeight="320.0" prefWidth="309.0" style="-fx-background-color: red">
-                     <children>
-                        <ImageView fitHeight="191.0" fitWidth="261.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@Images/hhh.png" />
-                           </image>
-                        </ImageView>
-                        <Label alignment="CENTER" prefHeight="45.0" prefWidth="264.0" text="Title">
-                           <font>
-                              <Font size="37.0" />
-                           </font>
-                        </Label>
-                        <Label alignment="CENTER" prefHeight="45.0" prefWidth="266.0" text="ChanelName">
-                           <font>
-                              <Font size="37.0" />
-                           </font>
-                        </Label>
-                     </children>
-                  </VBox>
                </children>
             </TilePane>
          </content>
       </ScrollPane>
-      <Button layoutX="200.0" layoutY="12.0" mnemonicParsing="false" onAction="#openVideoPage" prefHeight="34.0" prefWidth="88.0" text="VideoPage" />
+      <Button layoutX="200.0" layoutY="12.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="88.0" text="VideoPage" />
       <Button layoutX="1003.0" layoutY="14.0" onMouseClicked="#notificationsClick" styleClass="buttons">
          <graphic>
             <SVGPath content="M10 20h4c0 1.1-.9 2-2 2s-2-.9-2-2zm10-2.65V19H4v-1.65l2-1.88v-5.15C6 7.4 7.56 5.1 10 4.34v-.38c0-1.42 1.49-2.5 2.99-1.76.65.32 1.01 1.03 1.01 1.76v.39c2.44.75 4 3.06 4 5.98v5.15l2 1.87zm-1 .42-2-1.88v-5.47c0-2.47-1.19-4.36-3.13-5.1-1.26-.53-2.64-.5-3.84.03C8.15 6.11 7 7.99 7 10.42v5.47l-2 1.88V18h14v-.23z" />
@@ -504,20 +335,17 @@
             <SVGPath content="M21 6H3V5h18v1zm0 5H3v1h18v-1zm0 6H3v1h18v-1z" />
          </graphic>
       </Button>
-      <Button layoutX="1105.0" layoutY="14.0" mnemonicParsing="false" onAction="#profileClick" prefHeight="30.0" prefWidth="50.0" text="Profile" />
-      <Button fx:id="logOut" layoutX="1043.0" layoutY="14.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="57.0" text="Check" />
-      <HBox fx:id="LogOutHbox" layoutX="903.0" layoutY="50.0" prefHeight="26.0" prefWidth="280.0">
+      <Button fx:id="Profile" layoutX="1105.0" layoutY="13.0" mnemonicParsing="false" onAction="#profileClick" prefHeight="30.0" prefWidth="50.0" text="Profile" />
+      <Button fx:id="logOut" layoutX="1046.0" layoutY="13.0" mnemonicParsing="false" onAction="#profileClick" prefHeight="30.0" prefWidth="50.0" text="Check" />
+      <HBox layoutX="569.0" layoutY="96.0" prefHeight="100.0" prefWidth="200.0" />
+      <HBox fx:id="LogOutHbox" layoutX="854.0" layoutY="53.0" prefHeight="26.0" prefWidth="330.0">
          <children>
-            <Label prefHeight="18.0" prefWidth="270.0" text="Looking forward to meeting you">
+            <Label fx:id="text" text="I look forward to meeting you again">
                <font>
-                  <Font name="Californian FB" size="15.0" />
+                  <Font name="Californian FB" size="18.0" />
                </font>
             </Label>
-            <Button fx:id="Out" mnemonicParsing="false" prefHeight="26.0" prefWidth="118.0" text="LogOut">
-               <font>
-                  <Font name="Californian FB" size="13.0" />
-               </font>
-            </Button>
+            <Button fx:id="Exit" mnemonicParsing="false" prefHeight="26.0" prefWidth="70.0" text="Exit" />
          </children>
       </HBox>
    </children>

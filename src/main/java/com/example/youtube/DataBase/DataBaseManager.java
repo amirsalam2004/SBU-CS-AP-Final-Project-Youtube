@@ -141,7 +141,8 @@ public class DataBaseManager {
                 String name = resultSet.getString("name");
                 String information = resultSet.getString("information");
                 String Block = resultSet.getString("Block");
-                videos.add(new Video(ID_video, Chanel_ID, name, information, time_uplode, PlayTime, view, Block));
+                String category = resultSet.getString("category");
+                videos.add(new Video(ID_video, Chanel_ID, name, information, time_uplode, PlayTime, view, Block,category));
             }
             EncConnection();
         } catch (Exception e) {
@@ -265,7 +266,9 @@ public class DataBaseManager {
                 String name = resultSet.getString("name");
                 String information = resultSet.getString("information");
                 String Block = resultSet.getString("Block");
-                videos.add(new Video(ID_video, Chanel_ID, name, information, time_uplode, PlayTime, view, Block));
+                String category = resultSet.getString("category");
+
+                videos.add(new Video(ID_video, Chanel_ID, name, information, time_uplode, PlayTime, view, Block,category));
             }
             EncConnection();
         } catch (Exception e) {
@@ -325,7 +328,7 @@ public class DataBaseManager {
                 String name = resultSet.getString("name");
                 String information = resultSet.getString("information");
                 String Block = resultSet.getString("Block");
-                videos.add(new Video(ID_video, Chanel_ID, name, information, time_uplode, PlayTime, view, Block));
+                videos.add(new Video(ID_video, Chanel_ID, name, information, time_uplode, PlayTime, view,Block,category));
             }
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -353,7 +356,9 @@ public class DataBaseManager {
                 String name = resultSet.getString("name");
                 String information = resultSet.getString("information");
                 String Block = resultSet.getString("Block");
-                videos.add(new Video(ID_video, Chanel_ID, name, information, time_uplode, PlayTime, view, Block));
+                String category = resultSet.getString("category");
+
+                videos.add(new Video(ID_video, Chanel_ID, name, information, time_uplode, PlayTime, view, Block,category));
             }
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -409,8 +414,10 @@ public class DataBaseManager {
                 String name = resultSet.getString("name");
                 String information = resultSet.getString("information");
                 String Block = resultSet.getString("Block");
+                String category = resultSet.getString("category");
 
-                videos.add(new Video(ID_video, Chanel_ID, name, information, time_uplode, PlayTime, view, Block));
+
+                videos.add(new Video(ID_video, Chanel_ID, name, information, time_uplode, PlayTime, view, Block,category));
             }
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -452,8 +459,8 @@ public class DataBaseManager {
                     String name = videoResultSet.getString("name");
                     String information = videoResultSet.getString("information");
                     String Block = videoResultSet.getString("Block");
-
-                    videos.add(new Video(ID_video, Chanel_ID, name, information, time_uplode, PlayTime, view, Block));
+                    String category1 = videoResultSet.getString("category");
+                    videos.add(new Video(ID_video, Chanel_ID, name, information, time_uplode, PlayTime, view, Block,category1));
                 }
             }
 
@@ -499,8 +506,9 @@ public class DataBaseManager {
                     String name = videoResultSet.getString("name");
                     String information = videoResultSet.getString("information");
                     String Block = videoResultSet.getString("Block");
+                    String category1 = videoResultSet.getString("category");
 
-                    videos.add(new Video(ID_video, Chanel_ID, name, information, time_uplode, PlayTime, view, Block));
+                    videos.add(new Video(ID_video, Chanel_ID, name, information, time_uplode, PlayTime, view, Block,category1));
                 }
             }
 
@@ -710,8 +718,8 @@ public class DataBaseManager {
         StartConnection();
 
 
-        String query = "INSERT INTO video (ID_video, Chanel_ID, time_uplode, view, PlayTime,  name, information,blockC) " +
-                "VALUES ( ?, ?, ?, ?, ?, ?, ?, )";
+        String query = "INSERT INTO video (ID_video, Chanel_ID, time_uplode, view, PlayTime,  name, information,category,Block) " +
+                "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?,?)";
         try {
             PreparedStatement statement = connection.prepareStatement(query);
 
@@ -720,13 +728,11 @@ public class DataBaseManager {
             statement.setString(3, String.valueOf(video.getUploadTime()));
             statement.setInt(4, video.getView());
             statement.setInt(5, video.getDuration());
-
             statement.setString(6, video.getName());
             statement.setString(7, video.getDescription());
-            statement.setString(8, video.getBlock());
+            statement.setString(8, video.getCategory());
+            statement.setString(9, video.getBlock());
             statement.execute();
-        } catch (SQLIntegrityConstraintViolationException e) {
-            return false;
         } catch (SQLException ee) {
             throw new RuntimeException(ee);
         }
@@ -1607,7 +1613,9 @@ public class DataBaseManager {
                         resultSet.getString("time_uplode"),
                         resultSet.getInt("PlayTime"),
                         resultSet.getInt("view"),
-                        resultSet.getString("Block")
+                        resultSet.getString("Block"),
+                        resultSet.getString("category")
+
                 ));
 
             }
@@ -1840,7 +1848,64 @@ public class DataBaseManager {
         }finally {
             EncConnection();
         }
-
         return number;
+    }
+
+    public static synchronized int countChanelVideo(String IDV) {
+        int number = 0;
+        StartConnection();
+
+        String query = "SELECT COUNT(*) FROM video_chanel WHERE ID_chanel=?";
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setString(1, IDV);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    number = resultSet.getInt(1);
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            EncConnection();
+        }
+        return  number;
+    }
+    public static synchronized int countfollowing(String IDV) {
+        int number = 0;
+        StartConnection();
+
+        String query = "SELECT COUNT(*) FROM following WHERE ID_chanel=?";
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setString(1, IDV);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    number = resultSet.getInt(1);
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            EncConnection();
+        }
+        return  number;
+    }
+    public static synchronized int countfollower(String IDV) {
+        int number = 0;
+        StartConnection();
+
+        String query = "SELECT COUNT(*) FROM follower WHERE IDChanel=?";
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setString(1, IDV);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    number = resultSet.getInt(1);
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            EncConnection();
+        }
+        return  number;
     }
 }
