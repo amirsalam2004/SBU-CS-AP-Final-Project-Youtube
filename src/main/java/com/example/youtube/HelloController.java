@@ -38,6 +38,7 @@ import java.io.IOException;
 import java.io.PushbackInputStream;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.ResourceBundle;
 import java.util.Scanner;
 
@@ -136,6 +137,9 @@ public class HelloController {
     private Stage stage = new Stage();
 
 
+    @FXML
+    Button Search=new Button();
+
     MediaPlayer mediaPlayer;
 
     @FXML
@@ -165,7 +169,12 @@ public class HelloController {
 
     @FXML
     private Button Out=new Button();
+    @FXML
+    private Button Exit=new Button();
 
+
+    @FXML
+    TextField SearchBox=new TextField();
 
 
 
@@ -202,17 +211,7 @@ public class HelloController {
     }
 
 
-//    @FXML
-//    protected void onHelloButtonClick() throws IOException {
-//
-//        Stage currentStage = (Stage) homeBackGround.getScene().getWindow();
-//        currentStage.close();
-//        root = FXMLLoader.load(getClass().getResource("darkHomePage.fxml"));
-//        stage.setScene(new Scene(root));
-//        stage.setTitle("Login Page");
-//        stage.show();
-//
-//    }
+
     @FXML
     protected void sideBarBtnClick() {
         sideBar.setVisible(!isSideBarOn);
@@ -295,41 +294,45 @@ public class HelloController {
     @FXML
     public void initialize() {
         LogOutHbox.setVisible(false);
+
+
         try {
             this.client=new Client("127.0.0.1");
-
 
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        Video video=new Video("life","!23","!@3","!23","!23",12,12,"Yes");
 
-//        ArrayList<Video> video=new ArrayList<>();
-//        if (user!=null) {
+
+
+//        Search.setOnAction(e->{
+//           String Search= SearchBox.getText();
+//           String Way=searchFilter.getValue().toString();
+//               try {
+//                   videos .addAll( client.getSearchedVideosRequest(Search, Way));
+//               } catch (IOException ex) {
+//                   throw new RuntimeException(ex);
+//               }
+//
+//
+//        });
+
+//        System.out.println(videos.size());
+//        for (int i=0;i<4;i++) {
 //            try {
-////                video = client.getVideoByRandomCategoryRequest(10, user.getID());
+//                client.getImageBytes(videos.get(i).getID());
+//                createVideoBox(container,videos.get(i));
+//
 //            } catch (IOException e) {
 //                throw new RuntimeException(e);
 //            }
-//        }else
-
-//             video=client.getVideoByRandomCategoryRequest(10);
-//
-//        System.out.println(video.get(0).getBlock());
-//        System.out.println("[get video for show]" );
-
-
-    createVideoBox(container,video);
-//        for (Video x:video) {
-//
-//            createVideoBox(container,x);
 //
 //        }
 
         System.out.println("Start");
         logOut.setOnAction(e->{
 
-            if (user==null){
+            if (user!=null){
 
                 FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("signUp-view.fxml"));
                 Scene scene = null;
@@ -347,8 +350,6 @@ public class HelloController {
                 stage.show();
 
 
-
-
                 logOut.getScene().getWindow().hide();
 
             }
@@ -359,6 +360,9 @@ public class HelloController {
                         new KeyFrame(Duration.seconds(1), new KeyValue(LogOutHbox.opacityProperty(), 1.0)),
                         new KeyFrame(Duration.seconds(1), new KeyValue(LogOutHbox.opacityProperty(), 0.0))
                 );
+                Exit.setOnAction(event->{
+                    Exit.getScene().getWindow().hide();
+                });
                 timeline.play();
                 Out.setOnAction(event->{
                     this.user=null;
@@ -563,26 +567,17 @@ public class HelloController {
     // pass video here
     // pass playList here
     public void createVideoBox(TilePane tilePane,Video video) {
+
         VBox vbox = new VBox();
         vbox.prefWidth(309.0);
         vbox.prefHeight(680.0);
 
 
 //        get image from server
-        try {
-            client.getImageBytes(video.getID());
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-
-
-
 
 
         ImageView imageView = new ImageView();
-        System.out.println(video.getID());
-        imageView.setImage(new Image("C:\\Users\\Asus\\Desktop\\YouTube\\YOUTUBE\\src\\main\\resources\\com\\example\\youtube\\clientImages\\"+video.getID()+".jpg"));
+        imageView.setImage(new Image("file:C:\\Users\\Asus\\Desktop\\YouTube\\YOUTUBE\\src\\main\\resources\\com\\example\\youtube\\clientImages\\"+video.getID()+".jpg"));
         imageView.setFitHeight(191.0);
         imageView.setFitWidth(261.0);
 
@@ -593,6 +588,7 @@ public class HelloController {
         title.setPrefHeight(45.0);
         title.setPrefWidth(264.0);
         title.setFont(Font.font(37.0));
+        title.setText(video.getName());
         // text from server
 
         Label channelName = new Label();
@@ -600,7 +596,12 @@ public class HelloController {
         channelName.setPrefHeight(45.0);
         channelName.setPrefWidth(266.0);
         channelName.setFont(Font.font(37.0));
+        channelName.setText(video.getCategory());
         // text from server
+
+        if (isDarkModeOn) {
+
+        }
 
         vbox.getChildren().addAll(imageView, title, channelName);
 
@@ -781,12 +782,19 @@ public class HelloController {
 
     @FXML
     public void searchFunc() {
-        // wright search function here
-    }
+        clear();
+   }
 
+   public void clear (){
+       container.getChildren().clear();
+   }
     @FXML
     public void profileClick() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("profileView.fxml"));
+
+        ProfileViewController profileViewController=fxmlLoader.getController();
+        profileViewController.client=this.client;
+
         Scene scene = new Scene(fxmlLoader.load(), 1029, 760);
         if (isDarkModeOn) {
             scene.getStylesheets().add(getClass().getResource("DarkStyles.css").toExternalForm());

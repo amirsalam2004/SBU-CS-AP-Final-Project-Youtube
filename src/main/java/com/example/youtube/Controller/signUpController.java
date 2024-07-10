@@ -74,6 +74,8 @@ public class signUpController implements Initializable {
     String Username;
     @FXML
     Button Login=new Button();
+    @FXML
+    Button Profile=new Button();
 
    //-------------------------------------------------------------
    //this part is for object
@@ -231,12 +233,15 @@ public class signUpController implements Initializable {
                                     }
                                     HelloController helloController = fxmlLoader.getController();
                                     //insert user and channel and true
+                                    helloController.isDarkModeOn=true;
                                     helloController.user = user;
                                     helloController.channel = channel;
                                     helloController.loginOn = true;
+
                                     stage.setTitle("Youtube");
                                     stage.setScene(scene);
                                     stage.show();
+                                    Continue.getScene().getWindow().hide();
                                 } else {
                                     System.out.println("[ADD CHANNEL ] FAIL");
                                 }

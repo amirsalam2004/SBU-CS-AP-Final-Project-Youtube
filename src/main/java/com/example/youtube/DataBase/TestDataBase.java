@@ -14,6 +14,16 @@ public class TestDataBase {
 //Cr_Video(video);
 //        Karma(1,"12","12");
 
+//        Cr_Video(new Video("life1","12","12","12","12",12,12,"Yes","life"));
+//        Cr_Video(new Video("life2","12","12","12","12",12,12,"Yes","life"));
+//        Cr_Video(new Video("Science2","12","12","12","12",12,12,"Yes","life"));
+//        Cr_Video(new Video("Science1","12","12","12","12",12,12,"Yes","life"));
+//        Cr_Video(new Video("Science","12","12","12","12",12,12,"Yes","life"));
+//        Cr_Video(new Video("sports","12","12","12","12",12,12,"Yes","life"));
+//        Cr_Video(new Video("sports1","12","12","12","12",12,12,"Yes","life"));
+//        Cr_Video(new Video("sports2","12","12","12","12",12,12,"Yes","life"));
+
+        System.out.println("!23132123");
 //        System.out.println(countLike("12", "-1"));
 //        Cr_Chanel(new Channel("123","@3","!23","!@3","!23"));
 //        Comment commnet=new Comment("this is test for Server ","ruzbeh","rouzbeh","rouhzhbhe","123",1,1,"!2312");

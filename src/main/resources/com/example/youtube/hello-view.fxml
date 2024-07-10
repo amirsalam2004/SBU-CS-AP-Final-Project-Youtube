@@ -8,9 +8,8 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.TilePane?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.shape.Circle?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.shape.SVGPath?>
@@ -22,7 +21,7 @@
 <!--   </stylesheets>-->
    <children>
       <Rectangle id="topBar" arcHeight="5.0" arcWidth="5.0" fill="#e8f0f7" height="41.0" layoutX="37.0" layoutY="9.0" stroke="#e8f0f7" strokeType="INSIDE" style="-fx-arc-width: 15; -fx-arc-height: 20;" width="1134.0" />
-      <Button layoutX="407.0" layoutY="16.0" onMouseClicked="#searchFunc" styleClass="buttons">
+      <Button fx:id="Search" layoutX="405.0" layoutY="16.0" onMouseClicked="#searchFunc" styleClass="buttons">
          <graphic>
             <SVGPath content="M16.296 16.996a8 8 0 11.707-.708l3.909 3.91-.707.707-3.909-3.909ZM18 11a7 7 0 11-14 0 7 7 0 0114 0Z" />
          </graphic>
@@ -249,40 +248,10 @@
          </children>
       </AnchorPane>
       <ScrollPane fx:id="videos" fitToWidth="true" layoutX="111.0" layoutY="56.0" prefHeight="562.0" prefWidth="1056.0" visible="false">
-         <TilePane fx:id="container" hgap="15" styleClass="backGrounds" vgap="20">
-            <VBox fx:id="mainV1" prefHeight="320.0" prefWidth="309.0" style="-fx-background-color: red">
-               <ImageView fitHeight="191.0" fitWidth="261.0" pickOnBounds="true" preserveRatio="true">
-                  <image>
-                     <Image url="@Images/hhh.png" />
-                  </image>
-               </ImageView>
-               <Label alignment="CENTER" prefHeight="45.0" prefWidth="264.0" styleClass="labels" text="Title">
-                  <font>
-                     <Font size="37.0" />
-                  </font>
-               </Label>
-               <Label alignment="CENTER" prefHeight="45.0" prefWidth="266.0" styleClass="labels" text="ChanelName">
-                  <font>
-                     <Font size="37.0" />
-                  </font>
-               </Label>
-            </VBox>
-<!--            <VBox fx:id="mainV2" prefHeight="320.0" prefWidth="309.0" style="-fx-background-color: blue" />-->
-<!--            <VBox fx:id="mainV3" prefHeight="320.0" prefWidth="309.0" style="-fx-background-color: green" />-->
-<!--            <VBox fx:id="mainV4" prefHeight="320.0" prefWidth="309.0" style="-fx-background-color: pink" />-->
-<!--            <VBox fx:id="mainV5" prefHeight="320.0" prefWidth="309.0" style="-fx-background-color: Black" />-->
-<!--            <VBox fx:id="mainV6" prefHeight="320.0" prefWidth="309.0" style="-fx-background-color: red" />-->
-<!--            <VBox fx:id="mainV7" prefHeight="320.0" prefWidth="309.0" style="-fx-background-color: pink" />-->
-<!--            <VBox fx:id="mainV8" prefHeight="320.0" prefWidth="309.0" style="-fx-background-color: blue" />-->
-<!--            <VBox fx:id="mainV9" prefHeight="320.0" prefWidth="309.0" style="-fx-background-color: blue" />-->
-<!--            <VBox fx:id="mainV10" prefHeight="320.0" prefWidth="309.0" style="-fx-background-color: green" />-->
-<!--            <VBox fx:id="mainV11" prefHeight="320.0" prefWidth="309.0" style="-fx-background-color: red" />-->
-<!--            <VBox fx:id="mainV12" prefHeight="320.0" prefWidth="309.0" style="-fx-background-color: black" />-->
-         </TilePane>
+         <TilePane fx:id="container" hgap="15" styleClass="backGrounds" vgap="20" />
       </ScrollPane>
-      <TextField id="searchBar" layoutX="442.0" layoutY="16.0" prefHeight="17.0" prefWidth="393.0" promptText="Search" />
+      <TextField id="searchBar" fx:id="SearchBox" layoutX="442.0" layoutY="16.0" prefHeight="17.0" prefWidth="393.0" promptText="Search" />
       <Button layoutX="300.0" layoutY="12.0" mnemonicParsing="false" onAction="#toggleTheme" onMouseClicked="#toggleTheme" prefHeight="34.0" prefWidth="88.0" text="DarkModeCheck" />
-      <Circle fill="DODGERBLUE" layoutX="1073.0" layoutY="28.0" radius="19.0" stroke="BLACK" strokeType="INSIDE" />
       <ImageView fitHeight="41.0" fitWidth="81.0" layoutX="98.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@Images/unnamed.jpg" />
@@ -295,23 +264,6 @@
                         <Font size="36.0" />
                      </font>
                   </Label>
-               <VBox fx:id="mainV2" prefHeight="320.0" prefWidth="309.0" style="-fx-background-color: red">
-                  <ImageView fitHeight="191.0" fitWidth="261.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@Images/hhh.png" />
-                     </image>
-                  </ImageView>
-                  <Label alignment="CENTER" prefHeight="45.0" prefWidth="264.0" text="Title">
-                     <font>
-                        <Font size="37.0" />
-                     </font>
-                  </Label>
-                  <Label alignment="CENTER" prefHeight="45.0" prefWidth="266.0" text="ChanelName">
-                     <font>
-                        <Font size="37.0" />
-                     </font>
-                  </Label>
-               </VBox>
             </TilePane>
       </ScrollPane>
       <ScrollPane fx:id="playListsPane" layoutX="316.0" layoutY="65.0" prefHeight="534.0" prefWidth="854.0" visible="false">
@@ -321,23 +273,6 @@
                   <Font size="45.0" />
                </font>
             </Label>
-            <VBox prefHeight="320.0" prefWidth="309.0" style="-fx-background-color: red">
-               <ImageView fitHeight="191.0" fitWidth="261.0" pickOnBounds="true" preserveRatio="true">
-                  <image>
-                     <Image url="@Images/hhh.png" />
-                  </image>
-               </ImageView>
-               <Label alignment="CENTER" prefHeight="45.0" prefWidth="264.0" text="Title">
-                  <font>
-                     <Font size="37.0" />
-                  </font>
-               </Label>
-               <Label alignment="CENTER" prefHeight="45.0" prefWidth="266.0" text="ChanelName">
-                  <font>
-                     <Font size="37.0" />
-                  </font>
-               </Label>
-            </VBox>
          </TilePane>
       </ScrollPane>
       <ScrollPane fx:id="subscriptionPane" layoutX="288.0" layoutY="65.0" prefHeight="524.0" prefWidth="878.0" visible="false">
@@ -347,23 +282,6 @@
                   <Font size="45.0" />
                </font>
             </Label>
-            <VBox prefHeight="320.0" prefWidth="309.0" style="-fx-background-color: red">
-               <ImageView fitHeight="191.0" fitWidth="261.0" pickOnBounds="true" preserveRatio="true">
-                  <image>
-                     <Image url="@Images/hhh.png" />
-                  </image>
-               </ImageView>
-               <Label alignment="CENTER" prefHeight="45.0" prefWidth="264.0" text="Title">
-                  <font>
-                     <Font size="37.0" />
-                  </font>
-               </Label>
-               <Label alignment="CENTER" prefHeight="45.0" prefWidth="266.0" text="ChanelName">
-                  <font>
-                     <Font size="37.0" />
-                  </font>
-               </Label>
-            </VBox>
          </TilePane>
       </ScrollPane>
       <ChoiceBox fx:id="searchFilter" layoutX="848.0" layoutY="16.0" prefHeight="24.0" prefWidth="88.0" />
@@ -374,23 +292,6 @@
                   <Font size="45.0" />
                </font>
             </Label>
-            <VBox prefHeight="320.0" prefWidth="309.0" style="-fx-background-color: red">
-               <ImageView fitHeight="191.0" fitWidth="261.0" pickOnBounds="true" preserveRatio="true">
-                  <image>
-                     <Image url="@Images/hhh.png" />
-                  </image>
-               </ImageView>
-               <Label alignment="CENTER" prefHeight="45.0" prefWidth="264.0" text="Title">
-                  <font>
-                     <Font size="37.0" />
-                  </font>
-               </Label>
-               <Label alignment="CENTER" prefHeight="45.0" prefWidth="266.0" text="ChanelName">
-                  <font>
-                     <Font size="37.0" />
-                  </font>
-               </Label>
-            </VBox>
          </TilePane>
       </ScrollPane>
       <ScrollPane fx:id="watchLaterPane" layoutX="264.0" layoutY="66.0" prefHeight="562.0" prefWidth="918.0" visible="false">
@@ -402,25 +303,6 @@
                         <Font size="45.0" />
                      </font>
                   </Label>
-                  <VBox prefHeight="320.0" prefWidth="309.0" style="-fx-background-color: red">
-                     <children>
-                        <ImageView fitHeight="191.0" fitWidth="261.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@Images/hhh.png" />
-                           </image>
-                        </ImageView>
-                        <Label alignment="CENTER" prefHeight="45.0" prefWidth="264.0" text="Title">
-                           <font>
-                              <Font size="37.0" />
-                           </font>
-                        </Label>
-                        <Label alignment="CENTER" prefHeight="45.0" prefWidth="266.0" text="ChanelName">
-                           <font>
-                              <Font size="37.0" />
-                           </font>
-                        </Label>
-                     </children>
-                  </VBox>
                </children>
             </TilePane>
          </content>
@@ -434,25 +316,6 @@
                         <Font size="45.0" />
                      </font>
                   </Label>
-                  <VBox prefHeight="320.0" prefWidth="309.0" style="-fx-background-color: red">
-                     <children>
-                        <ImageView fitHeight="191.0" fitWidth="261.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@Images/hhh.png" />
-                           </image>
-                        </ImageView>
-                        <Label alignment="CENTER" prefHeight="45.0" prefWidth="264.0" text="Title">
-                           <font>
-                              <Font size="37.0" />
-                           </font>
-                        </Label>
-                        <Label alignment="CENTER" prefHeight="45.0" prefWidth="266.0" text="ChanelName">
-                           <font>
-                              <Font size="37.0" />
-                           </font>
-                        </Label>
-                     </children>
-                  </VBox>
                </children>
             </TilePane>
          </content>
@@ -472,6 +335,18 @@
             <SVGPath content="M21 6H3V5h18v1zm0 5H3v1h18v-1zm0 6H3v1h18v-1z" />
          </graphic>
       </Button>
-      <Button layoutX="1105.0" layoutY="17.0" mnemonicParsing="false" onAction="#profileClick" text="Profile" />
+      <Button fx:id="Profile" layoutX="1105.0" layoutY="13.0" mnemonicParsing="false" onAction="#profileClick" prefHeight="30.0" prefWidth="50.0" text="Profile" />
+      <Button fx:id="logOut" layoutX="1046.0" layoutY="13.0" mnemonicParsing="false" onAction="#profileClick" prefHeight="30.0" prefWidth="50.0" text="Check" />
+      <HBox layoutX="569.0" layoutY="96.0" prefHeight="100.0" prefWidth="200.0" />
+      <HBox fx:id="LogOutHbox" layoutX="854.0" layoutY="53.0" prefHeight="26.0" prefWidth="330.0">
+         <children>
+            <Label fx:id="text" text="I look forward to meeting you again">
+               <font>
+                  <Font name="Californian FB" size="18.0" />
+               </font>
+            </Label>
+            <Button fx:id="Exit" mnemonicParsing="false" prefHeight="26.0" prefWidth="70.0" text="Exit" />
+         </children>
+      </HBox>
    </children>
 </AnchorPane>

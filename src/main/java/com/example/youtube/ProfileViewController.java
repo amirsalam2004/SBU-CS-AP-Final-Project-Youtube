@@ -1,6 +1,10 @@
 package com.example.youtube;
 
+import com.example.youtube.Model.Channel;
+import com.example.youtube.Model.User;
+import com.example.youtube.Server.Client;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -10,11 +14,20 @@ import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 
-public class ProfileViewController {
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class ProfileViewController implements Initializable {
 
     // handle subKeys in inisialize Function (sub or no / this is his page or no)
 
     public TilePane content;
+
+    public Channel channel;
+
+    public User user;
+    public boolean check=true;
+    public Client client;
     @FXML
     private ImageView profilePic;
     @FXML
@@ -68,10 +81,14 @@ public class ProfileViewController {
         if (moreInfo.isVisible()) {
             moreBtn.setText("More...");
             moreInfo.setVisible(false);
+
         }
         else {
             moreBtn.setText("Less");
             moreInfo.setVisible(true);
+            //
+            describe.setText(channel.getDescription());
+
         }
 
     }
@@ -85,5 +102,18 @@ public class ProfileViewController {
     public void unSubFunc() {
         subKey.setVisible(true);
         unSubKey.setVisible(false);
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        if (check){
+            unSubKey.setVisible(false);
+        }else{
+            unSubKey.setVisible(true);
+        }
+
+        pageName.setText(channel.getName());
+        //and
     }
 }
