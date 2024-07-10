@@ -33,8 +33,13 @@ public class addApiService {
                 return addFollowerOrFollowing(body);
             case "28":
                 return addKarma(body);
+            case "29":
+                return addVideoToSaved(body);
+            case "210":
+                return addPlaylistToSaved(body);
             default:
-                return gson.toJson(new addApiService.ErrorResponse("Unknown endpoint"));
+                System.out.println("unknown endpoint");
+                return "0";
         }
     }
     //to add a new user
@@ -49,6 +54,7 @@ public class addApiService {
             }
             return "0";
         }catch (Exception e){
+            System.out.println(e.getMessage());
             //if wasn't successfully, return 0
             return "0";
         }
@@ -66,6 +72,7 @@ public class addApiService {
             }
             return "0";
         }catch (Exception e){
+            System.out.println(e.getMessage());
             //if wasn't successfully, return 0
             return "0";
         }
@@ -83,6 +90,7 @@ public class addApiService {
             }
             return "0";
         }catch (Exception e){
+            System.out.println(e.getMessage());
             //if wasn't successfully, return 0
             return "0";
         }
@@ -97,6 +105,7 @@ public class addApiService {
             }
             return "0";
         }catch (Exception e){
+            System.out.println(e.getMessage());
             //if wasn't successfully, return 0
             return "0";
         }
@@ -115,6 +124,7 @@ public class addApiService {
             }
             return "0";
         }catch (Exception e){
+            System.out.println(e.getMessage());
             //if wasn't successfully, return 0
             return "0";
         }
@@ -132,6 +142,7 @@ public class addApiService {
             }
             return "0";
         }catch (Exception e){
+            System.out.println(e.getMessage());
             //if wasn't successfully, return 0
             return "0";
         }
@@ -146,6 +157,7 @@ public class addApiService {
             }
             return "0";
         }catch (Exception e){
+            System.out.println(e.getMessage());
             //if wasn't successfully, return 0
             return "0";
         }
@@ -159,19 +171,37 @@ public class addApiService {
             }
             return "0";
         }catch (Exception e){
+            System.out.println(e.getMessage());
             //if wasn't successfully, return 0
             return "0";
         }
     }
-    private static class ErrorResponse {
-        private String message;
-
-        public ErrorResponse(String message) {
-            this.message = message;
+    private static String addVideoToSaved(String saveInfo) {
+        try {
+            String[] info=saveInfo.split("#",2);
+            if(DataBaseManager.SA_Video(info[0],info[1])) {
+                //If the changes are applied successfully, return 1
+                return "1";
+            }
+            return "0";
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+            //if wasn't successfully, return 0
+            return "0";
         }
-
-        public String getMessage() {
-            return message;
+    }
+    private static String addPlaylistToSaved(String saveInfo) {
+        try {
+            String[] info=saveInfo.split("#",2);
+            if(DataBaseManager.SA_playlist(info[0],info[1])) {
+                //If the changes are applied successfully, return 1
+                return "1";
+            }
+            return "0";
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+            //if wasn't successfully, return 0
+            return "0";
         }
     }
 }

@@ -42,8 +42,8 @@ public class Client {
             e.printStackTrace();
         }
     }
-    public boolean sendVideoBytes(String videoID) throws IOException {
-        File videoFile=new File(videoID+".mp4");
+    public boolean sendVideoBytes(String path) throws IOException {
+        File videoFile=new File(path);
         if (!videoFile.exists()) {
             return false;
         }
@@ -64,8 +64,8 @@ public class Client {
             return false;
         }
     }
-    public boolean sendImageBytes(String imageID) throws IOException {
-        File imageFile=new File(imageID+".jpg");
+    public boolean sendImageBytes(String path) throws IOException {
+        File imageFile=new File(path);
         if (!imageFile.exists()) {
             return false;
         }
@@ -319,7 +319,30 @@ public class Client {
             return null;
         }
     }
-
+    public ArrayList<Channel> countVideoLikeRequest(String videoID,String karmaType) throws IOException {
+        try {
+            String request = "1#117#"+videoID+"#"+karmaType;
+            out.writeUTF(request);
+            String response = in.readUTF();
+            Type listType = new TypeToken<ArrayList<Channel>>() {}.getType();
+            return gson.fromJson(response, listType);
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
+    public ArrayList<Channel> countShortLikeRequest(String shortID,String karmaType) throws IOException {
+        try {
+            String request = "1#117#"+shortID+"#"+karmaType;
+            out.writeUTF(request);
+            String response = in.readUTF();
+            Type listType = new TypeToken<ArrayList<Channel>>() {}.getType();
+            return gson.fromJson(response, listType);
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
 
     //TODO get folowers
 
@@ -439,6 +462,34 @@ public Boolean addUserRequest(User user) throws IOException{
     public boolean addKarmaRequest(int karma, String userID,String videoID) throws IOException{
         try {
             String request="2#28#"+karma+"#"+userID+"#"+videoID;
+            out.writeUTF(request);
+            String response=in.readUTF();
+            if(response.equals("1"))
+                return true;
+            else
+                return false;
+        }catch (IOException e){
+            System.out.println(e.getMessage());
+            return false;
+        }
+    }
+    public boolean addVideoToSavedRequest(String videoID,String userID) throws IOException{
+        try {
+            String request="2#29#"+videoID+"#"+userID;
+            out.writeUTF(request);
+            String response=in.readUTF();
+            if(response.equals("1"))
+                return true;
+            else
+                return false;
+        }catch (IOException e){
+            System.out.println(e.getMessage());
+            return false;
+        }
+    }
+    public boolean addPlaylistToSavedRequest(String playlistID,String userID) throws IOException{
+        try {
+            String request="2#210#"+playlistID+"#"+userID;
             out.writeUTF(request);
             String response=in.readUTF();
             if(response.equals("1"))

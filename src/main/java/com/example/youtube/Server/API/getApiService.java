@@ -49,6 +49,10 @@ public class getApiService {
                 return getSearchedChannels(body);
             case "116":
                 return getSearchedPlaylists(body);
+            case "117":
+                return countVideoLike(body);
+            case "118":
+                return countShortLike(body);
             default:
                 System.out.println("unknown endpoint");
                 return "0";
@@ -220,8 +224,26 @@ public class getApiService {
             return ("0");
         }
     }
-
-
+    private static String countVideoLike(String videoInfo) {
+        try {
+            String[] info=videoInfo.split("#",2);
+            int karma=DataBaseManager.countVideoLike(info[0],info[1]);
+            String response=String.valueOf(karma);
+            return response;
+        }catch (Exception e){
+            return ("0");
+        }
+    }
+    private static String countShortLike(String shortInfo) {
+        try {
+            String[] info=shortInfo.split("#",2);
+            int karma=DataBaseManager.countShortLike(info[0],info[1]);
+            String response=String.valueOf(karma);
+            return response;
+        }catch (Exception e){
+            return ("0");
+        }
+    }
 
     //TODO get following
 
