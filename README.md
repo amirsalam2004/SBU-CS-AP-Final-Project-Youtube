@@ -5,7 +5,7 @@ This is the final project of our [**Advanced Programming**](https://github.com/o
 From [here](), you can acces the project documentation as well.
 
 ## Images
-![YOUTUBE](https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.youtube.com%2Fhowyoutubeworks%2Fpolicies%2Fcommunity-guidelines%2F&psig=AOvVaw3OVNQQHFH1IbzNY9kRRCQg&ust=1729117841037000&source=images&cd=vfe&opi=89978449&ved=0CBMQjRxqFwoTCOj_j4i4kYkDFQAAAAAdAAAAABAE)
+![YOUTUBE](unnamed.jpg)
 
 ## Objectives
 Here is a list of concepts which where used through out the project:
