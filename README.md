@@ -61,8 +61,8 @@ From branch `product`, clone the repository to your local machine, then, first C
 
 ## Contributers
 - Course instructor: [Dr.Saeed Reza Kheradpisheh](https://www.linkedin.com/in/saeed-reza-kheradpisheh-7a0b18155/)
-- Project mentor: [Mobin Nesari](https://www.linkedin.com/in/mobin-nesari/)
-- Project judge: [Arsham Gholamzadeh](https://www.linkedin.com/in/arsham-khoee/)
+- Project mentor: [Mahan Madni](https://github.com/Mahan-M47)
+- Project judge: [Farid Karimi](https://github.com/Farid-Karimi)
 - Design:, [Rouzbeh Askary](https://github.com/rouzbeh1384), [Amir Hossein Ziaeifar](https://github.com/amirsalam2004), [Amir Ali Nasiri](https://github.com/amirnasiri23)
 
 
